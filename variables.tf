@@ -19,15 +19,6 @@ variable "subscriptionID" {
   description = "Azure Subscription ID"
   type        = string
 }
-variable "deployFortiWeb" {
-  description = "Deploy Fortinet Web App Firewall"
-  type        = bool
-}
-
-variable "deployUbuntu" {
-  description = "Deploy Vulnerable Web App"
-  type        = bool
-}
 
 variable "vnetAddressPrefix" {
   description = "Virtual Network Address prefix"
