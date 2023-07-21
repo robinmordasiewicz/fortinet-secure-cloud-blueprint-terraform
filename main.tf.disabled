@@ -1,0 +1,1175 @@
+resource "azurerm_managed_disk" "res-3" {
+  create_option        = "Empty"
+  location             = var.resource_group_location
+  name                 = "${var.objectprefix}-FGdisk2_174c0024fe3c49c598acc71d0bbd0473"
+  resource_group_name  = var.resource_group_name
+  storage_account_type = "Premium_LRS"
+  tags = {
+    provider = "6EB3B02F-50E5-4A3E-8CB8-2E12925831AP"
+  }
+  depends_on = [
+    azurerm_resource_group.res-0,
+  ]
+}
+resource "azurerm_managed_disk" "res-4" {
+  create_option        = "Empty"
+  location             = var.resource_group_location
+  name                 = "${var.objectprefix}-FGdisk2_fa9f4b15b05645e883c9b65cf0b1639b"
+  resource_group_name  = var.resource_group_name
+  storage_account_type = "Premium_LRS"
+  tags = {
+    provider = "6EB3B02F-50E5-4A3E-8CB8-2E12925831AP"
+  }
+  depends_on = [
+    azurerm_resource_group.res-0,
+  ]
+}
+resource "azurerm_managed_disk" "res-5" {
+  create_option        = "Empty"
+  location             = var.resource_group_location
+  name                 = "${var.objectprefix}-FWdisk2_3fab34664daf4496978544789f4d5330"
+  resource_group_name  = var.resource_group_name
+  storage_account_type = "Premium_LRS"
+  tags = {
+    provider = "6EB3B02F-50E5-4A3E-8CB8-2E12925831AP"
+  }
+  depends_on = [
+    azurerm_resource_group.res-0,
+  ]
+}
+resource "azurerm_managed_disk" "res-6" {
+  create_option        = "Empty"
+  location             = var.resource_group_location
+  name                 = "${var.objectprefix}-FWdisk2_9f2c2f6daf4e45d28f2ebaff785e935e"
+  resource_group_name  = var.resource_group_name
+  storage_account_type = "Premium_LRS"
+  tags = {
+    provider = "6EB3B02F-50E5-4A3E-8CB8-2E12925831AP"
+  }
+  depends_on = [
+    azurerm_resource_group.res-0,
+  ]
+}
+resource "azurerm_virtual_machine_data_disk_attachment" "res-11" {
+  caching            = "None"
+  create_option      = "Empty"
+  lun                = 0
+  managed_disk_id    = "/subscriptions/${var.subscriptionID}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Compute/disks/${var.objectprefix}-FGdisk2_174c0024fe3c49c598acc71d0bbd0473"
+  virtual_machine_id = "/subscriptions/${var.subscriptionID}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Compute/virtualMachines/${var.objectprefix}-FGT-B"
+  depends_on = [
+    azurerm_managed_disk.res-3,
+    azurerm_linux_virtual_machine.res-10,
+  ]
+}
+resource "azurerm_linux_virtual_machine" "res-12" {
+  admin_password                  = var.admin_password
+  admin_username                  = var.admin_username
+  availability_set_id             = "/subscriptions/${var.subscriptionID}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Compute/availabilitySets/FORTINET-SECURE-CLOUD-BLUEPRINT-PREFIX-FWB-AVAILABILITYSET"
+  disable_password_authentication = false
+  location                        = var.resource_group_location
+  name                            = "${var.objectprefix}-FWB-A"
+  network_interface_ids           = ["/subscriptions/${var.subscriptionID}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Network/networkInterfaces/${var.objectprefix}-FWB-A-Nic1", "/subscriptions/${var.subscriptionID}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Network/networkInterfaces/${var.objectprefix}-FWB-A-Nic2"]
+  resource_group_name             = var.resource_group_name
+  size                            = "Standard_F4s"
+  tags = {
+    provider = "6EB3B02F-50E5-4A3E-8CB8-2E12925831AP"
+  }
+  boot_diagnostics {
+    storage_account_uri = "https://fwbsczcwqt6blzoddy.blob.core.windows.net/"
+  }
+  identity {
+    type = "SystemAssigned"
+  }
+  os_disk {
+    caching              = "ReadWrite"
+    storage_account_type = "Premium_LRS"
+  }
+  plan {
+    name      = "fortinet_fw-vm_payg_v2"
+    product   = "fortinet_fortiweb-vm_v5"
+    publisher = "fortinet"
+  }
+  source_image_reference {
+    offer     = "fortinet_fortiweb-vm_v5"
+    publisher = "fortinet"
+    sku       = "fortinet_fw-vm_payg_v2"
+    version   = "latest"
+  }
+  depends_on = [
+    azurerm_network_interface.res-57,
+    azurerm_network_interface.res-63,
+  ]
+}
+resource "azurerm_virtual_machine_data_disk_attachment" "res-13" {
+  caching            = "None"
+  create_option      = "Empty"
+  lun                = 0
+  managed_disk_id    = "/subscriptions/${var.subscriptionID}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Compute/disks/${var.objectprefix}-FWdisk2_3fab34664daf4496978544789f4d5330"
+  virtual_machine_id = "/subscriptions/${var.subscriptionID}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Compute/virtualMachines/${var.objectprefix}-FWB-A"
+  depends_on = [
+    azurerm_managed_disk.res-5,
+    azurerm_linux_virtual_machine.res-12,
+  ]
+}
+
+resource "azurerm_lb" "res-16" {
+  location            = var.resource_group_location
+  name                = "${var.objectprefix}-FGT-ELB"
+  resource_group_name = var.resource_group_name
+  sku                 = "Standard"
+  tags = {
+    provider = "6EB3B02F-50E5-4A3E-8CB8-2E12925831AP"
+  }
+  frontend_ip_configuration {
+    name = "${var.objectprefix}-ELB-FGExternal-FrontEnd"
+  }
+  depends_on = [
+    azurerm_resource_group.res-0,
+  ]
+}
+resource "azurerm_lb_backend_address_pool" "res-17" {
+  loadbalancer_id = "/subscriptions/${var.subscriptionID}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Network/loadBalancers/${var.objectprefix}-FGT-ELB"
+  name            = "${var.objectprefix}-ELB-FGExternal-BackEnd"
+  depends_on = [
+    azurerm_lb.res-16,
+  ]
+}
+resource "azurerm_lb_nat_rule" "res-18" {
+  backend_port                   = 443
+  frontend_ip_configuration_name = "${var.objectprefix}-ELB-FGExternal-FrontEnd"
+  frontend_port                  = 40030
+  loadbalancer_id                = "/subscriptions/${var.subscriptionID}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Network/loadBalancers/${var.objectprefix}-FGT-ELB"
+  name                           = "${var.objectprefix}-FGT-AFGAdminPerm"
+  protocol                       = "Tcp"
+  resource_group_name            = var.resource_group_name
+  depends_on = [
+    azurerm_lb.res-16,
+  ]
+}
+resource "azurerm_lb_nat_rule" "res-19" {
+  backend_port                   = 22
+  frontend_ip_configuration_name = "${var.objectprefix}-ELB-FGExternal-FrontEnd"
+  frontend_port                  = 50030
+  loadbalancer_id                = "/subscriptions/${var.subscriptionID}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Network/loadBalancers/${var.objectprefix}-FGT-ELB"
+  name                           = "${var.objectprefix}-FGT-ASSH"
+  protocol                       = "Tcp"
+  resource_group_name            = var.resource_group_name
+  depends_on = [
+    azurerm_lb.res-16,
+  ]
+}
+resource "azurerm_lb_nat_rule" "res-20" {
+  backend_port                   = 443
+  frontend_ip_configuration_name = "${var.objectprefix}-ELB-FGExternal-FrontEnd"
+  frontend_port                  = 40031
+  loadbalancer_id                = "/subscriptions/${var.subscriptionID}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Network/loadBalancers/${var.objectprefix}-FGT-ELB"
+  name                           = "${var.objectprefix}-FGT-BFGAdminPerm"
+  protocol                       = "Tcp"
+  resource_group_name            = var.resource_group_name
+  depends_on = [
+    azurerm_lb.res-16,
+  ]
+}
+resource "azurerm_lb_nat_rule" "res-21" {
+  backend_port                   = 22
+  frontend_ip_configuration_name = "${var.objectprefix}-ELB-FGExternal-FrontEnd"
+  frontend_port                  = 50031
+  loadbalancer_id                = "/subscriptions/${var.subscriptionID}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Network/loadBalancers/${var.objectprefix}-FGT-ELB"
+  name                           = "${var.objectprefix}-FGT-BSSH"
+  protocol                       = "Tcp"
+  resource_group_name            = var.resource_group_name
+  depends_on = [
+    azurerm_lb.res-16,
+  ]
+}
+resource "azurerm_lb" "res-22" {
+  location            = var.resource_group_location
+  name                = "${var.objectprefix}-FGT-ILB"
+  resource_group_name = var.resource_group_name
+  sku                 = "Standard"
+  tags = {
+    provider = "6EB3B02F-50E5-4A3E-8CB8-2E12925831AP"
+  }
+  frontend_ip_configuration {
+    name  = "${var.objectprefix}-ILB-FGInternal-FrontEnd"
+    zones = ["1", "2", "3"]
+  }
+  depends_on = [
+    azurerm_resource_group.res-0,
+  ]
+}
+resource "azurerm_lb_backend_address_pool" "res-23" {
+  loadbalancer_id = "/subscriptions/${var.subscriptionID}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Network/loadBalancers/${var.objectprefix}-FGT-ILB"
+  name            = "${var.objectprefix}-ILB-FGInternal-BackEnd"
+  depends_on = [
+    azurerm_lb.res-22,
+  ]
+}
+resource "azurerm_lb" "res-24" {
+  location            = var.resource_group_location
+  name                = "${var.objectprefix}-FWB-ELB"
+  resource_group_name = var.resource_group_name
+  sku                 = "Standard"
+  tags = {
+    provider = "6EB3B02F-50E5-4A3E-8CB8-2E12925831AP"
+  }
+  frontend_ip_configuration {
+    name = "${var.objectprefix}-LB-FWBExternal-FrontEnd"
+  }
+  depends_on = [
+    azurerm_resource_group.res-0,
+  ]
+}
+resource "azurerm_lb_backend_address_pool" "res-25" {
+  loadbalancer_id = "/subscriptions/${var.subscriptionID}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Network/loadBalancers/${var.objectprefix}-FWB-ELB"
+  name            = "${var.objectprefix}-LB-FWBExternal-BackEnd"
+  depends_on = [
+    azurerm_lb.res-24,
+  ]
+}
+resource "azurerm_lb_nat_rule" "res-26" {
+  backend_port                   = 8443
+  frontend_ip_configuration_name = "${var.objectprefix}-LB-FWBExternal-FrontEnd"
+  frontend_port                  = 40030
+  loadbalancer_id                = "/subscriptions/${var.subscriptionID}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Network/loadBalancers/${var.objectprefix}-FWB-ELB"
+  name                           = "${var.objectprefix}-FWB-AFWBAdminPerm"
+  protocol                       = "Tcp"
+  resource_group_name            = var.resource_group_name
+  depends_on = [
+    azurerm_lb.res-24,
+  ]
+}
+resource "azurerm_lb_nat_rule" "res-27" {
+  backend_port                   = 22
+  frontend_ip_configuration_name = "${var.objectprefix}-LB-FWBExternal-FrontEnd"
+  frontend_port                  = 50030
+  loadbalancer_id                = "/subscriptions/${var.subscriptionID}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Network/loadBalancers/${var.objectprefix}-FWB-ELB"
+  name                           = "${var.objectprefix}-FWB-ASSH"
+  protocol                       = "Tcp"
+  resource_group_name            = var.resource_group_name
+  depends_on = [
+    azurerm_lb.res-24,
+  ]
+}
+resource "azurerm_lb_nat_rule" "res-28" {
+  backend_port                   = 8443
+  frontend_ip_configuration_name = "${var.objectprefix}-LB-FWBExternal-FrontEnd"
+  frontend_port                  = 40031
+  loadbalancer_id                = "/subscriptions/${var.subscriptionID}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Network/loadBalancers/${var.objectprefix}-FWB-ELB"
+  name                           = "${var.objectprefix}-FWB-BFWBAdminPerm"
+  protocol                       = "Tcp"
+  resource_group_name            = var.resource_group_name
+  depends_on = [
+    azurerm_lb.res-24,
+  ]
+}
+resource "azurerm_lb_nat_rule" "res-29" {
+  backend_port                   = 22
+  frontend_ip_configuration_name = "${var.objectprefix}-LB-FWBExternal-FrontEnd"
+  frontend_port                  = 50031
+  loadbalancer_id                = "/subscriptions/${var.subscriptionID}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Network/loadBalancers/${var.objectprefix}-FWB-ELB"
+  name                           = "${var.objectprefix}-FWB-BSSH"
+  protocol                       = "Tcp"
+  resource_group_name            = var.resource_group_name
+  depends_on = [
+    azurerm_lb.res-24,
+  ]
+}
+resource "azurerm_lb" "res-30" {
+  location            = var.resource_group_location
+  name                = "${var.objectprefix}-FWB-ILB"
+  resource_group_name = var.resource_group_name
+  sku                 = "Standard"
+  tags = {
+    provider = "6EB3B02F-50E5-4A3E-8CB8-2E12925831AP"
+  }
+  frontend_ip_configuration {
+    name  = "${var.objectprefix}-ILB-FWBExternal-FrontEnd"
+    zones = ["1", "2", "3"]
+  }
+  depends_on = [
+    azurerm_resource_group.res-0,
+  ]
+}
+resource "azurerm_lb_backend_address_pool" "res-31" {
+  loadbalancer_id = "/subscriptions/${var.subscriptionID}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Network/loadBalancers/${var.objectprefix}-FWB-ILB"
+  name            = "${var.objectprefix}-ILB-FWBExternal-BackEnd"
+  depends_on = [
+    azurerm_lb.res-30,
+  ]
+}
+resource "azurerm_network_interface" "res-32" {
+  location            = var.resource_group_location
+  name                = "${var.objectprefix}-DVWA-NIC"
+  resource_group_name = var.resource_group_name
+  ip_configuration {
+    name                          = "ipconfig1"
+    private_ip_address_allocation = "Static"
+    subnet_id                     = "/subscriptions/${var.subscriptionID}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Network/virtualNetworks/${var.objectprefix}-VNET/subnets/DMZProtectedA"
+  }
+  depends_on = [
+    # One of azurerm_subnet.res-91,azurerm_subnet_route_table_association.res-92 (can't auto-resolve as their ids are identical)
+  ]
+}
+resource "azurerm_network_interface" "res-33" {
+  enable_accelerated_networking = true
+  enable_ip_forwarding          = true
+  location                      = var.resource_group_location
+  name                          = "${var.objectprefix}-FGT-A-Nic1"
+  resource_group_name           = var.resource_group_name
+  tags = {
+    provider = "6EB3B02F-50E5-4A3E-8CB8-2E12925831AP"
+  }
+  ip_configuration {
+    name                          = "ipconfig1"
+    private_ip_address_allocation = "Static"
+    subnet_id                     = "/subscriptions/${var.subscriptionID}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Network/virtualNetworks/${var.objectprefix}-VNET/subnets/FGExternal"
+  }
+  depends_on = [
+    azurerm_subnet.res-93,
+  ]
+}
+resource "azurerm_network_interface_backend_address_pool_association" "res-34" {
+  backend_address_pool_id = "/subscriptions/${var.subscriptionID}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Network/loadBalancers/${var.objectprefix}-FGT-ELB/backendAddressPools/${var.objectprefix}-ELB-FGExternal-BackEnd"
+  ip_configuration_name   = "ipconfig1"
+  network_interface_id    = "/subscriptions/${var.subscriptionID}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Network/networkInterfaces/${var.objectprefix}-FGT-A-Nic1"
+  depends_on = [
+    azurerm_lb_backend_address_pool.res-17,
+    azurerm_network_interface.res-33,
+  ]
+}
+resource "azurerm_network_interface_nat_rule_association" "res-35" {
+  ip_configuration_name = "ipconfig1"
+  nat_rule_id           = "/subscriptions/${var.subscriptionID}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Network/loadBalancers/${var.objectprefix}-FGT-ELB/inboundNatRules/${var.objectprefix}-FGT-AFGAdminPerm"
+  network_interface_id  = "/subscriptions/${var.subscriptionID}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Network/networkInterfaces/${var.objectprefix}-FGT-A-Nic1"
+  depends_on = [
+    azurerm_lb_nat_rule.res-18,
+    azurerm_network_interface.res-33,
+  ]
+}
+resource "azurerm_network_interface_nat_rule_association" "res-36" {
+  ip_configuration_name = "ipconfig1"
+  nat_rule_id           = "/subscriptions/${var.subscriptionID}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Network/loadBalancers/${var.objectprefix}-FGT-ELB/inboundNatRules/${var.objectprefix}-FGT-ASSH"
+  network_interface_id  = "/subscriptions/${var.subscriptionID}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Network/networkInterfaces/${var.objectprefix}-FGT-A-Nic1"
+  depends_on = [
+    azurerm_lb_nat_rule.res-19,
+    azurerm_network_interface.res-33,
+  ]
+}
+resource "azurerm_network_interface_security_group_association" "res-37" {
+  network_interface_id      = "/subscriptions/${var.subscriptionID}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Network/networkInterfaces/${var.objectprefix}-FGT-A-Nic1"
+  network_security_group_id = "/subscriptions/${var.subscriptionID}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Network/networkSecurityGroups/${var.objectprefix}-NSG-Allow-All"
+  depends_on = [
+    azurerm_network_interface.res-33,
+    azurerm_network_security_group.res-71,
+  ]
+}
+resource "azurerm_network_interface" "res-38" {
+  enable_accelerated_networking = true
+  enable_ip_forwarding          = true
+  location                      = var.resource_group_location
+  name                          = "${var.objectprefix}-FGT-A-Nic2"
+  resource_group_name           = var.resource_group_name
+  tags = {
+    provider = "6EB3B02F-50E5-4A3E-8CB8-2E12925831AP"
+  }
+  ip_configuration {
+    name                          = "ipconfig1"
+    private_ip_address_allocation = "Static"
+    subnet_id                     = "/subscriptions/${var.subscriptionID}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Network/virtualNetworks/${var.objectprefix}-VNET/subnets/FGInternal"
+  }
+  depends_on = [
+    azurerm_subnet.res-96,
+  ]
+}
+resource "azurerm_network_interface_backend_address_pool_association" "res-39" {
+  backend_address_pool_id = "/subscriptions/${var.subscriptionID}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Network/loadBalancers/${var.objectprefix}-FGT-ILB/backendAddressPools/${var.objectprefix}-ILB-FGInternal-BackEnd"
+  ip_configuration_name   = "ipconfig1"
+  network_interface_id    = "/subscriptions/${var.subscriptionID}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Network/networkInterfaces/${var.objectprefix}-FGT-A-Nic2"
+  depends_on = [
+    azurerm_lb_backend_address_pool.res-23,
+    azurerm_network_interface.res-38,
+  ]
+}
+resource "azurerm_network_interface_security_group_association" "res-40" {
+  network_interface_id      = "/subscriptions/${var.subscriptionID}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Network/networkInterfaces/${var.objectprefix}-FGT-A-Nic2"
+  network_security_group_id = "/subscriptions/${var.subscriptionID}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Network/networkSecurityGroups/${var.objectprefix}-NSG-Allow-All"
+  depends_on = [
+    azurerm_network_interface.res-38,
+    azurerm_network_security_group.res-71,
+  ]
+}
+resource "azurerm_network_interface" "res-41" {
+  enable_accelerated_networking = true
+  enable_ip_forwarding          = true
+  location                      = var.resource_group_location
+  name                          = "${var.objectprefix}-FGT-A-Nic3"
+  resource_group_name           = var.resource_group_name
+  tags = {
+    provider = "6EB3B02F-50E5-4A3E-8CB8-2E12925831AP"
+  }
+  ip_configuration {
+    name                          = "ipconfig1"
+    private_ip_address_allocation = "Static"
+    subnet_id                     = "/subscriptions/${var.subscriptionID}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Network/virtualNetworks/${var.objectprefix}-VNET/subnets/FGHA"
+  }
+  depends_on = [
+    # One of azurerm_subnet.res-94,azurerm_subnet_route_table_association.res-95 (can't auto-resolve as their ids are identical)
+  ]
+}
+resource "azurerm_network_interface_security_group_association" "res-42" {
+  network_interface_id      = "/subscriptions/${var.subscriptionID}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Network/networkInterfaces/${var.objectprefix}-FGT-A-Nic3"
+  network_security_group_id = "/subscriptions/${var.subscriptionID}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Network/networkSecurityGroups/${var.objectprefix}-NSG-Allow-All"
+  depends_on = [
+    azurerm_network_interface.res-41,
+    azurerm_network_security_group.res-71,
+  ]
+}
+resource "azurerm_network_interface" "res-43" {
+  enable_accelerated_networking = true
+  enable_ip_forwarding          = true
+  location                      = var.resource_group_location
+  name                          = "${var.objectprefix}-FGT-A-Nic4"
+  resource_group_name           = var.resource_group_name
+  tags = {
+    provider = "6EB3B02F-50E5-4A3E-8CB8-2E12925831AP"
+  }
+  ip_configuration {
+    name                          = "ipconfig1"
+    private_ip_address_allocation = "Static"
+    public_ip_address_id          = "/subscriptions/${var.subscriptionID}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Network/publicIPAddresses/${var.objectprefix}-FGT-A-MGMT-PIP"
+    subnet_id                     = "/subscriptions/${var.subscriptionID}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Network/virtualNetworks/${var.objectprefix}-VNET/subnets/FGMgmt"
+  }
+  depends_on = [
+    azurerm_public_ip.res-83,
+    azurerm_subnet.res-97,
+  ]
+}
+resource "azurerm_network_interface_security_group_association" "res-44" {
+  network_interface_id      = "/subscriptions/${var.subscriptionID}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Network/networkInterfaces/${var.objectprefix}-FGT-A-Nic4"
+  network_security_group_id = "/subscriptions/${var.subscriptionID}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Network/networkSecurityGroups/${var.objectprefix}-NSG-Allow-All"
+  depends_on = [
+    azurerm_network_interface.res-43,
+    azurerm_network_security_group.res-71,
+  ]
+}
+resource "azurerm_network_interface" "res-45" {
+  enable_accelerated_networking = true
+  enable_ip_forwarding          = true
+  location                      = var.resource_group_location
+  name                          = "${var.objectprefix}-FGT-B-Nic1"
+  resource_group_name           = var.resource_group_name
+  tags = {
+    provider = "6EB3B02F-50E5-4A3E-8CB8-2E12925831AP"
+  }
+  ip_configuration {
+    name                          = "ipconfig1"
+    private_ip_address_allocation = "Static"
+    subnet_id                     = "/subscriptions/${var.subscriptionID}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Network/virtualNetworks/${var.objectprefix}-VNET/subnets/FGExternal"
+  }
+  depends_on = [
+    azurerm_subnet.res-93,
+  ]
+}
+resource "azurerm_network_interface_backend_address_pool_association" "res-46" {
+  backend_address_pool_id = "/subscriptions/${var.subscriptionID}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Network/loadBalancers/${var.objectprefix}-FGT-ELB/backendAddressPools/${var.objectprefix}-ELB-FGExternal-BackEnd"
+  ip_configuration_name   = "ipconfig1"
+  network_interface_id    = "/subscriptions/${var.subscriptionID}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Network/networkInterfaces/${var.objectprefix}-FGT-B-Nic1"
+  depends_on = [
+    azurerm_lb_backend_address_pool.res-17,
+    azurerm_network_interface.res-45,
+  ]
+}
+resource "azurerm_network_interface_nat_rule_association" "res-47" {
+  ip_configuration_name = "ipconfig1"
+  nat_rule_id           = "/subscriptions/${var.subscriptionID}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Network/loadBalancers/${var.objectprefix}-FGT-ELB/inboundNatRules/${var.objectprefix}-FGT-BFGAdminPerm"
+  network_interface_id  = "/subscriptions/${var.subscriptionID}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Network/networkInterfaces/${var.objectprefix}-FGT-B-Nic1"
+  depends_on = [
+    azurerm_lb_nat_rule.res-20,
+    azurerm_network_interface.res-45,
+  ]
+}
+resource "azurerm_network_interface_nat_rule_association" "res-48" {
+  ip_configuration_name = "ipconfig1"
+  nat_rule_id           = "/subscriptions/${var.subscriptionID}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Network/loadBalancers/${var.objectprefix}-FGT-ELB/inboundNatRules/${var.objectprefix}-FGT-BSSH"
+  network_interface_id  = "/subscriptions/${var.subscriptionID}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Network/networkInterfaces/${var.objectprefix}-FGT-B-Nic1"
+  depends_on = [
+    azurerm_lb_nat_rule.res-21,
+    azurerm_network_interface.res-45,
+  ]
+}
+resource "azurerm_network_interface_security_group_association" "res-49" {
+  network_interface_id      = "/subscriptions/${var.subscriptionID}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Network/networkInterfaces/${var.objectprefix}-FGT-B-Nic1"
+  network_security_group_id = "/subscriptions/${var.subscriptionID}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Network/networkSecurityGroups/${var.objectprefix}-NSG-Allow-All"
+  depends_on = [
+    azurerm_network_interface.res-45,
+    azurerm_network_security_group.res-71,
+  ]
+}
+resource "azurerm_network_interface" "res-50" {
+  enable_accelerated_networking = true
+  enable_ip_forwarding          = true
+  location                      = var.resource_group_location
+  name                          = "${var.objectprefix}-FGT-B-Nic2"
+  resource_group_name           = var.resource_group_name
+  tags = {
+    provider = "6EB3B02F-50E5-4A3E-8CB8-2E12925831AP"
+  }
+  ip_configuration {
+    name                          = "ipconfig1"
+    private_ip_address_allocation = "Static"
+    subnet_id                     = "/subscriptions/${var.subscriptionID}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Network/virtualNetworks/${var.objectprefix}-VNET/subnets/FGInternal"
+  }
+  depends_on = [
+    azurerm_subnet.res-96,
+  ]
+}
+resource "azurerm_network_interface_backend_address_pool_association" "res-51" {
+  backend_address_pool_id = "/subscriptions/${var.subscriptionID}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Network/loadBalancers/${var.objectprefix}-FGT-ILB/backendAddressPools/${var.objectprefix}-ILB-FGInternal-BackEnd"
+  ip_configuration_name   = "ipconfig1"
+  network_interface_id    = "/subscriptions/${var.subscriptionID}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Network/networkInterfaces/${var.objectprefix}-FGT-B-Nic2"
+  depends_on = [
+    azurerm_lb_backend_address_pool.res-23,
+    azurerm_network_interface.res-50,
+  ]
+}
+resource "azurerm_network_interface_security_group_association" "res-52" {
+  network_interface_id      = "/subscriptions/${var.subscriptionID}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Network/networkInterfaces/${var.objectprefix}-FGT-B-Nic2"
+  network_security_group_id = "/subscriptions/${var.subscriptionID}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Network/networkSecurityGroups/${var.objectprefix}-NSG-Allow-All"
+  depends_on = [
+    azurerm_network_interface.res-50,
+    azurerm_network_security_group.res-71,
+  ]
+}
+resource "azurerm_network_interface" "res-53" {
+  enable_accelerated_networking = true
+  enable_ip_forwarding          = true
+  location                      = var.resource_group_location
+  name                          = "${var.objectprefix}-FGT-B-Nic3"
+  resource_group_name           = var.resource_group_name
+  tags = {
+    provider = "6EB3B02F-50E5-4A3E-8CB8-2E12925831AP"
+  }
+  ip_configuration {
+    name                          = "ipconfig1"
+    private_ip_address_allocation = "Static"
+    subnet_id                     = "/subscriptions/${var.subscriptionID}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Network/virtualNetworks/${var.objectprefix}-VNET/subnets/FGHA"
+  }
+  depends_on = [
+    # One of azurerm_subnet.res-94,azurerm_subnet_route_table_association.res-95 (can't auto-resolve as their ids are identical)
+  ]
+}
+resource "azurerm_network_interface_security_group_association" "res-54" {
+  network_interface_id      = "/subscriptions/${var.subscriptionID}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Network/networkInterfaces/${var.objectprefix}-FGT-B-Nic3"
+  network_security_group_id = "/subscriptions/${var.subscriptionID}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Network/networkSecurityGroups/${var.objectprefix}-NSG-Allow-All"
+  depends_on = [
+    azurerm_network_interface.res-53,
+    azurerm_network_security_group.res-71,
+  ]
+}
+resource "azurerm_network_interface" "res-55" {
+  enable_accelerated_networking = true
+  enable_ip_forwarding          = true
+  location                      = var.resource_group_location
+  name                          = "${var.objectprefix}-FGT-B-Nic4"
+  resource_group_name           = var.resource_group_name
+  tags = {
+    provider = "6EB3B02F-50E5-4A3E-8CB8-2E12925831AP"
+  }
+  ip_configuration {
+    name                          = "ipconfig1"
+    private_ip_address_allocation = "Static"
+    public_ip_address_id          = "/subscriptions/${var.subscriptionID}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Network/publicIPAddresses/${var.objectprefix}-FGT-B-MGMT-PIP"
+    subnet_id                     = "/subscriptions/${var.subscriptionID}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Network/virtualNetworks/${var.objectprefix}-VNET/subnets/FGMgmt"
+  }
+  depends_on = [
+    azurerm_public_ip.res-84,
+    azurerm_subnet.res-97,
+  ]
+}
+resource "azurerm_network_interface_security_group_association" "res-56" {
+  network_interface_id      = "/subscriptions/${var.subscriptionID}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Network/networkInterfaces/${var.objectprefix}-FGT-B-Nic4"
+  network_security_group_id = "/subscriptions/${var.subscriptionID}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Network/networkSecurityGroups/${var.objectprefix}-NSG-Allow-All"
+  depends_on = [
+    azurerm_network_interface.res-55,
+    azurerm_network_security_group.res-71,
+  ]
+}
+resource "azurerm_network_interface" "res-57" {
+  enable_accelerated_networking = true
+  enable_ip_forwarding          = true
+  location                      = var.resource_group_location
+  name                          = "${var.objectprefix}-FWB-A-Nic1"
+  resource_group_name           = var.resource_group_name
+  tags = {
+    provider = "6EB3B02F-50E5-4A3E-8CB8-2E12925831AP"
+  }
+  ip_configuration {
+    name                          = "ipconfig1"
+    private_ip_address_allocation = "Static"
+    subnet_id                     = "/subscriptions/${var.subscriptionID}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Network/virtualNetworks/${var.objectprefix}-VNET/subnets/FWBExternal"
+  }
+  depends_on = [
+    azurerm_subnet.res-98,
+  ]
+}
+resource "azurerm_network_interface_backend_address_pool_association" "res-58" {
+  backend_address_pool_id = "/subscriptions/${var.subscriptionID}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Network/loadBalancers/${var.objectprefix}-FWB-ELB/backendAddressPools/${var.objectprefix}-LB-FWBExternal-BackEnd"
+  ip_configuration_name   = "ipconfig1"
+  network_interface_id    = "/subscriptions/${var.subscriptionID}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Network/networkInterfaces/${var.objectprefix}-FWB-A-Nic1"
+  depends_on = [
+    azurerm_lb_backend_address_pool.res-25,
+    azurerm_network_interface.res-57,
+  ]
+}
+resource "azurerm_network_interface_backend_address_pool_association" "res-59" {
+  backend_address_pool_id = "/subscriptions/${var.subscriptionID}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Network/loadBalancers/${var.objectprefix}-FWB-ILB/backendAddressPools/${var.objectprefix}-ILB-FWBExternal-BackEnd"
+  ip_configuration_name   = "ipconfig1"
+  network_interface_id    = "/subscriptions/${var.subscriptionID}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Network/networkInterfaces/${var.objectprefix}-FWB-A-Nic1"
+  depends_on = [
+    azurerm_lb_backend_address_pool.res-31,
+    azurerm_network_interface.res-57,
+  ]
+}
+resource "azurerm_network_interface_nat_rule_association" "res-60" {
+  ip_configuration_name = "ipconfig1"
+  nat_rule_id           = "/subscriptions/${var.subscriptionID}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Network/loadBalancers/${var.objectprefix}-FWB-ELB/inboundNatRules/${var.objectprefix}-FWB-AFWBAdminPerm"
+  network_interface_id  = "/subscriptions/${var.subscriptionID}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Network/networkInterfaces/${var.objectprefix}-FWB-A-Nic1"
+  depends_on = [
+    azurerm_lb_nat_rule.res-26,
+    azurerm_network_interface.res-57,
+  ]
+}
+resource "azurerm_network_interface_nat_rule_association" "res-61" {
+  ip_configuration_name = "ipconfig1"
+  nat_rule_id           = "/subscriptions/${var.subscriptionID}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Network/loadBalancers/${var.objectprefix}-FWB-ELB/inboundNatRules/${var.objectprefix}-FWB-ASSH"
+  network_interface_id  = "/subscriptions/${var.subscriptionID}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Network/networkInterfaces/${var.objectprefix}-FWB-A-Nic1"
+  depends_on = [
+    azurerm_lb_nat_rule.res-27,
+    azurerm_network_interface.res-57,
+  ]
+}
+resource "azurerm_network_interface_security_group_association" "res-62" {
+  network_interface_id      = "/subscriptions/${var.subscriptionID}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Network/networkInterfaces/${var.objectprefix}-FWB-A-Nic1"
+  network_security_group_id = "/subscriptions/${var.subscriptionID}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Network/networkSecurityGroups/${var.objectprefix}-zcwqt6blzoddy-NSG"
+  depends_on = [
+    azurerm_network_interface.res-57,
+    azurerm_network_security_group.res-74,
+  ]
+}
+resource "azurerm_network_interface" "res-63" {
+  enable_accelerated_networking = true
+  location                      = var.resource_group_location
+  name                          = "${var.objectprefix}-FWB-A-Nic2"
+  resource_group_name           = var.resource_group_name
+  tags = {
+    provider = "6EB3B02F-50E5-4A3E-8CB8-2E12925831AP"
+  }
+  ip_configuration {
+    name                          = "ipconfig1"
+    private_ip_address_allocation = "Static"
+    subnet_id                     = "/subscriptions/${var.subscriptionID}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Network/virtualNetworks/${var.objectprefix}-VNET/subnets/FWBInternal"
+  }
+  depends_on = [
+    azurerm_subnet.res-99,
+  ]
+}
+resource "azurerm_network_interface" "res-64" {
+  enable_accelerated_networking = true
+  enable_ip_forwarding          = true
+  location                      = var.resource_group_location
+  name                          = "${var.objectprefix}-FWB-B-Nic1"
+  resource_group_name           = var.resource_group_name
+  tags = {
+    provider = "6EB3B02F-50E5-4A3E-8CB8-2E12925831AP"
+  }
+  ip_configuration {
+    name                          = "ipconfig1"
+    private_ip_address_allocation = "Static"
+    subnet_id                     = "/subscriptions/${var.subscriptionID}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Network/virtualNetworks/${var.objectprefix}-VNET/subnets/FWBExternal"
+  }
+  depends_on = [
+    azurerm_subnet.res-98,
+  ]
+}
+resource "azurerm_network_interface_backend_address_pool_association" "res-65" {
+  backend_address_pool_id = "/subscriptions/${var.subscriptionID}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Network/loadBalancers/${var.objectprefix}-FWB-ELB/backendAddressPools/${var.objectprefix}-LB-FWBExternal-BackEnd"
+  ip_configuration_name   = "ipconfig1"
+  network_interface_id    = "/subscriptions/${var.subscriptionID}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Network/networkInterfaces/${var.objectprefix}-FWB-B-Nic1"
+  depends_on = [
+    azurerm_lb_backend_address_pool.res-25,
+    azurerm_network_interface.res-64,
+  ]
+}
+resource "azurerm_network_interface_backend_address_pool_association" "res-66" {
+  backend_address_pool_id = "/subscriptions/${var.subscriptionID}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Network/loadBalancers/${var.objectprefix}-FWB-ILB/backendAddressPools/${var.objectprefix}-ILB-FWBExternal-BackEnd"
+  ip_configuration_name   = "ipconfig1"
+  network_interface_id    = "/subscriptions/${var.subscriptionID}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Network/networkInterfaces/${var.objectprefix}-FWB-B-Nic1"
+  depends_on = [
+    azurerm_lb_backend_address_pool.res-31,
+    azurerm_network_interface.res-64,
+  ]
+}
+resource "azurerm_network_interface_nat_rule_association" "res-67" {
+  ip_configuration_name = "ipconfig1"
+  nat_rule_id           = "/subscriptions/${var.subscriptionID}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Network/loadBalancers/${var.objectprefix}-FWB-ELB/inboundNatRules/${var.objectprefix}-FWB-BFWBAdminPerm"
+  network_interface_id  = "/subscriptions/${var.subscriptionID}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Network/networkInterfaces/${var.objectprefix}-FWB-B-Nic1"
+  depends_on = [
+    azurerm_lb_nat_rule.res-28,
+    azurerm_network_interface.res-64,
+  ]
+}
+resource "azurerm_network_interface_nat_rule_association" "res-68" {
+  ip_configuration_name = "ipconfig1"
+  nat_rule_id           = "/subscriptions/${var.subscriptionID}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Network/loadBalancers/${var.objectprefix}-FWB-ELB/inboundNatRules/${var.objectprefix}-FWB-BSSH"
+  network_interface_id  = "/subscriptions/${var.subscriptionID}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Network/networkInterfaces/${var.objectprefix}-FWB-B-Nic1"
+  depends_on = [
+    azurerm_lb_nat_rule.res-29,
+    azurerm_network_interface.res-64,
+  ]
+}
+resource "azurerm_network_interface_security_group_association" "res-69" {
+  network_interface_id      = "/subscriptions/${var.subscriptionID}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Network/networkInterfaces/${var.objectprefix}-FWB-B-Nic1"
+  network_security_group_id = "/subscriptions/${var.subscriptionID}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Network/networkSecurityGroups/${var.objectprefix}-zcwqt6blzoddy-NSG"
+  depends_on = [
+    azurerm_network_interface.res-64,
+    azurerm_network_security_group.res-74,
+  ]
+}
+resource "azurerm_network_interface" "res-70" {
+  enable_accelerated_networking = true
+  location                      = var.resource_group_location
+  name                          = "${var.objectprefix}-FWB-B-Nic2"
+  resource_group_name           = var.resource_group_name
+  tags = {
+    provider = "6EB3B02F-50E5-4A3E-8CB8-2E12925831AP"
+  }
+  ip_configuration {
+    name                          = "ipconfig1"
+    private_ip_address_allocation = "Static"
+    subnet_id                     = "/subscriptions/${var.subscriptionID}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Network/virtualNetworks/${var.objectprefix}-VNET/subnets/FWBInternal"
+  }
+  depends_on = [
+    azurerm_subnet.res-99,
+  ]
+}
+resource "azurerm_network_security_group" "res-71" {
+  location            = var.resource_group_location
+  name                = "${var.objectprefix}-NSG-Allow-All"
+  resource_group_name = var.resource_group_name
+  tags = {
+    provider = "6EB3B02F-50E5-4A3E-8CB8-2E12925831AP"
+  }
+  depends_on = [
+    azurerm_resource_group.res-0,
+  ]
+}
+resource "azurerm_network_security_rule" "res-72" {
+  access                      = "Allow"
+  description                 = "Allow all in"
+  destination_address_prefix  = "*"
+  destination_port_range      = "*"
+  direction                   = "Inbound"
+  name                        = "AllowAllInbound"
+  network_security_group_name = "${var.objectprefix}-NSG-Allow-All"
+  priority                    = 100
+  protocol                    = "*"
+  resource_group_name         = var.resource_group_name
+  source_address_prefix       = "*"
+  source_port_range           = "*"
+  depends_on = [
+    azurerm_network_security_group.res-71,
+  ]
+}
+resource "azurerm_network_security_rule" "res-73" {
+  access                      = "Allow"
+  description                 = "Allow all out"
+  destination_address_prefix  = "*"
+  destination_port_range      = "*"
+  direction                   = "Outbound"
+  name                        = "AllowAllOutbound"
+  network_security_group_name = "${var.objectprefix}-NSG-Allow-All"
+  priority                    = 105
+  protocol                    = "*"
+  resource_group_name         = var.resource_group_name
+  source_address_prefix       = "*"
+  source_port_range           = "*"
+  depends_on = [
+    azurerm_network_security_group.res-71,
+  ]
+}
+resource "azurerm_network_security_group" "res-74" {
+  location            = var.resource_group_location
+  name                = "${var.objectprefix}-zcwqt6blzoddy-NSG"
+  resource_group_name = var.resource_group_name
+  tags = {
+    provider = "6EB3B02F-50E5-4A3E-8CB8-2E12925831AP"
+  }
+  depends_on = [
+    azurerm_resource_group.res-0,
+  ]
+}
+resource "azurerm_network_security_rule" "res-75" {
+  access                      = "Allow"
+  description                 = "Allow all out"
+  destination_address_prefix  = "*"
+  destination_port_range      = "*"
+  direction                   = "Outbound"
+  name                        = "AllowAllOutbound"
+  network_security_group_name = "${var.objectprefix}-zcwqt6blzoddy-NSG"
+  priority                    = 105
+  protocol                    = "*"
+  resource_group_name         = var.resource_group_name
+  source_address_prefix       = "*"
+  source_port_range           = "*"
+  depends_on = [
+    azurerm_network_security_group.res-74,
+  ]
+}
+resource "azurerm_network_security_rule" "res-76" {
+  access                      = "Allow"
+  description                 = "Allow 514 in for device registration"
+  destination_address_prefix  = "*"
+  destination_port_range      = "514"
+  direction                   = "Inbound"
+  name                        = "AllowDevRegInbound"
+  network_security_group_name = "${var.objectprefix}-zcwqt6blzoddy-NSG"
+  priority                    = 130
+  protocol                    = "Tcp"
+  resource_group_name         = var.resource_group_name
+  source_address_prefix       = "*"
+  source_port_range           = "*"
+  depends_on = [
+    azurerm_network_security_group.res-74,
+  ]
+}
+resource "azurerm_network_security_rule" "res-77" {
+  access                      = "Allow"
+  description                 = "Allow 80 In"
+  destination_address_prefix  = "*"
+  destination_port_range      = "80"
+  direction                   = "Inbound"
+  name                        = "AllowHTTPInbound"
+  network_security_group_name = "${var.objectprefix}-zcwqt6blzoddy-NSG"
+  priority                    = 110
+  protocol                    = "Tcp"
+  resource_group_name         = var.resource_group_name
+  source_address_prefix       = "*"
+  source_port_range           = "*"
+  depends_on = [
+    azurerm_network_security_group.res-74,
+  ]
+}
+resource "azurerm_network_security_rule" "res-78" {
+  access                      = "Allow"
+  description                 = "Allow 443 In"
+  destination_address_prefix  = "*"
+  destination_port_range      = "443"
+  direction                   = "Inbound"
+  name                        = "AllowHTTPSInbound"
+  network_security_group_name = "${var.objectprefix}-zcwqt6blzoddy-NSG"
+  priority                    = 120
+  protocol                    = "Tcp"
+  resource_group_name         = var.resource_group_name
+  source_address_prefix       = "*"
+  source_port_range           = "*"
+  depends_on = [
+    azurerm_network_security_group.res-74,
+  ]
+}
+resource "azurerm_network_security_rule" "res-79" {
+  access                      = "Allow"
+  description                 = "Allow 8080 In"
+  destination_address_prefix  = "*"
+  destination_port_range      = "8080"
+  direction                   = "Inbound"
+  name                        = "AllowMgmtHTTPInbound"
+  network_security_group_name = "${var.objectprefix}-zcwqt6blzoddy-NSG"
+  priority                    = 140
+  protocol                    = "Tcp"
+  resource_group_name         = var.resource_group_name
+  source_address_prefix       = "*"
+  source_port_range           = "*"
+  depends_on = [
+    azurerm_network_security_group.res-74,
+  ]
+}
+resource "azurerm_network_security_rule" "res-80" {
+  access                      = "Allow"
+  description                 = "Allow 8443 In"
+  destination_address_prefix  = "*"
+  destination_port_range      = "8443"
+  direction                   = "Inbound"
+  name                        = "AllowMgmtHTTPSInbound"
+  network_security_group_name = "${var.objectprefix}-zcwqt6blzoddy-NSG"
+  priority                    = 150
+  protocol                    = "Tcp"
+  resource_group_name         = var.resource_group_name
+  source_address_prefix       = "*"
+  source_port_range           = "*"
+  depends_on = [
+    azurerm_network_security_group.res-74,
+  ]
+}
+resource "azurerm_network_security_rule" "res-81" {
+  access                      = "Allow"
+  description                 = "Allow SSH In"
+  destination_address_prefix  = "*"
+  destination_port_range      = "22"
+  direction                   = "Inbound"
+  name                        = "AllowSSHInbound"
+  network_security_group_name = "${var.objectprefix}-zcwqt6blzoddy-NSG"
+  priority                    = 100
+  protocol                    = "Tcp"
+  resource_group_name         = var.resource_group_name
+  source_address_prefix       = "*"
+  source_port_range           = "*"
+  depends_on = [
+    azurerm_network_security_group.res-74,
+  ]
+}
+resource "azurerm_public_ip" "res-82" {
+  allocation_method   = "Static"
+  domain_name_label   = "${var.objectprefix}"
+  location            = var.resource_group_location
+  name                = "FWBAPClusterPublicIP"
+  resource_group_name = var.resource_group_name
+  sku                 = "Standard"
+  tags = {
+    provider = "6EB3B02F-50E5-4A3E-8CB8-2E12925831AP"
+  }
+  depends_on = [
+    azurerm_resource_group.res-0,
+  ]
+}
+resource "azurerm_public_ip" "res-83" {
+  allocation_method   = "Static"
+  location            = var.resource_group_location
+  name                = "${var.objectprefix}-FGT-A-MGMT-PIP"
+  resource_group_name = var.resource_group_name
+  sku                 = "Standard"
+  tags = {
+    provider = "6EB3B02F-50E5-4A3E-8CB8-2E12925831AP"
+  }
+  zones = ["1", "2", "3"]
+  depends_on = [
+    azurerm_resource_group.res-0,
+  ]
+}
+resource "azurerm_public_ip" "res-84" {
+  allocation_method   = "Static"
+  location            = var.resource_group_location
+  name                = "${var.objectprefix}-FGT-B-MGMT-PIP"
+  resource_group_name = var.resource_group_name
+  sku                 = "Standard"
+  tags = {
+    provider = "6EB3B02F-50E5-4A3E-8CB8-2E12925831AP"
+  }
+  zones = ["1", "2", "3"]
+  depends_on = [
+    azurerm_resource_group.res-0,
+  ]
+}
+resource "azurerm_public_ip" "res-85" {
+  allocation_method   = "Static"
+  domain_name_label   = "${var.objectprefix}-zcwqt6blzoddy"
+  location            = var.resource_group_location
+  name                = "${var.objectprefix}-FGT-PIP"
+  resource_group_name = var.resource_group_name
+  sku                 = "Standard"
+  tags = {
+    provider = "6EB3B02F-50E5-4A3E-8CB8-2E12925831AP"
+  }
+  zones = ["1", "2", "3"]
+  depends_on = [
+    azurerm_resource_group.res-0,
+  ]
+}
+resource "azurerm_route_table" "res-86" {
+  location            = var.resource_group_location
+  name                = "${var.objectprefix}-RouteTable-DMZProtectedA"
+  resource_group_name = var.resource_group_name
+  tags = {
+    provider = "6EB3B02F-50E5-4A3E-8CB8-2E12925831AP"
+  }
+  depends_on = [
+    azurerm_resource_group.res-0,
+  ]
+}
+resource "azurerm_route" "res-87" {
+  address_prefix         = "0.0.0.0/0"
+  name                   = "toDefault"
+  next_hop_in_ip_address = "10.0.2.4"
+  next_hop_type          = "VirtualAppliance"
+  resource_group_name    = var.resource_group_name
+  route_table_name       = "${var.objectprefix}-RouteTable-DMZProtectedA"
+  depends_on = [
+    azurerm_route_table.res-86,
+  ]
+}
+resource "azurerm_route_table" "res-88" {
+  location            = var.resource_group_location
+  name                = "${var.objectprefix}-RouteTable-FWBExternal"
+  resource_group_name = var.resource_group_name
+  tags = {
+    provider = "6EB3B02F-50E5-4A3E-8CB8-2E12925831AP"
+  }
+  depends_on = [
+    azurerm_resource_group.res-0,
+  ]
+}
+resource "azurerm_route" "res-89" {
+  address_prefix         = "172.16.0.0/16"
+  name                   = "toOnPrem"
+  next_hop_in_ip_address = "10.0.2.4"
+  next_hop_type          = "VirtualAppliance"
+  resource_group_name    = var.resource_group_name
+  route_table_name       = "${var.objectprefix}-RouteTable-FWBExternal"
+  depends_on = [
+    azurerm_route_table.res-88,
+  ]
+}
+resource "azurerm_virtual_network" "res-90" {
+  address_space       = ["10.0.0.0/16"]
+  location            = var.resource_group_location
+  name                = "${var.objectprefix}-VNET"
+  resource_group_name = var.resource_group_name
+  depends_on = [
+    azurerm_resource_group.res-0,
+  ]
+}
+resource "azurerm_subnet" "res-91" {
+  address_prefixes     = ["10.0.10.0/24"]
+  name                 = "DMZProtectedA"
+  resource_group_name  = var.resource_group_name
+  virtual_network_name = "${var.objectprefix}-VNET"
+  depends_on = [
+    azurerm_virtual_network.res-90,
+  ]
+}
+resource "azurerm_subnet_route_table_association" "res-92" {
+  route_table_id = "/subscriptions/${var.subscriptionID}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Network/routeTables/${var.objectprefix}-RouteTable-DMZProtectedA"
+  subnet_id      = "/subscriptions/${var.subscriptionID}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Network/virtualNetworks/${var.objectprefix}-VNET/subnets/DMZProtectedA"
+  depends_on = [
+    azurerm_route_table.res-86,
+    azurerm_subnet.res-91,
+  ]
+}
+resource "azurerm_subnet" "res-93" {
+  address_prefixes     = ["10.0.1.0/24"]
+  name                 = "FGExternal"
+  resource_group_name  = var.resource_group_name
+  virtual_network_name = "${var.objectprefix}-VNET"
+  depends_on = [
+    azurerm_virtual_network.res-90,
+  ]
+}
+resource "azurerm_subnet" "res-94" {
+  address_prefixes     = ["10.0.3.0/24"]
+  name                 = "FGHA"
+  resource_group_name  = var.resource_group_name
+  virtual_network_name = "${var.objectprefix}-VNET"
+  depends_on = [
+    azurerm_virtual_network.res-90,
+  ]
+}
+resource "azurerm_subnet_route_table_association" "res-95" {
+  route_table_id = "/subscriptions/${var.subscriptionID}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Network/routeTables/${var.objectprefix}-RouteTable-FWBExternal"
+  subnet_id      = "/subscriptions/${var.subscriptionID}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Network/virtualNetworks/${var.objectprefix}-VNET/subnets/FGHA"
+  depends_on = [
+    azurerm_route_table.res-88,
+    azurerm_subnet.res-94,
+  ]
+}
+resource "azurerm_subnet" "res-96" {
+  address_prefixes     = ["10.0.2.0/24"]
+  name                 = "FGInternal"
+  resource_group_name  = var.resource_group_name
+  virtual_network_name = "${var.objectprefix}-VNET"
+  depends_on = [
+    azurerm_virtual_network.res-90,
+  ]
+}
+resource "azurerm_subnet" "res-97" {
+  address_prefixes     = ["10.0.4.0/24"]
+  name                 = "FGMgmt"
+  resource_group_name  = var.resource_group_name
+  virtual_network_name = "${var.objectprefix}-VNET"
+  depends_on = [
+    azurerm_virtual_network.res-90,
+  ]
+}
+resource "azurerm_subnet" "res-98" {
+  address_prefixes     = ["10.0.5.0/24"]
+  name                 = "FWBExternal"
+  resource_group_name  = var.resource_group_name
+  virtual_network_name = "${var.objectprefix}-VNET"
+  depends_on = [
+    azurerm_virtual_network.res-90,
+  ]
+}
+resource "azurerm_subnet" "res-99" {
+  address_prefixes     = ["10.0.6.0/24"]
+  name                 = "FWBInternal"
+  resource_group_name  = var.resource_group_name
+  virtual_network_name = "${var.objectprefix}-VNET"
+  depends_on = [
+    azurerm_virtual_network.res-90,
+  ]
+}
+resource "azurerm_storage_account" "res-100" {
+  account_kind             = "Storage"
+  account_replication_type = "LRS"
+  account_tier             = "Standard"
+  location                 = var.resource_group_location
+  min_tls_version          = "TLS1_0"
+  name                     = "dvwazcwqt6blzoddy"
+  resource_group_name      = var.resource_group_name
+  depends_on = [
+    azurerm_resource_group.res-0,
+  ]
+}
+resource "azurerm_storage_container" "res-102" {
+  name                 = "bootdiagnostics-fortinets-45534bb4-c93e-4499-a000-9cc0ecf0901b"
+  storage_account_name = "dvwazcwqt6blzoddy"
+}
+resource "azurerm_storage_account" "res-106" {
+  account_kind             = "Storage"
+  account_replication_type = "LRS"
+  account_tier             = "Standard"
+  location                 = var.resource_group_location
+  min_tls_version          = "TLS1_0"
+  name                     = "fgtsczcwqt6blzoddy"
+  resource_group_name      = var.resource_group_name
+  depends_on = [
+    azurerm_resource_group.res-0,
+  ]
+}
+resource "azurerm_storage_container" "res-108" {
+  name                 = "bootdiagnostics-fortinets-2fc08ef1-f66c-4568-8fcb-ee59a88c2a0a"
+  storage_account_name = "fgtsczcwqt6blzoddy"
+}
+resource "azurerm_storage_container" "res-109" {
+  name                 = "bootdiagnostics-fortinets-9e49fe29-8777-4bb1-acec-a6f41595d757"
+  storage_account_name = "fgtsczcwqt6blzoddy"
+}
+resource "azurerm_storage_account" "res-113" {
+  account_kind             = "Storage"
+  account_replication_type = "LRS"
+  account_tier             = "Standard"
+  location                 = var.resource_group_location
+  min_tls_version          = "TLS1_0"
+  name                     = "fwbsczcwqt6blzoddy"
+  resource_group_name      = var.resource_group_name
+  depends_on = [
+    azurerm_resource_group.res-0,
+  ]
+}
+resource "azurerm_storage_container" "res-115" {
+  name                 = "bootdiagnostics-fortinets-37b60dae-5800-483d-baf4-707ed1d19421"
+  storage_account_name = "fwbsczcwqt6blzoddy"
+}
+resource "azurerm_storage_container" "res-116" {
+  name                 = "bootdiagnostics-fortinets-b9f3a83c-96b5-4881-9c7c-fb330765ba84"
+  storage_account_name = "fwbsczcwqt6blzoddy"
+}
