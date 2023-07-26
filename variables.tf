@@ -1,22 +1,9 @@
-variable "key" {
-  description = "Terraform State Azure Key Name"
-  type        = string
-}
 variable "resource_group_location" {
   description = "Location of the resource group."
   type        = string
 }
 variable "resource_group_name" {
   description = "Name of the resource group."
-  type        = string
-}
-variable "admin_password" {
-  sensitive   = true
-  description = "Admin Password"
-  type        = string
-}
-variable "admin_username" {
-  description = "Admin Username"
   type        = string
 }
 variable "subscription_id" {
