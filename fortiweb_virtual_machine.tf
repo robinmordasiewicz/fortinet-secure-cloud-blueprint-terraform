@@ -32,13 +32,14 @@ resource "azurerm_network_interface" "fortiweb-internal-network-interface" {
   }
 }
 resource "azurerm_linux_virtual_machine" "fortiweb-virtual-machine" {
-  admin_password                  = var.admin_password
-  admin_username                  = var.admin_username
+  name                            = "fortiweb-virtual-machine"
+  computer_name                   = "fortiweb"
+  admin_username                  = random_pet.admin_username.id
+  admin_password                  = random_password.admin_password.result
   availability_set_id             = azurerm_availability_set.fortinet-availability-set.id
   disable_password_authentication = false
   location                        = azurerm_resource_group.resource-group.location
   resource_group_name             = azurerm_resource_group.resource-group.name
-  name                            = "fortiweb"
   network_interface_ids           = [azurerm_network_interface.fortiweb-internal-network-interface.id, azurerm_network_interface.fortiweb-dmz-network-interface.id]
   size                            = "Standard_F4s"
   boot_diagnostics {

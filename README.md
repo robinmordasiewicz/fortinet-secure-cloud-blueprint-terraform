@@ -9,6 +9,6 @@ https://learn.microsoft.com/en-us/azure/storage/common/storage-account-create
 https://learn.microsoft.com/en-us/azure/developer/terraform/store-state-in-azure-storage
 
 ```
-terraform output -raw fortigate-admin_password
+terraform output -raw admin_password
 terraform output -raw tls_private_key
 ```
