@@ -1,3 +1,8 @@
+resource "random_pet" "fortigate-admin_username" {
+  keepers = {
+    resource_group_name = azurerm_resource_group.resource-group.name
+  }
+}
 resource "azurerm_public_ip" "fortigate-public_ip" {
   name                = "fortigate-public_ip"
   location            = azurerm_resource_group.resource-group.location
@@ -48,7 +53,7 @@ resource "azurerm_network_interface" "fortigate-dmz-network-interface" {
 resource "azurerm_linux_virtual_machine" "fortigate-virtual-machine" {
   name                            = "fortigate"
   computer_name                   = "fortigate"
-  admin_password                  = var.admin_password
+  admin_password                  = random_pet.fortigate-admin_password
   admin_username                  = var.admin_username
   availability_set_id             = azurerm_availability_set.fortinet-availability-set.id
   disable_password_authentication = false
