@@ -3,7 +3,6 @@ set -euo pipefail
 
 # ./oidc.sh {APP_NAME} {ORG|USER/REPO} {FICS_FILE}
 # ./oidc.sh ghazoidc1 jongio/ghazoidctest ./fics.json
-gh auth login
 
 IS_CODESPACE=${CODESPACES:-"false"}
 if $IS_CODESPACE == "true"
@@ -37,6 +36,8 @@ case "$response" in
         exit 0
         ;;
 esac
+
+gh auth login
 
 echo "Getting Subscription Id..."
 SUB_ID=$(az account show --query id -o tsv)
@@ -112,6 +113,7 @@ echo "export ARM_ACCESS_KEY=$ACCOUNT_KEY"
 
 # create/update github secrets
 gh secret set AZURE_CLIENT_ID -b ${APP_ID} --repo $REPO
+gh secret set ARM_CLIENT_ID -b ${APP_ID} --repo $REPO
 gh secret set AZURE_SUBSCRIPTION_ID -b ${SUB_ID} --repo $REPO
 gh secret set ARM_SUBSCRIPTION_ID -b ${SUB_ID} --repo $REPO
 gh secret set AZURE_TENANT_ID -b ${TENANT_ID} --repo $REPO
