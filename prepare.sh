@@ -117,4 +117,4 @@ gh secret set AZURE_TENANT_ID -b ${TENANT_ID} --repo $REPO
 gh secret set ARM_TENANT_ID -b ${TENANT_ID} --repo $REPO
 gh secret set ARM_ACCESS_KEY -b ${ACCOUNT_KEY} --repo $REPO
 gh variable set ARM_USE_OIDC -b true --repo $REPO
-
+gh variable set ARM_USE_AZUREAD -b true --repo $REPO
