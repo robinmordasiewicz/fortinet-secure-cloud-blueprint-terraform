@@ -21,7 +21,5 @@ terraform {
     resource_group_name  = "fortinet-secure-cloud-blueprint-terraform-main-tfstate"
     storage_account_name = "fortinetsecurecloudbluep"
     container_name       = "fortinet-secure-cloud-blueprint-terraform-main"
-    subscription_id      = "cf72478e-c3b0-4072-8f60-41d037c1d9e9"
-    tenant_id            = "942b80cd-1b14-42a1-8dcf-4b21dece61ba"
   }
 }

@@ -110,8 +110,11 @@ echo "export ARM_ACCESS_KEY=$ACCOUNT_KEY"
 
 # create/update github secrets
 gh auth login
-gh secret set AZURE_CLIENT_ID -b${APP_ID} --repo $REPO
-gh secret set AZURE_SUBSCRIPTION_ID -b${SUB_ID} --repo $REPO
-gh secret set AZURE_TENANT_ID -b${TENANT_ID} --repo $REPO
-gh secret set ARM_ACCESS_KEY -b${ACCOUNT_KEY} --repo $REPO
+gh secret set AZURE_CLIENT_ID -b ${APP_ID} --repo $REPO
+gh secret set AZURE_SUBSCRIPTION_ID -b ${SUB_ID} --repo $REPO
+gh secret set ARM_SUBSCRIPTION_ID -b ${SUB_ID} --repo $REPO
+gh secret set AZURE_TENANT_ID -b ${TENANT_ID} --repo $REPO
+gh secret set ARM_TENANT_ID -b ${TENANT_ID} --repo $REPO
+gh secret set ARM_ACCESS_KEY -b ${ACCOUNT_KEY} --repo $REPO
+gh variable set ARM_USE_OIDC -b true --repo $REPO
 
