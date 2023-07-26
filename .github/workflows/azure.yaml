@@ -1,0 +1,83 @@
+---
+name: Deploy
+
+on:  # yamllint disable-line rule:truthy
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - ".env"
+      - "*.tf"
+      - ".github/workflows/azure.yaml"
+  push:
+    paths:
+      - ".env"
+      - "*.tf"
+      - ".github/workflows/azure.yaml"
+
+permissions:
+      id-token: write
+      contents: read
+      
+jobs: 
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: 'Clone Repo'
+      uses: actions/checkout@v3
+
+    - name: 'Populate environment variables from .env file in root of repo'
+      id: dotenv
+      uses: falti/dotenv-action@v1.0.4
+
+    - name: 'Get Environment Values'
+      id: environment
+      run: |
+          REPO=`echo ${GITHUB_REPOSITORY} | cut -f 2 -d "/"`
+          RESOURCEGROUP="`echo ${GITHUB_REPOSITORY} | cut -f 2 -d "/"`-RG-${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}"
+          DEPLOYMENTNAME="`echo ${GITHUB_REPOSITORY} | cut -f 2 -d "/"`-DEPLOYMENT"
+          echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
+          echo "repo=$(echo $REPO)" >> $GITHUB_OUTPUT
+          echo "resourceGroupName=$(echo $RESOURCEGROUP)" >> $GITHUB_OUTPUT
+          echo "deploymentName=$(echo $DEPLOYMENTNAME)" >> $GITHUB_OUTPUT
+
+    - name: 'Az CLI login'
+      uses: azure/login@v1
+      with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+    - name: 'Create Resource Group'
+      if: steps.dotenv.outputs.DEPLOYED == 'true'
+      run: |
+        az group create --location ${{ steps.dotenv.outputs.LOCATION }} --name ${{ steps.environment.outputs.resourceGroupName }}
+
+    - name: deploy
+      if: steps.dotenv.outputs.DEPLOYED == 'true'
+      uses: azure/arm-deploy@v1
+      with:
+        subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+        deploymentName: ${{ steps.environment.outputs.deploymentName }}
+        resourceGroupName: ${{ steps.environment.outputs.resourceGroupName }}
+        template: ./000-main.bicep
+        parameters: "adminPassword=${{ secrets.adminPassword }} adminUsername=${{ secrets.adminUsername }} deploymentPrefix=\"${{ steps.environment.outputs.repo }}-prefix\""
+        failOnStdErr: false
+
+    - name: 'Accept License Agreement'
+      if: steps.dotenv.outputs.DEPLOYED == 'true'
+      run: |
+        az vm image terms accept --publisher fortinet --offer fortinet_fortigate-vm_v5 --plan fortinet_fg-vm
+        az vm image terms accept --publisher fortinet --offer fortinet_fortiweb-vm_v5 --plan fortinet_fw-vm
+        az vm image terms accept --publisher fortinet --offer fortinet_fortigate-vm_v5 --plan fortinet_fg-vm_payg_2022
+        az vm image terms accept --publisher fortinet --offer fortinet_fortiweb-vm_v5 --plan fortinet_fw-vm_payg_v2
+
+    - name: 'Show Output'
+      if: steps.dotenv.outputs.DEPLOYED == 'true'
+      run: az deployment group show -g ${{ steps.environment.outputs.resourceGroupName }} -n ${{ steps.environment.outputs.deploymentName }} --query properties.outputs
+
+    - name: 'Destroy'
+      if: steps.dotenv.outputs.DEPLOYED != 'true'
+      run: |
+        `az group exists -n ${{ steps.environment.outputs.resourceGroupName }}` && az deployment group delete -g ${{ steps.environment.outputs.resourceGroupName }} -n ${{ steps.environment.outputs.deploymentName }} || true
+        `az group exists -n ${{ steps.environment.outputs.resourceGroupName }}` && az group delete --yes --name ${{ steps.environment.outputs.resourceGroupName }} || true
