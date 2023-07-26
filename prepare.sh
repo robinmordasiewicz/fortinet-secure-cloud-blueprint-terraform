@@ -1,12 +1,6 @@
 #!/bin/bash
 set -euo pipefail
 
-# Open in DevContainer or...
-
-    # Install Azure CLI- https://docs.microsoft.com/en-us/cli/azure/install-azure-cli
-    # Install GitHub CLI - https://cli.github.com/
-    # Install JQ - https://stedolan.github.io/jq/download/
-
 # ./oidc.sh {APP_NAME} {ORG|USER/REPO} {FICS_FILE}
 # ./oidc.sh ghazoidc1 jongio/ghazoidctest ./fics.json
 IS_CODESPACE=${CODESPACES:-"false"}
@@ -65,11 +59,7 @@ else
     echo "Existing AD app found."
 fi
 
-echo "APP_ID: $APP_ID"
-
-echo "Configuring Service Principal..."
-
-echo "First checking if the Service Principal already exists..."
+# First check if the Service Principal already exists...
 SP_ID=$(az ad sp list --filter "appId eq '$APP_ID'" --query [].id -o tsv)
 if [[ -z "$SP_ID" ]]
 then
@@ -86,9 +76,7 @@ else
     echo "Existing Service Principal found."
 fi
 
-echo "SP_ID: $SP_ID"
-
-echo "Creating Federated Identity Credentials..."
+# Creating Federated Identity Credentials...
 echo 
 for FIC in $(envsubst < $FICS_FILE | jq -c '.[]'); do
     SUBJECT=$(jq -r '.subject' <<< "$FIC")
@@ -108,33 +96,22 @@ done
 # https://ms.portal.azure.com/#view/Microsoft_AAD_RegisteredApps/ApplicationMenuBlade/~/Overview/appId/${APP_ID}
 # Certificates & secrets, Click on Federated credentials
 
-echo "Creating the following GitHub repo secrets..."
-echo AZURE_CLIENT_ID=$APP_ID
-echo AZURE_SUBSCRIPTION_ID=$SUB_ID
-echo AZURE_TENANT_ID=$TENANT_ID
-
-echo "Logging into GitHub CLI..."
-gh auth login
-
-gh secret set AZURE_CLIENT_ID -b${APP_ID} --repo $REPO
-gh secret set AZURE_SUBSCRIPTION_ID -b${SUB_ID} --repo $REPO
-gh secret set AZURE_TENANT_ID -b${TENANT_ID} --repo $REPO
-
-
-
 RESOURCE_GROUP_NAME="${1}-tfstate"
 STORAGE_ACCOUNT_NAME=`echo "${1}" | sed -e "s/[A-Z]/\L&/g" | sed -e 's/[^[:alnum:]]//g' | cut -c-24`
 CONTAINER_NAME="${1}-main"
 
-# Create resource group
 az group create --name $RESOURCE_GROUP_NAME --location CanadaCentral
-
-# Create storage account
 az storage account create --resource-group $RESOURCE_GROUP_NAME --name $STORAGE_ACCOUNT_NAME --sku Standard_LRS --encryption-services blob
-
-# Create blob container
 az storage container create --name $CONTAINER_NAME --account-name $STORAGE_ACCOUNT_NAME --auth-mode login
 
 ACCOUNT_KEY=$(az storage account keys list --resource-group $RESOURCE_GROUP_NAME --account-name $STORAGE_ACCOUNT_NAME --query '[0].value' -o tsv)
 export ARM_ACCESS_KEY=$ACCOUNT_KEY
-echo $ACCOUNT_KEY
+echo "export ARM_ACCESS_KEY=$ACCOUNT_KEY"
+
+# create/update github secrets
+gh auth login
+gh secret set AZURE_CLIENT_ID -b${APP_ID} --repo $REPO
+gh secret set AZURE_SUBSCRIPTION_ID -b${SUB_ID} --repo $REPO
+gh secret set AZURE_TENANT_ID -b${TENANT_ID} --repo $REPO
+gh secret set ARM_ACCESS_KEY -b${ACCOUNT_KEY} --repo $REPO
+

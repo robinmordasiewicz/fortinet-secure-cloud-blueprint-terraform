@@ -1,3 +1,10 @@
+resource "random_pet" "admin_username" {
+  keepers = {
+    # Generate a new pet name each time we switch to a new AMI id
+    resource_group_name = azurerm_resource_group.resource-group.name
+  }
+}
+
 resource "azurerm_public_ip" "ubuntu-public_ip" {
   name                = "ubuntu_public_ip"
   location            = azurerm_resource_group.resource-group.location
@@ -33,19 +40,19 @@ resource "azurerm_network_interface" "ubuntu-dmz-network-interface" {
   }
 }
 resource "azurerm_linux_virtual_machine" "ubuntu-virtual-machine" {
+  name                            = "ubuntu-virtual-machine"
   computer_name                   = "ubuntu"
-  admin_username                  = var.admin_username
+  admin_username                  = random_pet.admin_username
   disable_password_authentication = true
   availability_set_id             = azurerm_availability_set.fortinet-availability-set.id
   location                        = azurerm_resource_group.resource-group.location
   resource_group_name             = azurerm_resource_group.resource-group.name
-  name                            = "ubuntu-virtual-machine"
-  network_interface_ids           = [azurerm_network_interface.ubuntu-internal-network-interface.id,azurerm_network_interface.ubuntu-dmz-network-interface.id]
+  network_interface_ids           = [azurerm_network_interface.ubuntu-internal-network-interface.id, azurerm_network_interface.ubuntu-dmz-network-interface.id]
   size                            = "Standard_F2s_v2"
   admin_ssh_key {
-    username = var.admin_username
-    #public_key = tls_private_key.ssh-key.public_key_openssh
-    public_key = file("~/.ssh/id_rsa.pub")
+    username = random_pet.admin_username
+    public_key = tls_private_key.ssh-key.public_key_openssh
+    #public_key = file("~/.ssh/id_rsa.pub")
   }
   boot_diagnostics {
     storage_account_uri = azurerm_storage_account.storage-account.primary_blob_endpoint
@@ -72,4 +79,8 @@ data "azurerm_public_ip" "ubuntu-public_ip" {
 
 output "ubuntu-public_ip_address" {
   value = data.azurerm_public_ip.ubuntu-public_ip.ip_address
+}
+
+output "ubuntu-admin_username" {
+  value = random_pet.admin_username
 }

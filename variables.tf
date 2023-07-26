@@ -1,3 +1,7 @@
+variable "key" {
+  description = "Terraform State Azure Key Name"
+  type        = string
+}
 variable "resource_group_location" {
   description = "Location of the resource group."
   type        = string
@@ -15,7 +19,7 @@ variable "admin_username" {
   description = "Admin Username"
   type        = string
 }
-variable "subscriptionID" {
+variable "subscription_id" {
   description = "Azure Subscription ID"
   type        = string
 }

@@ -20,7 +20,7 @@ resource "azurerm_network_interface" "fortigate-external-network-interface" {
   resource_group_name = azurerm_resource_group.resource-group.name
   ip_configuration {
     name                          = "fortigate-external-ipconfig"
-    primary = true
+    primary                       = true
     private_ip_address_allocation = "Static"
     private_ip_address            = cidrhost(var.external-Prefix, 4)
     subnet_id                     = azurerm_subnet.external-subnet.id
