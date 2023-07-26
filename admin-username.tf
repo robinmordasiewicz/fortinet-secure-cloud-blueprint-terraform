@@ -16,6 +16,6 @@ output "admin_username" {
   value = random_pet.admin_username.id
 }
 output "admin_password" {
-  value = random_password.admin_password.result
+  value     = random_password.admin_password.result
   sensitive = true
 }
