@@ -18,13 +18,12 @@ terraform {
     key = "terraform.tfstate"
     use_oidc = true
     use_azuread_auth = true
-    resource_group_name  = "StorageAccount-ResourceGroup"
-    storage_account_name = "abcd1234"
-    container_name       = "tfstate"
-    #subscription_id      = "00000000-0000-0000-0000-000000000000"
-    #tenant_id            = "00000000-0000-0000-0000-000000000000"
+    resource_group_name  = "fortinet-secure-cloud-blueprint-terraform-tfstate"
+    storage_account_name = "fortinetsecurecloudbluep"
+    container_name       = "fortinet-secure-cloud-blueprint-terraform-main"
+    subscription_id      = "cf72478e-c3b0-4072-8f60-41d037c1d9e9"
+    tenant_id            = "942b80cd-1b14-42a1-8dcf-4b21dece61ba"
   }
-
 
 }
 
