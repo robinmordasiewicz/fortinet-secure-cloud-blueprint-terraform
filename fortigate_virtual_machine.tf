@@ -3,6 +3,15 @@ resource "random_pet" "fortigate-admin_username" {
     resource_group_name = azurerm_resource_group.resource-group.name
   }
 }
+resource "random_password" "fortigate-admin_password" {
+  keepers = {
+    resource_group_name = azurerm_resource_group.resource-group.name
+  }
+  length = 8
+  min_lower = 1
+  min_special = 1
+  min_upper = 1
+}
 resource "azurerm_public_ip" "fortigate-public_ip" {
   name                = "fortigate-public_ip"
   location            = azurerm_resource_group.resource-group.location
@@ -53,8 +62,8 @@ resource "azurerm_network_interface" "fortigate-dmz-network-interface" {
 resource "azurerm_linux_virtual_machine" "fortigate-virtual-machine" {
   name                            = "fortigate"
   computer_name                   = "fortigate"
-  admin_password                  = random_pet.fortigate-admin_password
-  admin_username                  = var.admin_username
+  admin_password                  = random_password.fortigate-admin_password
+  admin_username                  = random_pet.fortigate-admin_username
   availability_set_id             = azurerm_availability_set.fortinet-availability-set.id
   disable_password_authentication = false
   location                        = azurerm_resource_group.resource-group.location
@@ -105,4 +114,10 @@ output "VIP-public_ip_address" {
 }
 output "fortigate-public_ip_address" {
   value = data.azurerm_public_ip.fortigate-public_ip.ip_address
+}
+output "fortigate-admin_username" {
+  value = random_pet.fortigate-admin_username
+}
+output "fortigate-admin_password" {
+  value = random_pet.fortigate-admin_password
 }

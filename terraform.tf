@@ -15,13 +15,13 @@ terraform {
     }
   }
   backend "azurerm" {
-    key                  = var.key
+    key                  = "terraform.tfstate"
     use_oidc             = true
     use_azuread_auth     = true
-    resource_group_name  = var.resource_group_name
-    storage_account_name = var.storage_account_name
-    container_name       = var.container_name
-    subscription_id      = var.subscription_id
-    tenant_id            = var.tenant_id
+    resource_group_name  = "fortinet-secure-cloud-blueprint-terraform-main-tfstate"
+    storage_account_name = "fortinetsecurecloudbluep"
+    container_name       = "fortinet-secure-cloud-blueprint-terraform-main"
+    subscription_id      = "cf72478e-c3b0-4072-8f60-41d037c1d9e9"
+    tenant_id            = "942b80cd-1b14-42a1-8dcf-4b21dece61ba"
   }
 }
