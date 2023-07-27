@@ -109,7 +109,6 @@ az storage container create --name $CONTAINER_NAME --account-name $STORAGE_ACCOU
 
 ACCOUNT_KEY=$(az storage account keys list --resource-group $RESOURCE_GROUP_NAME --account-name $STORAGE_ACCOUNT_NAME --query '[0].value' -o tsv)
 export ARM_ACCESS_KEY=$ACCOUNT_KEY
-echo "export ARM_ACCESS_KEY=$ACCOUNT_KEY"
 
 # create/update github secrets
 gh secret set AZURE_CLIENT_ID -b ${APP_ID} --repo $REPO
@@ -121,3 +120,25 @@ gh secret set ARM_TENANT_ID -b ${TENANT_ID} --repo $REPO
 gh secret set ARM_ACCESS_KEY -b ${ACCOUNT_KEY} --repo $REPO
 gh variable set ARM_USE_OIDC -b true --repo $REPO
 gh variable set ARM_USE_AZUREAD -b true --repo $REPO
+
+export TF_VAR_ARM_USE_AZUREAD=true
+export TF_VAR_ARM_USE_OIDC=true
+export TF_VAR_ARM_ACCESS_KEY=$ACCOUNT_KEY
+export TF_VAR_ARM_TENANT_ID=${TENANT_ID}
+export TF_VAR_AZURE_TENANT_ID=${TENANT_ID}
+export TF_VAR_ARM_SUBSCRIPTION_ID=${SUB_ID}
+export TF_VAR_AZURE_SUBSCRIPTION_ID=${SUB_ID}
+export TF_VAR_ARM_CLIENT_ID=${APP_ID}
+export TF_VAR_AZURE_CLIENT_ID=${APP_ID}
+
+export ARM_USE_AZUREAD=true
+export ARM_USE_OIDC=true
+export ARM_ACCESS_KEY=$ACCOUNT_KEY
+export ARM_TENANT_ID=${TENANT_ID}
+export AZURE_TENANT_ID=${TENANT_ID}
+export ARM_SUBSCRIPTION_ID=${SUB_ID}
+export AZURE_SUBSCRIPTION_ID=${SUB_ID}
+export ARM_CLIENT_ID=${APP_ID}
+export AZURE_CLIENT_ID=${APP_ID}
+
+
