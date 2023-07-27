@@ -40,6 +40,13 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
 
+    - name: 'Az CLI login'
+      uses: azure/login@v1
+      with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
     # Install the latest version of the Terraform CLI
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v2
@@ -54,13 +61,6 @@ jobs:
     # Will fail the build if not
     - name: Terraform Format
       run: terraform fmt -check
-
-    - name: 'Az CLI login'
-      uses: azure/login@v1
-      with:
-          client-id: ${{ secrets.AZURE_CLIENT_ID }}
-          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
     # Generates an execution plan for Terraform
     # An exit code of 0 indicated no changes, 1 a terraform failure, 2 there are pending changes.
