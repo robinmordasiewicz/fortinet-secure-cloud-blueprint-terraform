@@ -10,6 +10,8 @@ https://learn.microsoft.com/en-us/azure/developer/terraform/store-state-in-azure
 
 https://github.com/Azure-Samples/terraform-github-actions
 
+https://docs.github.com/en/actions/deployment/targeting-different-environments/using-environments-for-deployment#creating-an-environment
+
 ```
 export TF_CLI_ARGS_init="-backend-config=backend.hcl"
 terraform output -raw admin_password
