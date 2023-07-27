@@ -9,14 +9,15 @@ resource "random_id" "random_id" {
 }
 
 resource "azurerm_storage_account" "storage-account" {
-  account_kind                  = "Storage"
+  account_kind                  = "StorageV2"
   account_replication_type      = "LRS"
-  account_tier                  = "Standard"
+  account_tier                  = "Premium"
   name                          = "diag${random_id.random_id.hex}"
   location                      = azurerm_resource_group.resource-group.location
   resource_group_name           = azurerm_resource_group.resource-group.name
   public_network_access_enabled = false
   min_tls_version               = "TLS1_2"
+  enable_blob_encryption        = true
   queue_properties {
     logging {
       delete                = true
