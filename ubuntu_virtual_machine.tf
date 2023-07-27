@@ -37,6 +37,7 @@ resource "azurerm_linux_virtual_machine" "ubuntu-virtual-machine" {
   computer_name                   = "ubuntu"
   admin_username                  = random_pet.admin_username.id
   disable_password_authentication = true
+  allow_extension_operations      = false
   availability_set_id             = azurerm_availability_set.fortinet-availability-set.id
   location                        = azurerm_resource_group.resource-group.location
   resource_group_name             = azurerm_resource_group.resource-group.name

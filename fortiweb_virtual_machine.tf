@@ -36,8 +36,9 @@ resource "azurerm_linux_virtual_machine" "fortiweb-virtual-machine" {
   computer_name                   = "fortiweb"
   admin_username                  = random_pet.admin_username.id
   admin_password                  = random_password.admin_password.result
+  allow_extension_operations      = false
   availability_set_id             = azurerm_availability_set.fortinet-availability-set.id
-  disable_password_authentication = false
+  disable_password_authentication = true
   location                        = azurerm_resource_group.resource-group.location
   resource_group_name             = azurerm_resource_group.resource-group.name
   network_interface_ids           = [azurerm_network_interface.fortiweb-internal-network-interface.id, azurerm_network_interface.fortiweb-dmz-network-interface.id]
