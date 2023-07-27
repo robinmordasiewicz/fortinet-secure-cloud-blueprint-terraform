@@ -1,13 +1,13 @@
-resource "azurerm_public_ip" "ubuntu-public_ip" {
-  name                = "ubuntu_public_ip"
-  location            = azurerm_resource_group.resource-group.location
-  resource_group_name = azurerm_resource_group.resource-group.name
-  allocation_method   = "Dynamic"
-}
-resource "azurerm_network_interface_security_group_association" "ubuntu-association" {
-  network_interface_id      = azurerm_network_interface.ubuntu-internal-network-interface.id
-  network_security_group_id = azurerm_network_security_group.nsg.id
-}
+#resource "azurerm_public_ip" "ubuntu-public_ip" {
+#  name                = "ubuntu_public_ip"
+#  location            = azurerm_resource_group.resource-group.location
+#  resource_group_name = azurerm_resource_group.resource-group.name
+#  allocation_method   = "Dynamic"
+#}
+#resource "azurerm_network_interface_security_group_association" "ubuntu-association" {
+#  network_interface_id      = azurerm_network_interface.ubuntu-internal-network-interface.id
+#  network_security_group_id = azurerm_network_security_group.nsg.id
+#}
 resource "azurerm_network_interface" "ubuntu-internal-network-interface" {
   name                = "ubuntu-internal-network-interface"
   location            = azurerm_resource_group.resource-group.location
@@ -18,7 +18,7 @@ resource "azurerm_network_interface" "ubuntu-internal-network-interface" {
     private_ip_address_allocation = "Static"
     private_ip_address            = cidrhost(var.internal-Prefix, 5)
     subnet_id                     = azurerm_subnet.internal-subnet.id
-    public_ip_address_id          = azurerm_public_ip.ubuntu-public_ip.id
+    #public_ip_address_id          = azurerm_public_ip.ubuntu-public_ip.id
   }
 }
 resource "azurerm_network_interface" "ubuntu-dmz-network-interface" {
@@ -48,9 +48,9 @@ resource "azurerm_linux_virtual_machine" "ubuntu-virtual-machine" {
     public_key = tls_private_key.ssh-key.public_key_openssh
     #public_key = file("~/.ssh/id_rsa.pub")
   }
-  boot_diagnostics {
-    storage_account_uri = azurerm_storage_account.storage-account.primary_blob_endpoint
-  }
+#  boot_diagnostics {
+#    storage_account_uri = azurerm_storage_account.storage-account.primary_blob_endpoint
+#  }
   os_disk {
     caching              = "ReadWrite"
     storage_account_type = "Premium_LRS"
@@ -63,15 +63,15 @@ resource "azurerm_linux_virtual_machine" "ubuntu-virtual-machine" {
   }
 }
 
-data "azurerm_public_ip" "ubuntu-public_ip" {
-  name                = azurerm_public_ip.ubuntu-public_ip.name
-  resource_group_name = azurerm_resource_group.resource-group.name
-  depends_on = [
-    azurerm_linux_virtual_machine.ubuntu-virtual-machine,
-  ]
-}
+#data "azurerm_public_ip" "ubuntu-public_ip" {
+#  name                = azurerm_public_ip.ubuntu-public_ip.name
+#  resource_group_name = azurerm_resource_group.resource-group.name
+#  depends_on = [
+#    azurerm_linux_virtual_machine.ubuntu-virtual-machine,
+#  ]
+#}
 
-output "ubuntu-public_ip_address" {
-  value = data.azurerm_public_ip.ubuntu-public_ip.ip_address
-}
+#output "ubuntu-public_ip_address" {
+#  value = data.azurerm_public_ip.ubuntu-public_ip.ip_address
+#}
 

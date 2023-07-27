@@ -1,9 +1,9 @@
-resource "azurerm_public_ip" "fortigate-public_ip" {
-  name                = "fortigate-public_ip"
-  location            = azurerm_resource_group.resource-group.location
-  resource_group_name = azurerm_resource_group.resource-group.name
-  allocation_method   = "Dynamic"
-}
+#resource "azurerm_public_ip" "fortigate-public_ip" {
+#  name                = "fortigate-public_ip"
+#  location            = azurerm_resource_group.resource-group.location
+#  resource_group_name = azurerm_resource_group.resource-group.name
+#  allocation_method   = "Dynamic"
+#}
 resource "azurerm_public_ip" "VIP-public_ip" {
   name                = "VIP-public_ip"
   location            = azurerm_resource_group.resource-group.location
@@ -24,7 +24,7 @@ resource "azurerm_network_interface" "fortigate-external-network-interface" {
     private_ip_address_allocation = "Static"
     private_ip_address            = cidrhost(var.external-Prefix, 4)
     subnet_id                     = azurerm_subnet.external-subnet.id
-    public_ip_address_id          = azurerm_public_ip.fortigate-public_ip.id
+#    public_ip_address_id          = azurerm_public_ip.fortigate-public_ip.id
   }
   ip_configuration {
     name                          = "VIP-external-ipconfig"
@@ -62,9 +62,9 @@ resource "azurerm_linux_virtual_machine" "fortigate-virtual-machine" {
     public_key = tls_private_key.ssh-key.public_key_openssh
     #public_key = file("~/.ssh/id_rsa.pub")
   }
-  boot_diagnostics {
-    storage_account_uri = azurerm_storage_account.storage-account.primary_blob_endpoint
-  }
+#  boot_diagnostics {
+#    storage_account_uri = azurerm_storage_account.storage-account.primary_blob_endpoint
+#  }
   identity {
     type = "SystemAssigned"
   }
@@ -93,17 +93,18 @@ data "azurerm_public_ip" "VIP-public_ip" {
     azurerm_linux_virtual_machine.fortigate-virtual-machine,
   ]
 }
-data "azurerm_public_ip" "fortigate-public_ip" {
-  name                = azurerm_public_ip.fortigate-public_ip.name
-  resource_group_name = azurerm_resource_group.resource-group.name
-  depends_on = [
-    azurerm_linux_virtual_machine.fortigate-virtual-machine,
-  ]
-}
+#data "azurerm_public_ip" "fortigate-public_ip" {
+#  name                = azurerm_public_ip.fortigate-public_ip.name
+#  resource_group_name = azurerm_resource_group.resource-group.name
+#  depends_on = [
+#    azurerm_linux_virtual_machine.fortigate-virtual-machine,
+#  ]
+#}
 
 output "VIP-public_ip_address" {
   value = data.azurerm_public_ip.VIP-public_ip.ip_address
 }
-output "fortigate-public_ip_address" {
-  value = data.azurerm_public_ip.fortigate-public_ip.ip_address
-}
+
+#output "fortigate-public_ip_address" {
+#  value = data.azurerm_public_ip.fortigate-public_ip.ip_address
+#}
