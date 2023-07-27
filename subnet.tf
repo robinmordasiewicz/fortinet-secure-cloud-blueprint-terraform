@@ -27,15 +27,15 @@ resource "azurerm_network_security_group" "private-nsg" {
 }
 resource "azurerm_subnet_network_security_group_association" "external-subnet-association" {
   subnet_id                 = azurerm_subnet.external-subnet.id
-  network_security_group_id = azurerm_network_security_group.block-all.id
+  network_security_group_id = azurerm_network_security_group.private-nsg.id
 }
 resource "azurerm_subnet_network_security_group_association" "dmz-subnet-association" {
   subnet_id                 = azurerm_subnet.dmz-subnet.id
-  network_security_group_id = azurerm_network_security_group.block-all.id
+  network_security_group_id = azurerm_network_security_group.private-nsg.id
 }
 resource "azurerm_subnet_network_security_group_association" "internal-subnet-association" {
   subnet_id                 = azurerm_subnet.internal-subnet.id
-  network_security_group_id = azurerm_network_security_group.block-all.id
+  network_security_group_id = azurerm_network_security_group.private-nsg.id
 }
 
 resource "azurerm_subnet" "external-subnet" {
