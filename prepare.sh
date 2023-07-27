@@ -100,8 +100,9 @@ done
 # Certificates & secrets, Click on Federated credentials
 
 RESOURCE_GROUP_NAME="${1}-tfstate"
-STORAGE_ACCOUNT_NAME=`echo "${1}" | sed -e "s/[A-Z]/\L&/g" | sed -e 's/[^[:alnum:]]//g' | cut -c-24`
-CONTAINER_NAME="${1}-main"
+#STORAGE_ACCOUNT_NAME=`echo "${1}" | sed -e "s/[A-Z]/\L&/g" | sed -e 's/[^[:alnum:]]//g' | cut -c-24`
+STORAGE_ACCOUNT_NAME="main"
+CONTAINER_NAME="main-container"
 
 az group create --name $RESOURCE_GROUP_NAME --location CanadaCentral
 az storage account create --resource-group $RESOURCE_GROUP_NAME --name $STORAGE_ACCOUNT_NAME --sku Standard_LRS --encryption-services blob
