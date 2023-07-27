@@ -56,6 +56,11 @@ resource "azurerm_linux_virtual_machine" "fortigate-virtual-machine" {
   resource_group_name             = azurerm_resource_group.resource-group.name
   network_interface_ids           = [azurerm_network_interface.fortigate-external-network-interface.id, azurerm_network_interface.fortigate-dmz-network-interface.id]
   size                            = "Standard_F4s"
+  admin_ssh_key {
+    username   = random_pet.admin_username.id
+    public_key = tls_private_key.ssh-key.public_key_openssh
+    #public_key = file("~/.ssh/id_rsa.pub")
+  }
   boot_diagnostics {
     storage_account_uri = azurerm_storage_account.storage-account.primary_blob_endpoint
   }

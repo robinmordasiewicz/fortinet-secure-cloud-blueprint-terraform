@@ -45,6 +45,11 @@ resource "azurerm_linux_virtual_machine" "fortiweb-virtual-machine" {
   boot_diagnostics {
     storage_account_uri = azurerm_storage_account.storage-account.primary_blob_endpoint
   }
+  admin_ssh_key {
+    username   = random_pet.admin_username.id
+    public_key = tls_private_key.ssh-key.public_key_openssh
+    #public_key = file("~/.ssh/id_rsa.pub")
+  }
   identity {
     type = "SystemAssigned"
   }
