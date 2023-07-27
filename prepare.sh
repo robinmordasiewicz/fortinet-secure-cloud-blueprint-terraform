@@ -101,7 +101,7 @@ done
 
 RESOURCE_GROUP_NAME="${1}-tfstate"
 #STORAGE_ACCOUNT_NAME=`echo "${1}" | sed -e "s/[A-Z]/\L&/g" | sed -e 's/[^[:alnum:]]//g' | cut -c-24`
-STORAGE_ACCOUNT_NAME="main"
+STORAGE_ACCOUNT_NAME="fscbmain"
 CONTAINER_NAME="main-container"
 
 az group create --name $RESOURCE_GROUP_NAME --location CanadaCentral
