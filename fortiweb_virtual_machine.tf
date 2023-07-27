@@ -17,7 +17,7 @@ resource "azurerm_network_interface" "fortiweb-dmz-network-interface" {
     private_ip_address_allocation = "Static"
     private_ip_address            = cidrhost(var.dmz-Prefix, 5)
     subnet_id                     = azurerm_subnet.dmz-subnet.id
-#    public_ip_address_id          = azurerm_public_ip.fortiweb-public_ip.id
+    #    public_ip_address_id          = azurerm_public_ip.fortiweb-public_ip.id
   }
 }
 resource "azurerm_network_interface" "fortiweb-internal-network-interface" {
@@ -43,9 +43,9 @@ resource "azurerm_linux_virtual_machine" "fortiweb-virtual-machine" {
   resource_group_name             = azurerm_resource_group.resource-group.name
   network_interface_ids           = [azurerm_network_interface.fortiweb-internal-network-interface.id, azurerm_network_interface.fortiweb-dmz-network-interface.id]
   size                            = "Standard_F4s"
-#  boot_diagnostics {
-#    storage_account_uri = azurerm_storage_account.storage-account.primary_blob_endpoint
-#  }
+  #  boot_diagnostics {
+  #    storage_account_uri = azurerm_storage_account.storage-account.primary_blob_endpoint
+  #  }
   admin_ssh_key {
     username   = random_pet.admin_username.id
     public_key = tls_private_key.ssh-key.public_key_openssh

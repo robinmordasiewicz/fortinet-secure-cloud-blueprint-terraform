@@ -48,9 +48,9 @@ resource "azurerm_linux_virtual_machine" "ubuntu-virtual-machine" {
     public_key = tls_private_key.ssh-key.public_key_openssh
     #public_key = file("~/.ssh/id_rsa.pub")
   }
-#  boot_diagnostics {
-#    storage_account_uri = azurerm_storage_account.storage-account.primary_blob_endpoint
-#  }
+  #  boot_diagnostics {
+  #    storage_account_uri = azurerm_storage_account.storage-account.primary_blob_endpoint
+  #  }
   os_disk {
     caching              = "ReadWrite"
     storage_account_type = "Premium_LRS"

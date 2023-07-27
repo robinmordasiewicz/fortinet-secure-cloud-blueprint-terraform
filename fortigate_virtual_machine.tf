@@ -24,7 +24,7 @@ resource "azurerm_network_interface" "fortigate-external-network-interface" {
     private_ip_address_allocation = "Static"
     private_ip_address            = cidrhost(var.external-Prefix, 4)
     subnet_id                     = azurerm_subnet.external-subnet.id
-#    public_ip_address_id          = azurerm_public_ip.fortigate-public_ip.id
+    #    public_ip_address_id          = azurerm_public_ip.fortigate-public_ip.id
   }
   ip_configuration {
     name                          = "VIP-external-ipconfig"
@@ -62,9 +62,9 @@ resource "azurerm_linux_virtual_machine" "fortigate-virtual-machine" {
     public_key = tls_private_key.ssh-key.public_key_openssh
     #public_key = file("~/.ssh/id_rsa.pub")
   }
-#  boot_diagnostics {
-#    storage_account_uri = azurerm_storage_account.storage-account.primary_blob_endpoint
-#  }
+  #  boot_diagnostics {
+  #    storage_account_uri = azurerm_storage_account.storage-account.primary_blob_endpoint
+  #  }
   identity {
     type = "SystemAssigned"
   }
