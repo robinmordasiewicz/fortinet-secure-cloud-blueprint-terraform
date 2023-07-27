@@ -17,7 +17,6 @@ resource "azurerm_storage_account" "storage-account" {
   resource_group_name           = azurerm_resource_group.resource-group.name
   public_network_access_enabled = false
   min_tls_version               = "TLS1_2"
-  enable_blob_encryption        = true
   queue_properties {
     logging {
       delete                = true
