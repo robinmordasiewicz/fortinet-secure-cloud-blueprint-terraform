@@ -141,4 +141,5 @@ export AZURE_SUBSCRIPTION_ID=${SUB_ID}
 export ARM_CLIENT_ID=${APP_ID}
 export AZURE_CLIENT_ID=${APP_ID}
 
-
+terraform init -reconfigure
+terraform plan
