@@ -4,6 +4,23 @@
 #  resource_group_name = azurerm_resource_group.resource-group.name
 #  allocation_method   = "Dynamic"
 #}
+resource "azurerm_network_security_group" "VIP-allow_https_tcp-nsg" {
+  name                = "VIP-allow_https_tcp-nsg"
+  location            = azurerm_resource_group.resource-group.location
+  resource_group_name = azurerm_resource_group.resource-group.name
+
+  security_rule {
+    name                       = "VIP-allow_https_tcp"
+    priority                   = 100
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "Tcp"
+    source_port_range          = "*"
+    destination_port_ranges    = ["443"]
+    source_address_prefix      = "*"
+    destination_address_prefix = "*"
+  }
+}
 resource "azurerm_public_ip" "VIP-public_ip" {
   name                = "VIP-public_ip"
   location            = azurerm_resource_group.resource-group.location
@@ -12,7 +29,7 @@ resource "azurerm_public_ip" "VIP-public_ip" {
 }
 resource "azurerm_network_interface_security_group_association" "fortigate-association" {
   network_interface_id      = azurerm_network_interface.fortigate-external-network-interface.id
-  network_security_group_id = azurerm_network_security_group.nsg.id
+  network_security_group_id = azurerm_network_security_group.VIP-allow_https_tcp-nsg.id
 }
 resource "azurerm_network_interface" "fortigate-external-network-interface" {
   name                = "fortigate-external-network-interface"
