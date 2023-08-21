@@ -20,12 +20,6 @@ env:
   ARM_USE_OIDC: true
   ARM_USE_AZUREAD: true
 
-#Special permissions required for OIDC authentication
-permissions:
-  id-token: write
-  contents: read
-  pull-requests: write
-
 jobs:
   terraform-plan:
     name: 'Terraform Plan'
