@@ -1,3 +1,4 @@
+---
 name: 'Terraform Unit Tests'
 
 on:
@@ -10,46 +11,39 @@ jobs:
       name: ${{ github.ref_name }}
     runs-on: ubuntu-latest
     permissions:
-      contents: read # for actions/checkout to fetch code
-      security-events: write # for github/codeql-action/upload-sarif to upload SARIF results
-      actions: read # only required for a private repository by github/codeql-action/upload-sarif to get the Action run status
-    
+      contents: read
+      security-events: write
+      actions: read
+
     steps:
-    # Checkout the repository to the GitHub Actions runner
-    - name: Checkout
-      uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v3
 
-    # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
-    - name: Setup Terraform
-      uses: hashicorp/setup-terraform@v2
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
 
-    # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
-    - name: Terraform Init
-      run: terraform init -backend=false
+      - name: Terraform Init
+        run: terraform init -backend=false
 
-    # Validate terraform files
-    - name: Terraform Validate
-      run: terraform validate
+      - name: Terraform Validate
+        run: terraform validate
 
-    # Checks that all Terraform configuration files adhere to a canonical format
-    - name: Terraform Format
-      run: terraform fmt -check -recursive
-    
-    # Perform a security scan of the terraform code using checkov
-    - name: Run Checkov action
-      id: checkov
-      uses: bridgecrewio/checkov-action@master
-      with: 
-        framework: terraform
-        output_format: cli,sarif
-        output_file_path: console,results.sarif
-        soft_fail: true
-        skip_check: CKV_AZURE_93,CKV_AZURE_160,CKV_AZURE_119
+      - name: Terraform Format
+        run: terraform fmt -check -recursive
 
-    # Upload results to GitHub Advanced Security
-    - name: Upload SARIF file
-      if: success() || failure()
-      uses: github/codeql-action/upload-sarif@v2
-      with:
-        sarif_file: results.sarif
-        category: checkov
+      - name: Run Checkov action
+        id: checkov
+        uses: bridgecrewio/checkov-action@master
+        with:
+          framework: terraform
+          output_format: cli,sarif
+          output_file_path: console,results.sarif
+          soft_fail: true
+          skip_check: CKV_AZURE_93,CKV_AZURE_160,CKV_AZURE_119
+
+      - name: Upload SARIF file
+        if: success() || failure()
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: results.sarif
+          category: checkov
