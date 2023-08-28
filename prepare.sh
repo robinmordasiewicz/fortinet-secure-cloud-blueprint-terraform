@@ -50,7 +50,10 @@ echo "TENANT_ID: $TENANT_ID"
 echo "Configuring application..."
 
 #  First check if an app with the same name exists, if so use it, if not create one
+az ad app list --filter "displayName eq 'fortinet-secure-cloud-blueprint-terraform'" --query [].appId -o tsv
 APP_ID=$(az ad app list --filter "displayName eq '$APP_NAME'" --query [].appId -o tsv)
+
+echo "APP_ID = ${APP_ID}"
 
 if [[ -z "$APP_ID" ]]
 then
@@ -63,7 +66,9 @@ else
 fi
 
 # First check if the Service Principal already exists...
-SP_ID=$(az ad sp list --filter "appId eq '$APP_ID'" --query [].id -o tsv)
+#SP_ID=$(az ad sp list --filter "appId eq '$APP_ID'" --query [].id -o tsv)
+SP_ID=$(az ad sp list --filter "displayName eq '$APP_ID'" --query [].id -o tsv)
+
 if [[ -z "$SP_ID" ]]
 then
     echo "Creating service principal..."
