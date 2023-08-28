@@ -23,6 +23,8 @@ env:
 jobs:
   terraform-plan:
     name: 'Terraform Plan'
+    environment:
+      name: ${{ github.ref_name }}
     runs-on: ubuntu-latest
     env:
       #this is needed since we are running terraform with read-only permissions

@@ -6,6 +6,8 @@ on:
 jobs:
   terraform-unit-tests:
     name: 'Terraform Unit Tests'
+    environment:
+      name: ${{ github.ref_name }}
     runs-on: ubuntu-latest
     permissions:
       contents: read # for actions/checkout to fetch code
