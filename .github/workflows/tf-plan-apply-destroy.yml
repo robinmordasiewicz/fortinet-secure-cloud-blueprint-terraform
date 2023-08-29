@@ -172,5 +172,5 @@ jobs:
           if [ "${{ secrets.DEPLOYED }}" == "true" ]; then
             terraform apply -auto-approve tfplan
           else 
-            terraform destroy -auto-approve tfplan
+            terraform destroy -auto-approve
           fi
