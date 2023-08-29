@@ -2,8 +2,8 @@
 name: 'DEBUG'
 
 on:
-  push:
   workflow_dispatch:
+  push:
     branches:
       - '*'
       - '!main'
@@ -17,7 +17,7 @@ jobs:
     name: 'Get Branch'
     runs-on: ubuntu-latest
     steps:
-      - name: Some check on branch
+      - name: Output Branch Name
         id: branch_check
         run: |
           echo "Running on branch ${{ github.ref_name }}"
