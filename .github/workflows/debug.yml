@@ -4,9 +4,9 @@ name: 'DEBUG'
 on:
   push:
   workflow_dispatch:
-#    branches:
-#      - '*'
-#      - '!main'
+    branches:
+      - '*'
+      - '!main'
 
 permissions:
   id-token: write
@@ -17,7 +17,8 @@ jobs:
     name: 'Debug'
     runs-on: ubuntu-latest
     environment:
-      name: Production
+      name: ${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}
+      #name: Production
         #environment:
         #name: ${{ github.ref_name }}
     steps:
