@@ -122,8 +122,8 @@ jobs:
       #         body: body
       #       })
 
-  terraform-apply:
-    name: 'Terraform Apply'
+  terraform-apply-destroy:
+    name: 'Terraform Apply/Destroy'
     environment:
       name: ${{ github.ref_name }}
     runs-on: ubuntu-latest
@@ -168,4 +168,9 @@ jobs:
           ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
           ARM_USE_OIDC: true
           ARM_USE_AZUREAD: true
-        run: terraform apply -auto-approve tfplan
+        run: |
+          if [ "${{ secrets.DEPLOYED }}" == "true" ]; then
+            terraform apply -auto-approve tfplan
+          else 
+            terraform destroy -auto-approve tfplan
+          fi
