@@ -2,6 +2,7 @@
 name: 'Terraform Plan/Apply'
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - '*'
