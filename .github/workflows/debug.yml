@@ -3,6 +3,7 @@ name: 'DEBUG'
 
 on:
   push:
+  workflow_dispatch:
 #    branches:
 #      - '*'
 #      - '!main'
