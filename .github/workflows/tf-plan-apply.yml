@@ -24,6 +24,9 @@ jobs:
       tfplanExitCode: ${{ steps.tf-plan.outputs.exitcode }}
 
     steps:
+      - name: debug
+        run: az
+
       - name: Checkout
         uses: actions/checkout@v3
 
