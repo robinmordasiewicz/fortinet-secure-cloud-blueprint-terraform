@@ -50,7 +50,6 @@ echo "TENANT_ID: $TENANT_ID"
 echo "Configuring application..."
 
 #  First check if an app with the same name exists, if so use it, if not create one
-az ad app list --filter "displayName eq 'fortinet-secure-cloud-blueprint-terraform'" --query [].appId -o tsv
 APP_ID=$(az ad app list --filter "displayName eq '$APP_NAME'" --query [].appId -o tsv)
 
 echo "APP_ID = ${APP_ID}"
