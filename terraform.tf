@@ -19,5 +19,7 @@ terraform {
     resource_group_name  = "fortinet-secure-cloud-blueprint-terraform-main-tfstate"
     storage_account_name = "fscbmain"
     container_name       = "main-container"
+    use_oidc             = true
+    use_azuread_auth     = true
   }
 }
