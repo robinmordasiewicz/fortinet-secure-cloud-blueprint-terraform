@@ -17,10 +17,9 @@ jobs:
     name: 'Debug'
     runs-on: ubuntu-latest
     environment:
-      name: ${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}
-      #name: Production
-        #environment:
-        #name: ${{ github.ref_name }}
+      #name: ${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}
+      #name: ${{ github.ref_name }}
+      name: Production
     steps:
       - name: print branch name
         shell: bash
