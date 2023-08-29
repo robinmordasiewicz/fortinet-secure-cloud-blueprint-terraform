@@ -5,8 +5,8 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - '*'
       - '!main'
+      - '*'
 
 permissions:
   id-token: write
@@ -16,24 +16,24 @@ jobs:
   branchname:
     name: 'Get Branch'
     runs-on: ubuntu-latest
+    outputs:
+      env_name: ${{ steps.branch_check.outputs.env_name }}
     steps:
       - name: Output Branch Name
         id: branch_check
         run: |
           echo "Running on branch ${{ github.ref_name }}"
-          echo "::set-output name=env_name::${{ github.ref_name }}"
-    outputs:
-      env_name: ${{ steps.branch_check.outputs.env_name }}
+          echo "env_name=${{ github.ref_name }}" >> $GITHUB_OUTPUT
+          #echo "::set-output name=env_name::${{ github.ref_name }}"
 
   terraform-plan:
     needs: [branchname]
     name: 'Debug'
     runs-on: ubuntu-latest
     environment:
-      # name: ${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}
-      # name: ${{ github.ref_name }}
+      name: ${{ github.ref_name }}
       # name: Production
-      name: ${{ needs.branchname.outputs.env_name }}
+      # name: ${{ needs.branchname.outputs.env_name }}
     steps:
       - name: print github.ref_name
         shell: bash
