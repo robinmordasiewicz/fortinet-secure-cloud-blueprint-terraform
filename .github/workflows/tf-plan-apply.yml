@@ -159,7 +159,7 @@ jobs:
         with:
           name: tfplan
 
-      - name: Terraform Apply
+      - name: Terraform Apply/Destroy
         id: apply
         env:
           ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
