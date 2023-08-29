@@ -53,10 +53,7 @@ jobs:
           ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
           ARM_USE_OIDC: true
           ARM_USE_AZUREAD: true
-        run: terraform init \
-               -backend-config="storage_account_name=$STORAGE_ACCOUNT" \
-               -backend-config="container_name=$CONTAINER_NAME" \
-               -backend-config="resource_group_name=$RESOURCE_GROUP_NAME"
+        run: terraform init -backend-config="storage_account_name=$STORAGE_ACCOUNT" -backend-config="container_name=$CONTAINER_NAME" -backend-config="resource_group_name=$RESOURCE_GROUP_NAME"
 
       - name: Terraform Format
         id: format
