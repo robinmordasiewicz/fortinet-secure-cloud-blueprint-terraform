@@ -13,13 +13,37 @@ permissions:
   contents: read
 
 jobs:
+  prepare:
+    name: 'Get Branch'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Some check on branch
+        id: branch_check
+        run: |
+          echo "Running on branch ${{ github.ref }}"
+          if [ "${{ github.ref }}" = "refs/heads/master" ]; then
+            echo "::set-output name=env_name::Production"
+          elif [ "${{ github.ref }}" = "refs/heads/develop" ]; then
+            echo "::set-output name=env_name::Test"
+          else
+             echo "::set-output name=env_name::Features"
+          fi
+
+      - name: Use variable setup in previous step
+        run: echo "I'm using variable ${{ steps.branch_check.outputs.env_name }}"
+
+    outputs:
+      env_name: ${{ steps.branch_check.outputs.env_name }}
+
   terraform-plan:
+    needs: [prepare]
     name: 'Debug'
     runs-on: ubuntu-latest
     environment:
       #name: ${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}
-      name: ${{ github.ref_name }}
+      #name: ${{ github.ref_name }}
       #name: Production
+      name: ${{ needs.prepare.outputs.env_name }}
     steps:
       - name: print github.ref_name
         shell: bash
