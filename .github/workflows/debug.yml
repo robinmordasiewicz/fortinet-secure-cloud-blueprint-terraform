@@ -21,6 +21,9 @@ jobs:
       name: ${{ github.ref_name }}
       #name: Production
     steps:
+      - name: print github.ref_name
+        shell: bash
+        run: echo "${{ github.ref_name }}"
       - name: print branch name
         shell: bash
         run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}"
