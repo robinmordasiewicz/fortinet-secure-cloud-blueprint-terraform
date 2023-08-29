@@ -19,3 +19,10 @@ export TF_CLI_ARGS_init="-backend-config=backend.hcl"
 terraform output -raw admin_password
 terraform output -raw tls_private_key
 ```
+
+```
+git checkout main
+git pull
+git checkout <local-branch>
+git merge main
+```
