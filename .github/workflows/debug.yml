@@ -22,10 +22,6 @@ jobs:
         run: |
           echo "Running on branch ${{ github.ref_name }}"
           echo "::set-output name=env_name::${{ github.ref_name }}"
-
-      - name: Display output
-        run: echo "output: ${{ steps.branch_check.outputs.env_name }}"
-
     outputs:
       env_name: ${{ steps.branch_check.outputs.env_name }}
 
@@ -34,9 +30,9 @@ jobs:
     name: 'Debug'
     runs-on: ubuntu-latest
     environment:
-      #name: ${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}
-      #name: ${{ github.ref_name }}
-      #name: Production
+      # name: ${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}
+      # name: ${{ github.ref_name }}
+      # name: Production
       name: ${{ needs.branchname.outputs.env_name }}
     steps:
       - name: print github.ref_name
@@ -91,4 +87,3 @@ jobs:
           client-id: ${{ secrets.AZURE_CLIENT_ID }}
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-
