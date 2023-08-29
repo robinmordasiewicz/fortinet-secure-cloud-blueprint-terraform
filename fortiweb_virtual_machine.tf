@@ -43,7 +43,7 @@ resource "azurerm_linux_virtual_machine" "fortiweb-virtual-machine" {
   resource_group_name             = azurerm_resource_group.resource-group.name
   network_interface_ids           = [azurerm_network_interface.fortiweb-internal-network-interface.id, azurerm_network_interface.fortiweb-dmz-network-interface.id]
   #size                            = "Standard_F4s"
-  size                            = "Standard_D4s_v3"
+  size = "Standard_D4s_v3"
   #  boot_diagnostics {
   #    storage_account_uri = azurerm_storage_account.storage-account.primary_blob_endpoint
   #  }
