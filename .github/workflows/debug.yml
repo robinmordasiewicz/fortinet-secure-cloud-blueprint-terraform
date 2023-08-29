@@ -18,8 +18,8 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       #name: ${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}
-      #name: ${{ github.ref_name }}
-      name: Production
+      name: ${{ github.ref_name }}
+      #name: Production
     steps:
       - name: print branch name
         shell: bash
