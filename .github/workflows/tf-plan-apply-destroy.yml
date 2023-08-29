@@ -1,5 +1,5 @@
 ---
-name: 'Terraform Plan/Apply'
+name: 'plan-apply-destroy'
 
 on:
   workflow_dispatch:
