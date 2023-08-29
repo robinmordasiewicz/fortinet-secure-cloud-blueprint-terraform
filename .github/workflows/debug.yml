@@ -21,6 +21,15 @@ jobs:
         #environment:
         #name: ${{ github.ref_name }}
     steps:
+      - name: print branch name
+        shell: bash
+        run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}"
+      - name: Extract branch name
+        shell: bash
+        run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
+        id: extract_branch
+      - name: Push to ECR
+        run: echo ${{ steps.extract_branch.outputs.branch }}
       - name: "Debug"
         run: env
       - name: Dump GitHub context
