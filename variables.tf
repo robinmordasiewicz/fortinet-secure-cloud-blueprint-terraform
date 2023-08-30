@@ -6,10 +6,6 @@ variable "resource_group_name" {
   description = "Name of the resource group."
   type        = string
 }
-variable "subscription_id" {
-  description = "Azure Subscription ID"
-  type        = string
-}
 
 variable "vnetAddressPrefix" {
   description = "Virtual Network Address prefix"
