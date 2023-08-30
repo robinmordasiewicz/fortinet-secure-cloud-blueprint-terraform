@@ -60,7 +60,8 @@ jobs:
       - name: Terraform Plan
         id: tf-plan
         env:
-          TF_VAR_resource_group_name: "${{ github.event.repository.name }}-${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}"
+          #TF_VAR_resource_group_name: "${{ github.event.repository.name }}-${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}"
+          TF_VAR_resource_group_name: "${{ github.event.repository.name }}-${{ github.ref_name }}"
           ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
           ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
           ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
