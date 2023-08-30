@@ -1,6 +1,5 @@
 resource_group_location = "canadacentral"
-resource_group_name     = "fortinet-secure-cloud-blueprint-terraform-main"
-subscription_id         = "cf72478e-c3b0-4072-8f60-41d037c1d9e9"
+#resource_group_name     = "fortinet-secure-cloud-blueprint-terraform-main"
 vnetAddressPrefix       = "10.0.0.0/16"
 external-Name           = "external"
 external-Prefix         = "10.0.1.0/24"
