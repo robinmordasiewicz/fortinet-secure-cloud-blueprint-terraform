@@ -15,6 +15,7 @@ permissions:
 
 jobs:
   terraform-plan:
+    if: ${{ secrets.DEPLOYED == 'true' }}
     name: 'Terraform Plan'
     runs-on: ubuntu-latest
     environment:
@@ -121,8 +122,9 @@ jobs:
       #         body: body
       #       })
 
-  terraform-apply-destroy:
-    name: 'Terraform Apply/Destroy'
+  terraform-apply:
+    name: 'Terraform Apply'
+    if: ${{ secrets.DEPLOYED == 'true' }}
     environment:
       name: ${{ github.ref_name }}
     runs-on: ubuntu-latest
@@ -159,7 +161,7 @@ jobs:
         with:
           name: tfplan
 
-      - name: Terraform Apply/Destroy
+      - name: Terraform Apply
         id: apply
         env:
           ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
@@ -167,9 +169,47 @@ jobs:
           ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
           ARM_USE_OIDC: true
           ARM_USE_AZUREAD: true
-        run: |
-          if [ "${{ secrets.DEPLOYED }}" == "true" ]; then
-            terraform apply -auto-approve tfplan
-          else 
-            terraform destroy -auto-approve
-          fi
+        run: terraform apply -auto-approve tfplan
+
+  terraform-destroy:
+    name: 'Terraform Destroy'
+    if: ${{ secrets.DEPLOYED != 'true' }}
+    environment:
+      name: ${{ github.ref_name }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: 'Az CLI login'
+        uses: azure/login@v1
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+
+      - name: Terraform Init
+        id: init
+        env:
+          TF_STATE_STORAGE_ACCOUNT: ${{ secrets.TF_STATE_STORAGE_ACCOUNT }}
+          TF_STATE_CONTAINER_NAME: ${{ secrets.TF_STATE_CONTAINER_NAME }}
+          TF_STATE_RESOURCE_GROUP_NAME: ${{ secrets.TF_STATE_RESOURCE_GROUP_NAME }}
+          ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+          ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+          ARM_USE_OIDC: true
+          ARM_USE_AZUREAD: true
+        run: terraform init -backend-config="storage_account_name=${TF_STATE_STORAGE_ACCOUNT}" -backend-config="container_name=${TF_STATE_CONTAINER_NAME}" -backend-config="resource_group_name=${TF_STATE_RESOURCE_GROUP_NAME}" -backend-config="use_oidc=true" -backend-config="use_azuread_auth=true"
+
+      - name: Terraform Destroy
+        id: destroy
+        env:
+          ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+          ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+          ARM_USE_OIDC: true
+          ARM_USE_AZUREAD: true
+        run: terraform destroy -auto-approve
