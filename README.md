@@ -14,6 +14,10 @@ https://docs.github.com/en/actions/deployment/targeting-different-environments/u
 
 https://learn.microsoft.com/en-us/azure/deployment-environments/tutorial-deploy-environments-in-cicd-github
 
+https://github.com/Azure-Samples/terraform-github-actions
+
+https://github.com/Azure-Samples/terraform-github-actions/blob/main/.github/workflows/tf-plan-apply.yml
+
 ```
 export TF_CLI_ARGS_init="-backend-config=backend.hcl"
 terraform output -raw admin_password
