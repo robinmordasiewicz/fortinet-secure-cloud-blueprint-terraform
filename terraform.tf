@@ -15,7 +15,7 @@ terraform {
     }
   }
   backend "azurerm" {
-#    key                  = "fortinet-secure-cloud-blueprint-terraform-main.tfstate"
+    key                  = "fortinet-secure-cloud-blueprint-terraform.tfstate"
 #    resource_group_name  = "fortinet-secure-cloud-blueprint-terraform-main-tfstate"
 #    storage_account_name = "fscbmain"
 #    container_name       = "main-container"
