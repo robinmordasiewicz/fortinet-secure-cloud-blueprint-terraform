@@ -43,7 +43,7 @@ jobs:
   destroy:
     needs: [action]
     #if: {{ vars.DEPLOYED != 'true' }}
-    if: needs.action.outputs.action == 'apply'
+    if: needs.action.outputs.action != 'apply'
     name: 'destroy'
     runs-on: ubuntu-latest
     environment:
