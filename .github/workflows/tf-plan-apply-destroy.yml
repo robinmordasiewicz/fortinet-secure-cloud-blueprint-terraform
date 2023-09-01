@@ -9,25 +9,25 @@ on:
       - '!main'
 
 jobs:
-  apply-or-destroy:
-    name: 'apply or destroy'
-    runs-on: ubuntu-latest
-    environment:
-      name: ${{ github.ref_name }}
-    outputs:
-      action: ${{ steps.action.outputs.action }}
-    steps:
-      - name: Set Action to apply or destroy
-        run: |
-          if [ ${{ vars.DEPLOYED }} == "true" ]; then
-            echo "action=apply" >> $GITHUB_OUTPUT
-          else
-            echo "action=destroy" >> $GITHUB_OUTPUT
-          fi
+  #  apply-or-destroy:
+  #  name: 'apply or destroy'
+  #  runs-on: ubuntu-latest
+  #  environment:
+  #    name: ${{ github.ref_name }}
+  #  outputs:
+  #    action: ${{ steps.action.outputs.action }}
+  #  steps:
+  #    - name: Set Action to apply or destroy
+  #      run: |
+  #        if [ ${{ vars.DEPLOYED }} == "true" ]; then
+  #          echo "action=apply" >> $GITHUB_OUTPUT
+  #        else
+  #          echo "action=destroy" >> $GITHUB_OUTPUT
+  #        fi
 
   terraform-apply:
-    needs: [apply-or-destroy]
-    if: ${{ env.action == 'apply' }}
+    #needs: [apply-or-destroy]
+    if: ${{ vars.DEPLOYED }} == "true"
     name: 'apply'
     runs-on: ubuntu-latest
     environment:
@@ -38,8 +38,8 @@ jobs:
         run: env
 
   terraform-destroy:
-    needs: [apply-or-destroy]
-    if: ${{ env.action == 'destroy' }}
+    # needs: [apply-or-destroy]
+    if: ${{ vars.DEPLOYED }} == "false"
     name: 'destroy'
     runs-on: ubuntu-latest
     environment:
