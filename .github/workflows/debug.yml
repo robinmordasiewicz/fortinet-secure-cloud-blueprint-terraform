@@ -9,24 +9,59 @@ on:
       - '!main'
 
 jobs:
+  action:
+    name: 'action'
+    runs-on: ubuntu-latest
+    environment:
+      name: ${{ github.ref_name }}
+    outputs:
+      action: ${{ steps.terraform.outputs.action }}
+    steps:
+      - id: terraform
+        name: ${{ github.ref_name }} deployed is ${{ vars.DEPLOYED }}
+        run: 
+          if [ ${{ vars.DEPLOYED }} == 'true']; then
+            echo "action=apply" >> $GITHUB_OUTPUTS
+          else
+            echo "action=destroy" >> $GITHUB_OUTPUTS
+          fi
+
   apply:
-    if: {{ vars.DEPLOYED == 'true' }}
+    needs: [action]
+    if: needs.action.outputs.action == 'apply'
+      #if: {{ vars.DEPLOYED == 'true' }}
     name: 'apply'
     runs-on: ubuntu-latest
     environment:
       name: ${{ github.ref_name }}
-
     steps:
       - name: apply
-        run: echo ${{ vars.DEPLOYED }}
+        run: echo ${{ vars.DEPLOYED }} && echo "apply"
 
   destroy:
-    if: {{ vars.DEPLOYED != 'true' }}
+    needs: [action]
+    #if: {{ vars.DEPLOYED != 'true' }}
+    if: needs.action.outputs.action == 'apply'
     name: 'destroy'
     runs-on: ubuntu-latest
     environment:
       name: ${{ github.ref_name }}
-
     steps:
       - name: destroy
-        run: echo ${{ vars.DEPLOYED }}
+        run: echo ${{ vars.DEPLOYED }} && echo "destroy"
+
+  apply-destroy:
+    needs: [action]
+    runs-on: ubuntu-latest
+    environment:
+      name: ${{ github.ref_name }}
+    steps:
+      - name: apply
+        if: needs.terraform.outputs.action == 'apply'
+        run: echo "apply"
+      - name: destroy
+        if: needs.terraform.outputs.action != 'apply'
+        run: echo "destroy"
+
+
+
