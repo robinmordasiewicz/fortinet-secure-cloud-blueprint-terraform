@@ -9,8 +9,23 @@ on:
       - '!main'
 
 jobs:
-  terraform-plan:
-    if: ${{ vars.DEPLOYED == 'true' }}
+  apply-or-destroy:
+    environment:
+      name: ${{ github.ref_name }}
+    outputs:
+      action: ${{ steps.action.outputs.action }}
+    steps:
+      - name: Set Action Deployed true or false
+        run: |
+          if [ ${{ var.DEPLOYED == "true" }} ]; then
+            echo "action=apply" >> $GITHUB_OUTPUT
+          else
+            echo "action=destroy" >> $GITHUB_OUTPUT
+          fi
+
+  terraform-apply:
+    needs: [apply-or-destroy]
+    if: ${{ var.action == 'apply' }}
     name: 'debug'
     runs-on: ubuntu-latest
     environment:
@@ -20,3 +35,14 @@ jobs:
       - name: debug
         run: env
 
+  terraform-destroy:
+    needs: [apply-or-destroy]
+    if: ${{ var.action == 'destroy' }}
+    name: 'debug'
+    runs-on: ubuntu-latest
+    environment:
+      name: ${{ github.ref_name }}
+
+    steps:
+      - name: debug
+        run: env
