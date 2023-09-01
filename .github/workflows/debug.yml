@@ -31,7 +31,7 @@ jobs:
   apply:
     #needs: [terraform]
     #if: needs.terraform.outputs.action == 'apply'
-    if: {{ vars.DEPLOYED == 'true' }}
+    if: {{ vars.DEPLOYED }} == 'true' 
     name: 'apply'
     runs-on: ubuntu-latest
     environment:
