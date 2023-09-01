@@ -19,7 +19,7 @@ jobs:
     steps:
       - name: Set Action to apply or destroy
         run: |
-          if [ ${{ vars.DEPLOYED == "true" }} ]; then
+          if [ ${{ vars.DEPLOYED }} == "true" ]; then
             echo "action=apply" >> $GITHUB_OUTPUT
           else
             echo "action=destroy" >> $GITHUB_OUTPUT
