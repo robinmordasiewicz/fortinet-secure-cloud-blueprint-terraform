@@ -19,7 +19,7 @@ jobs:
     steps:
       - id: terraform
         name: ${{ github.ref_name }} deployed is ${{ vars.DEPLOYED }}
-        run:
+        run: |
           if [ ${{ vars.DEPLOYED }} == 'true']; then
             echo "action=apply" >> $GITHUB_OUTPUTS
           else
