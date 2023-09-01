@@ -40,17 +40,17 @@ jobs:
       - name: apply
         run: echo "apply"
 
-  destroy:
-    #needs: [action]
-    #if: needs.action.outputs.action != 'apply'
-    if: {{ vars.DEPLOYED != 'true'
-    name: 'destroy'
-    runs-on: ubuntu-latest
-    environment:
-      name: ${{ github.ref_name }}
-    steps:
-      - name: destroy
-        run: echo "destroy"
+#  destroy:
+#    #needs: [action]
+#    #if: needs.action.outputs.action != 'apply'
+#    if: {{ vars.DEPLOYED != 'true'
+#    name: 'destroy'
+#    runs-on: ubuntu-latest
+#    environment:
+#      name: ${{ github.ref_name }}
+#    steps:
+#      - name: destroy
+#        run: echo "destroy"
 
 #  apply-destroy:
 #    needs: [action]
@@ -63,4 +63,4 @@ jobs:
 #        run: echo "apply"
 #      - name: destroy
 #        if: needs.terraform.outputs.action != 'apply'
-        run: echo "destroy"
+#        run: echo "destroy"
