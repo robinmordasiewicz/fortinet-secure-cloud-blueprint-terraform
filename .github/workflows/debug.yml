@@ -10,7 +10,7 @@ on:
 
 jobs:
   apply:
-    if: vars.DEPLOYED == 'true'
+    if: {{ vars.DEPLOYED == 'true' }}
     name: 'apply'
     runs-on: ubuntu-latest
     environment:
@@ -21,7 +21,7 @@ jobs:
         run: echo ${{ vars.DEPLOYED }}
 
   destroy:
-    if: vars.DEPLOYED != 'true'
+    if: {{ vars.DEPLOYED != 'true' }}
     name: 'destroy'
     runs-on: ubuntu-latest
     environment:
