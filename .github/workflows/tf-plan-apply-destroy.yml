@@ -27,7 +27,7 @@ jobs:
 
   terraform-apply:
     #needs: [apply-or-destroy]
-    if: ${{ vars.DEPLOYED }} == 'true'
+    if: vars.DEPLOYED == 'true'
     name: 'apply'
     runs-on: ubuntu-latest
     environment:
@@ -39,7 +39,7 @@ jobs:
 
   terraform-destroy:
     # needs: [apply-or-destroy]
-    if: ${{ vars.DEPLOYED }} != 'true'
+    if: vars.DEPLOYED != 'true'
     name: 'destroy'
     runs-on: ubuntu-latest
     environment:
