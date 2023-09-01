@@ -29,9 +29,9 @@ jobs:
           fi
 
   apply:
-    #needs: [terraform]
-    #if: needs.terraform.outputs.action == 'apply'
-    if: {{ vars.DEPLOYED }} == 'true' 
+    needs: [terraform]
+    if: needs.terraform.outputs.action == 'apply'
+    #if: {{ vars.DEPLOYED }} == 'true' 
     name: 'apply'
     runs-on: ubuntu-latest
     environment:
