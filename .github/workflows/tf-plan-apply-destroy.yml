@@ -1,5 +1,5 @@
 ---
-name: 'tf-plan-apply-destroy.yml'
+name: 'Terraform Action'
 
 on:
   workflow_dispatch:
