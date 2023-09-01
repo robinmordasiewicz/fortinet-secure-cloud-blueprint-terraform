@@ -17,8 +17,28 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
 
 jobs:
+  terraform:
+    name: 'action'
+    runs-on: ubuntu-latest
+    environment:
+      name: ${{ github.ref_name }}
+    outputs:
+      action: ${{ steps.terraform.outputs.action }}
+    steps:
+      - id: terraform
+        name: ${{ github.ref_name }} deployed is ${{ vars.DEPLOYED }}
+        shell: bash
+        run: |
+          if [[ ${{ vars.DEPLOYED }} == 'true' ]]
+          then
+            echo 'action=apply' >> ${GITHUB_OUTPUT}
+          else
+            echo 'action=destroy' >> ${GITHUB_OUTPUT}
+          fi
   plan:
-    if: vars.DEPLOYED == 'true'
+    #if: vars.DEPLOYED == 'true'
+    needs: [terraform]
+    if: needs.terraform.outputs.action == 'apply'
     name: 'Terraform Plan'
     runs-on: ubuntu-latest
     environment:
@@ -127,7 +147,9 @@ jobs:
 
   apply:
     name: 'Terraform Apply'
-    if: vars.DEPLOYED == 'true'
+    #if: vars.DEPLOYED == 'true'
+    needs: [terraform]
+    if: needs.terraform.outputs.action == 'apply'
     environment:
       name: ${{ github.ref_name }}
     runs-on: ubuntu-latest
@@ -176,7 +198,9 @@ jobs:
 
   destroy:
     name: 'Terraform Destroy'
-    if: vars.DEPLOYED != 'true'
+    #if: vars.DEPLOYED != 'true'
+    needs: [terraform]
+    if: needs.terraform.outputs.action == 'destroy'
     environment:
       name: ${{ github.ref_name }}
     runs-on: ubuntu-latest
