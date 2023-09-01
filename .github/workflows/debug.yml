@@ -53,7 +53,7 @@ jobs:
         run: echo "destroy"
 
   apply-destroy:
-    needs: [action]
+    needs: [terraform]
     runs-on: ubuntu-latest
     environment:
       name: ${{ github.ref_name }}
