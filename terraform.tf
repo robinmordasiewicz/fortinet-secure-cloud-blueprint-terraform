@@ -22,7 +22,3 @@ terraform {
     key = "fortinet-secure-cloud-blueprint-terraform.tfstate"
   }
 }
-
-provider "azurerm" {
-  features {}
-}
