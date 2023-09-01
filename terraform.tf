@@ -3,7 +3,11 @@ terraform {
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "~>3.65.0"
+      version = "~>3.71.0"
+    }
+    azuread = {
+      source  = "hashicorp/azuread"
+      version = "~>2.41.0"
     }
     random = {
       source  = "hashicorp/random"
@@ -16,10 +20,9 @@ terraform {
   }
   backend "azurerm" {
     key = "fortinet-secure-cloud-blueprint-terraform.tfstate"
-    #    resource_group_name  = "fortinet-secure-cloud-blueprint-terraform-main-tfstate"
-    #    storage_account_name = "fscbmain"
-    #    container_name       = "main-container"
-    #    use_oidc             = true
-    #    use_azuread_auth     = true
   }
+}
+
+provider "azurerm" {
+  features {}
 }
