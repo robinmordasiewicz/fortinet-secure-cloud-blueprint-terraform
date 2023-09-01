@@ -29,9 +29,9 @@ jobs:
           fi
 
   apply:
-    needs: [action]
-    if: needs.action.outputs.action == 'apply'
-      #if: {{ vars.DEPLOYED == 'true' }}
+    #needs: [action]
+    #if: needs.action.outputs.action == 'apply'
+    if: {{ vars.DEPLOYED == 'true' }}
     name: 'apply'
     runs-on: ubuntu-latest
     environment:
@@ -41,9 +41,9 @@ jobs:
         run: echo "apply"
 
   destroy:
-    needs: [action]
-    #if: {{ vars.DEPLOYED != 'true' }}
-    if: needs.action.outputs.action != 'apply'
+    #needs: [action]
+    #if: needs.action.outputs.action != 'apply'
+    if: {{ vars.DEPLOYED != 'true' }}
     name: 'destroy'
     runs-on: ubuntu-latest
     environment:
