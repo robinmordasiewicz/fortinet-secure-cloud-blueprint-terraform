@@ -36,7 +36,6 @@ jobs:
             echo 'action=destroy' >> ${GITHUB_OUTPUT}
           fi
   plan:
-    #if: vars.DEPLOYED == 'true'
     needs: [terraform]
     if: needs.terraform.outputs.action == 'apply'
     name: 'Terraform Plan'
@@ -166,6 +165,8 @@ jobs:
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_wrapper: false
 
       - name: Terraform Init
         id: init
@@ -216,6 +217,8 @@ jobs:
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_wrapper: false
 
       - name: Terraform Init
         id: init
