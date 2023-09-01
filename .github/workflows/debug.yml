@@ -23,9 +23,9 @@ jobs:
         run: |
           if [[ ${{ vars.DEPLOYED }} == 'true' ]]
           then
-            echo 'action=apply' >> $GITHUB_OUTPUTS
+            echo 'action=apply' >> ${GITHUB_OUTPUT}
           else
-            echo 'action=destroy' >> $GITHUB_OUTPUTS
+            echo 'action=destroy' >> ${GITHUB_OUTPUT}
           fi
 
   apply:
