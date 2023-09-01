@@ -1,0 +1,32 @@
+---
+name: 'debug'
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - '*'
+      - '!main'
+
+jobs:
+  apply:
+    if: vars.DEPLOYED == 'true'
+    name: 'apply'
+    runs-on: ubuntu-latest
+    environment:
+      name: ${{ github.ref_name }}
+
+    steps:
+      - name: apply
+        run: echo ${{ vars.DEPLOYED }}
+
+  destroy:
+    if: vars.DEPLOYED != 'true'
+    name: 'destroy'
+    runs-on: ubuntu-latest
+    environment:
+      name: ${{ github.ref_name }}
+
+    steps:
+      - name: destroy
+        run: echo ${{ vars.DEPLOYED }}
