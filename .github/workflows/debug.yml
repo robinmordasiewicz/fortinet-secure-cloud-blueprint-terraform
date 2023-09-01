@@ -19,12 +19,13 @@ jobs:
     steps:
       - id: terraform
         name: ${{ github.ref_name }} deployed is ${{ vars.DEPLOYED }}
+        shell: bash
         run: |
           if [[ ${{ vars.DEPLOYED }} == 'true' ]]
           then
-            echo "action=apply" >> $GITHUB_OUTPUTS
+            echo 'action=apply' >> $GITHUB_OUTPUTS
           else
-            echo "action=destroy" >> $GITHUB_OUTPUTS
+            echo 'action=destroy' >> $GITHUB_OUTPUTS
           fi
 
   apply:
@@ -37,7 +38,7 @@ jobs:
       name: ${{ github.ref_name }}
     steps:
       - name: apply
-        run: echo ${{ vars.DEPLOYED }} && echo "apply"
+        run: echo "apply"
 
   destroy:
     needs: [action]
@@ -49,7 +50,7 @@ jobs:
       name: ${{ github.ref_name }}
     steps:
       - name: destroy
-        run: echo ${{ vars.DEPLOYED }} && echo "destroy"
+        run: echo "destroy"
 
   apply-destroy:
     needs: [action]
