@@ -197,6 +197,8 @@ jobs:
       - name: Terraform Init
         id: init
         env:
+          TF_VAR_resource_group_name: "${{ github.event.repository.name }}-${{ github.ref_name }}"
+          TF_VAR_azure_region: ${{ secrets.AZURE_REGION }}
           TF_STATE_STORAGE_ACCOUNT: ${{ secrets.TF_STATE_STORAGE_ACCOUNT }}
           TF_STATE_CONTAINER_NAME: ${{ secrets.TF_STATE_CONTAINER_NAME }}
           TF_STATE_RESOURCE_GROUP_NAME: ${{ secrets.TF_STATE_RESOURCE_GROUP_NAME }}
@@ -210,6 +212,8 @@ jobs:
       - name: Terraform Destroy
         id: destroy
         env:
+          TF_VAR_resource_group_name: "${{ github.event.repository.name }}-${{ github.ref_name }}"
+          TF_VAR_azure_region: ${{ secrets.AZURE_REGION }}
           ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
           ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
           ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
