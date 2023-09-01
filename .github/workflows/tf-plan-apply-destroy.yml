@@ -19,7 +19,7 @@ jobs:
     steps:
       - name: Set Action Deployed true or false
         run: |
-          if [ ${{ var.DEPLOYED == "true" }} ]; then
+          if [ ${{ vars.DEPLOYED == "true" }} ]; then
             echo "action=apply" >> $GITHUB_OUTPUT
           else
             echo "action=destroy" >> $GITHUB_OUTPUT
@@ -27,7 +27,7 @@ jobs:
 
   terraform-apply:
     needs: [apply-or-destroy]
-    if: ${{ var.action == 'apply' }}
+    if: ${{ env.action == 'apply' }}
     name: 'apply'
     runs-on: ubuntu-latest
     environment:
@@ -39,7 +39,7 @@ jobs:
 
   terraform-destroy:
     needs: [apply-or-destroy]
-    if: ${{ var.action == 'destroy' }}
+    if: ${{ env.action == 'destroy' }}
     name: 'destroy'
     runs-on: ubuntu-latest
     environment:
