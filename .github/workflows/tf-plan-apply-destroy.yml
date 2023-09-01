@@ -10,7 +10,7 @@ on:
 
 jobs:
   terraform-plan:
-    #if: ${{ secrets.DEPLOYED == 'true' }}
+    if: ${{ vars.DEPLOYED == 'true' }}
     name: 'debug'
     runs-on: ubuntu-latest
     environment:
