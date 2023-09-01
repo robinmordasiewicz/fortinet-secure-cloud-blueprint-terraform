@@ -64,4 +64,3 @@ jobs:
       - name: destroy
         if: needs.terraform.outputs.action != 'apply'
         run: echo "{{ needs.terraform.outputs.action }}"
-        run: echo "destroy"
