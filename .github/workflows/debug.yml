@@ -20,7 +20,8 @@ jobs:
       - id: terraform
         name: ${{ github.ref_name }} deployed is ${{ vars.DEPLOYED }}
         run: |
-          if [ ${{ vars.DEPLOYED }} == 'true']; then
+          if [[ ${{ vars.DEPLOYED }} == 'true']]
+          then
             echo "action=apply" >> $GITHUB_OUTPUTS
           else
             echo "action=destroy" >> $GITHUB_OUTPUTS
