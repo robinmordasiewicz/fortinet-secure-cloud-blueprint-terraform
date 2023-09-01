@@ -34,17 +34,17 @@ jobs:
       name: ${{ github.ref_name }}
 
     steps:
-      - name: debug
-        run: env
+      - name: apply
+        run: echo ${{ vars.DEPLOYED }}
 
   terraform-destroy:
     # needs: [apply-or-destroy]
-    if: ${{ vars.DEPLOYED }} == "false"
+    if: ${{ vars.DEPLOYED }} != "true"
     name: 'destroy'
     runs-on: ubuntu-latest
     environment:
       name: ${{ github.ref_name }}
 
     steps:
-      - name: debug
-        run: env
+      - name: destroy
+        run: echo ${{ vars.DEPLOYED }}
