@@ -9,7 +9,7 @@ on:
       - '!main'
 
 jobs:
-  action:
+  terraform:
     name: 'action'
     runs-on: ubuntu-latest
     environment:
@@ -29,8 +29,8 @@ jobs:
           fi
 
   apply:
-    #needs: [action]
-    #if: needs.action.outputs.action == 'apply'
+    #needs: [terraform]
+    #if: needs.terraform.outputs.action == 'apply'
     if: vars.DEPLOYED == 'true'
     name: 'apply'
     runs-on: ubuntu-latest
@@ -41,8 +41,8 @@ jobs:
         run: echo "apply"
 
   destroy:
-    needs: [action]
-    if: needs.action.outputs.action != 'apply'
+    needs: [terraform]
+    if: needs.terraform.outputs.action != 'apply'
     # if: vars.DEPLOYED != 'true'
     name: 'destroy'
     runs-on: ubuntu-latest
@@ -60,7 +60,7 @@ jobs:
     steps:
       - name: apply
         if: needs.terraform.outputs.action == 'apply'
-        run: echo "{{ needs.terraform.outputs.action }}"
+        run: echo "apply"
       - name: destroy
         if: needs.terraform.outputs.action != 'apply'
-        run: echo "{{ needs.terraform.outputs.action }}"
+        run: echo "destroy"
