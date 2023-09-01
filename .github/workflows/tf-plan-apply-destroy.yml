@@ -17,7 +17,7 @@ jobs:
     outputs:
       action: ${{ steps.action.outputs.action }}
     steps:
-      - name: Set Action Deployed true or false
+      - name: Set Action to apply or destroy
         run: |
           if [ ${{ vars.DEPLOYED == "true" }} ]; then
             echo "action=apply" >> $GITHUB_OUTPUT
