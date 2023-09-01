@@ -60,7 +60,8 @@ jobs:
     steps:
       - name: apply
         if: needs.terraform.outputs.action == 'apply'
-        run: echo "apply"
+        run: echo "{{ needs.terraform.outputs.action }}"
       - name: destroy
         if: needs.terraform.outputs.action != 'apply'
+        run: echo "{{ needs.terraform.outputs.action }}"
         run: echo "destroy"
