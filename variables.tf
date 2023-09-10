@@ -1,12 +1,12 @@
-variable "azure_region" {
+variable "AZURE_REGION" {
   description = "Azure region for resources."
   type        = string
 }
-variable "resource_group_name" {
+variable "AZURE_RESOURCE_GROUP_NAME" {
   description = "Name of the resource group."
   type        = string
 }
-variable "azure_username" {
+variable "AZURE_USERNAME" {
   description = "Azure username for resource group tag"
   type        = string
 }

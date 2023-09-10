@@ -1,8 +1,8 @@
 resource "azurerm_resource_group" "resource-group" {
-  location = var.azure_region
-  name     = var.resource_group_name
+  location = var.AZURE_REGION
+  name     = var.AZURE_RESOURCE_GROUP_NAME
   tags = {
-    Username = var.azure_username
+    Username = var.AZURE_USERNAME
   }
 }
 
