@@ -26,11 +26,11 @@ jobs:
       action: ${{ steps.terraform.outputs.action }}
     steps:
       - id: terraform
-        name: "ref_name ${{ github.ref_name }} - ref ${{ github.ref }} deployed is ${{ vars.AZURE_DEPLOYED }}"
+        name: "${{ github.ref_name }} deployed is ${{ vars.AZURE_DEPLOYED }}"
         shell: bash
         run: |
           env
-          if [[ ${{ vars.AZURE_DEPLOYED }} == 'true' ]]
+          if [[ "${{ vars.AZURE_DEPLOYED }}" == "true" ]]
           then
             echo 'action=apply' >> ${GITHUB_OUTPUT}
           else
