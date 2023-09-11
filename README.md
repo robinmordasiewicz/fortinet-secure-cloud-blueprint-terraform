@@ -1,5 +1,7 @@
 # fortinet-secure-cloud-blueprint-terraform
 
+https://learn.microsoft.com/en-us/azure/active-directory/saas-apps/media/fortigate-ssl-vpn-tutorial/fortigate-deployment-guide-converted?wt.mc_id=searchAPI_azureportal_inproduct_rmskilling&sessionId=87fe3bdc9f7449b6a8189c9250559e3b
+
 https://learn.microsoft.com/en-us/samples/azure-samples/github-terraform-oidc-ci-cd/github-terraform-oidc-ci-cd/
 
 https://learn.microsoft.com/en-us/azure/developer/github/connect-from-azure
