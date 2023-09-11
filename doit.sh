@@ -1,6 +1,8 @@
 #!/bin/bash
 #
 
+git switch main
+
 git checkout main
 git fetch -p origin
 git merge origin/main
