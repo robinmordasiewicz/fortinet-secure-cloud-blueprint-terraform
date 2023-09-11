@@ -26,7 +26,7 @@ jobs:
       action: ${{ steps.terraform.outputs.action }}
     steps:
       - id: terraform
-        name: ref_name ${{ github.ref_name }} - ref ${{ github.ref }} deployed is ${{ vars.AZURE_DEPLOYED }}
+        name: "ref_name ${{ github.ref_name }} - ref ${{ github.ref }} deployed is ${{ vars.AZURE_DEPLOYED }}"
         shell: bash
         run: |
           env
@@ -36,6 +36,7 @@ jobs:
           else
             echo 'action=destroy' >> ${GITHUB_OUTPUT}
           fi
+
   plan:
     needs: [terraform]
     if: needs.terraform.outputs.action == 'apply'
