@@ -1,0 +1,5 @@
+* main
+  remotes/origin/HEAD -> origin/main
+  remotes/origin/Production
+  remotes/origin/Staging
+  remotes/origin/main
