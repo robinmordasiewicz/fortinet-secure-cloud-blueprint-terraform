@@ -70,7 +70,7 @@ jobs:
         env:
           AZURE_TFSTATE_STORAGE_ACCOUNT_NAME: ${{ secrets.AZURE_TFSTATE_STORAGE_ACCOUNT_NAME }}
           AZURE_TFSTATE_CONTAINER_NAME: ${{ secrets.AZURE_TFSTATE_CONTAINER_NAME }}
-          AZURE_TFSTATE_KEY: ${{ secrets.AZURE_TFSTATE_KEY }}
+          AZURE_TFSTATE_KEY: "tfstate"
           AZURE_RESOURCE_GROUP_NAME: ${{ secrets.AZURE_RESOURCE_GROUP_NAME }}
           ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
           ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
@@ -174,7 +174,7 @@ jobs:
         env:
           AZURE_TFSTATE_STORAGE_ACCOUNT_NAME: ${{ secrets.AZURE_TFSTATE_STORAGE_ACCOUNT_NAME }}
           AZURE_TFSTATE_CONTAINER_NAME: ${{ secrets.AZURE_TFSTATE_CONTAINER_NAME }}
-          AZURE_TFSTATE_KEY: ${{ secrets.AZURE_TFSTATE_KEY }}
+          AZURE_TFSTATE_KEY: "tfstate"
           AZURE_RESOURCE_GROUP_NAME: ${{ secrets.AZURE_RESOURCE_GROUP_NAME }}
           ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
           ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
@@ -224,7 +224,7 @@ jobs:
         env:
           AZURE_TFSTATE_STORAGE_ACCOUNT_NAME: ${{ secrets.AZURE_TFSTATE_STORAGE_ACCOUNT_NAME }}
           AZURE_TFSTATE_CONTAINER_NAME: ${{ secrets.AZURE_TFSTATE_CONTAINER_NAME }}
-          AZURE_TFSTATE_KEY: ${{ secrets.AZURE_TFSTATE_KEY }}
+          AZURE_TFSTATE_KEY: "tfstate"
           AZURE_RESOURCE_GROUP_NAME: ${{ secrets.AZURE_RESOURCE_GROUP_NAME }}
           ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
           ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
