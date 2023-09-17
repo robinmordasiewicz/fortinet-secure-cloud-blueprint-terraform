@@ -18,7 +18,7 @@ concurrency:
 
 jobs:
   terraform:
-    name: 'action'
+    name: 'Terraform Init'
     runs-on: ubuntu-latest
     environment:
       name: ${{ github.ref_name }}
