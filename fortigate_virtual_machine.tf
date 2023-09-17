@@ -1,13 +1,13 @@
 #resource "azurerm_public_ip" "fortigate-public_ip" {
 #  name                = "fortigate-public_ip"
-#  location            = azurerm_resource_group.resource-group.location
-#  resource_group_name = azurerm_resource_group.resource-group.name
+#  location            = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.location
+#  resource_group_name = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.name
 #  allocation_method   = "Dynamic"
 #}
 resource "azurerm_network_security_group" "VIP-allow_https_tcp-nsg" {
   name                = "VIP-allow_https_tcp-nsg"
-  location            = azurerm_resource_group.resource-group.location
-  resource_group_name = azurerm_resource_group.resource-group.name
+  location            = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.location
+  resource_group_name = data.data.azurerm_resource_group.AZURE_RESOURCE_GROUP.name
 
   security_rule {
     name                       = "VIP-allow_https_tcp"
@@ -23,8 +23,8 @@ resource "azurerm_network_security_group" "VIP-allow_https_tcp-nsg" {
 }
 resource "azurerm_public_ip" "VIP-public_ip" {
   name                = "VIP-public_ip"
-  location            = azurerm_resource_group.resource-group.location
-  resource_group_name = azurerm_resource_group.resource-group.name
+  location            = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.location
+  resource_group_name = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.name
   allocation_method   = "Dynamic"
 }
 resource "azurerm_network_interface_security_group_association" "fortigate-association" {
@@ -33,8 +33,8 @@ resource "azurerm_network_interface_security_group_association" "fortigate-assoc
 }
 resource "azurerm_network_interface" "fortigate-external-network-interface" {
   name                = "fortigate-external-network-interface"
-  location            = azurerm_resource_group.resource-group.location
-  resource_group_name = azurerm_resource_group.resource-group.name
+  location            = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.location
+  resource_group_name = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.name
   ip_configuration {
     name                          = "fortigate-external-ipconfig"
     primary                       = true
@@ -53,8 +53,8 @@ resource "azurerm_network_interface" "fortigate-external-network-interface" {
 }
 resource "azurerm_network_interface" "fortigate-dmz-network-interface" {
   name                = "fortigate-dmz-network-interface"
-  location            = azurerm_resource_group.resource-group.location
-  resource_group_name = azurerm_resource_group.resource-group.name
+  location            = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.location
+  resource_group_name = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.name
   ip_configuration {
     name                          = "fortigate-dmz-ipconfig"
     private_ip_address_allocation = "Static"
@@ -70,8 +70,8 @@ resource "azurerm_linux_virtual_machine" "fortigate-virtual-machine" {
   availability_set_id             = azurerm_availability_set.fortinet-availability-set.id
   allow_extension_operations      = false
   disable_password_authentication = true
-  location                        = azurerm_resource_group.resource-group.location
-  resource_group_name             = azurerm_resource_group.resource-group.name
+  location                        = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.location
+  resource_group_name             = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.name
   network_interface_ids           = [azurerm_network_interface.fortigate-external-network-interface.id, azurerm_network_interface.fortigate-dmz-network-interface.id]
   size                            = "Standard_F4s"
   admin_ssh_key {
@@ -105,14 +105,14 @@ resource "azurerm_linux_virtual_machine" "fortigate-virtual-machine" {
 
 data "azurerm_public_ip" "VIP-public_ip" {
   name                = azurerm_public_ip.VIP-public_ip.name
-  resource_group_name = azurerm_resource_group.resource-group.name
+  resource_group_name = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.name
   depends_on = [
     azurerm_linux_virtual_machine.fortigate-virtual-machine,
   ]
 }
 #data "azurerm_public_ip" "fortigate-public_ip" {
 #  name                = azurerm_public_ip.fortigate-public_ip.name
-#  resource_group_name = azurerm_resource_group.resource-group.name
+#  resource_group_name = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.name
 #  depends_on = [
 #    azurerm_linux_virtual_machine.fortigate-virtual-machine,
 #  ]

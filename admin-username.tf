@@ -1,11 +1,11 @@
 resource "random_pet" "admin_username" {
   keepers = {
-    resource_group_name = azurerm_resource_group.resource-group.name
+    resource_group_name = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.name
   }
 }
 resource "random_password" "admin_password" {
   keepers = {
-    resource_group_name = azurerm_resource_group.resource-group.name
+    resource_group_name = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.name
   }
   length      = 8
   min_lower   = 1

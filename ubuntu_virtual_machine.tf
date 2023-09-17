@@ -1,7 +1,7 @@
 #resource "azurerm_public_ip" "ubuntu-public_ip" {
 #  name                = "ubuntu_public_ip"
-#  location            = azurerm_resource_group.resource-group.location
-#  resource_group_name = azurerm_resource_group.resource-group.name
+#  location            = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.location
+#  resource_group_name = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.name
 #  allocation_method   = "Dynamic"
 #}
 #resource "azurerm_network_interface_security_group_association" "ubuntu-association" {
@@ -10,8 +10,8 @@
 #}
 resource "azurerm_network_interface" "ubuntu-internal-network-interface" {
   name                = "ubuntu-internal-network-interface"
-  location            = azurerm_resource_group.resource-group.location
-  resource_group_name = azurerm_resource_group.resource-group.name
+  location            = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.location
+  resource_group_name = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.name
   ip_configuration {
     name = "ubuntu-internal-ipconfig"
     #private_ip_address_allocation = "Dynamic"
@@ -23,8 +23,8 @@ resource "azurerm_network_interface" "ubuntu-internal-network-interface" {
 }
 resource "azurerm_network_interface" "ubuntu-dmz-network-interface" {
   name                = "ubuntu-dmz-network-interface"
-  location            = azurerm_resource_group.resource-group.location
-  resource_group_name = azurerm_resource_group.resource-group.name
+  location            = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.location
+  resource_group_name = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.name
   ip_configuration {
     name                          = "ubuntu-dmz-ipconfig"
     private_ip_address_allocation = "Static"
@@ -39,8 +39,8 @@ resource "azurerm_linux_virtual_machine" "ubuntu-virtual-machine" {
   disable_password_authentication = true
   allow_extension_operations      = false
   availability_set_id             = azurerm_availability_set.fortinet-availability-set.id
-  location                        = azurerm_resource_group.resource-group.location
-  resource_group_name             = azurerm_resource_group.resource-group.name
+  location                        = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.location
+  resource_group_name             = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.name
   network_interface_ids           = [azurerm_network_interface.ubuntu-internal-network-interface.id, azurerm_network_interface.ubuntu-dmz-network-interface.id]
   size                            = "Standard_F2s_v2"
   admin_ssh_key {
@@ -65,7 +65,7 @@ resource "azurerm_linux_virtual_machine" "ubuntu-virtual-machine" {
 
 #data "azurerm_public_ip" "ubuntu-public_ip" {
 #  name                = azurerm_public_ip.ubuntu-public_ip.name
-#  resource_group_name = azurerm_resource_group.resource-group.name
+#  resource_group_name = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.name
 #  depends_on = [
 #    azurerm_linux_virtual_machine.ubuntu-virtual-machine,
 #  ]

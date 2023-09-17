@@ -1,7 +1,7 @@
 resource "azurerm_network_security_group" "private-nsg" {
   name                = "private-nsg"
-  location            = azurerm_resource_group.resource-group.location
-  resource_group_name = azurerm_resource_group.resource-group.name
+  location            = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.location
+  resource_group_name = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.name
   security_rule {
     name                       = "block-all-in"
     priority                   = 100
@@ -41,18 +41,18 @@ resource "azurerm_subnet_network_security_group_association" "internal-subnet-as
 resource "azurerm_subnet" "external-subnet" {
   address_prefixes     = ["${var.external-Prefix}"]
   name                 = var.external-Name
-  resource_group_name  = azurerm_resource_group.resource-group.name
+  resource_group_name  = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.name
   virtual_network_name = azurerm_virtual_network.vnet.name
 }
 resource "azurerm_subnet" "dmz-subnet" {
   address_prefixes     = ["${var.dmz-Prefix}"]
   name                 = var.dmz-Name
-  resource_group_name  = azurerm_resource_group.resource-group.name
+  resource_group_name  = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.name
   virtual_network_name = azurerm_virtual_network.vnet.name
 }
 resource "azurerm_subnet" "internal-subnet" {
   address_prefixes     = ["${var.internal-Prefix}"]
   name                 = var.internal-Name
-  resource_group_name  = azurerm_resource_group.resource-group.name
+  resource_group_name  = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.name
   virtual_network_name = azurerm_virtual_network.vnet.name
 }

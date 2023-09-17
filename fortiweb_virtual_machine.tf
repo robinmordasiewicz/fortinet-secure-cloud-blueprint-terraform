@@ -1,7 +1,7 @@
 #resource "azurerm_public_ip" "fortiweb-public_ip" {
 #  name                = "fortiweb_public_ip"
-#  location            = azurerm_resource_group.resource-group.location
-#  resource_group_name = azurerm_resource_group.resource-group.name
+#  location            = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.location
+#  resource_group_name = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.name
 #  allocation_method   = "Dynamic"
 #}
 #resource "azurerm_network_interface_security_group_association" "fortiweb-association" {
@@ -10,8 +10,8 @@
 #}
 resource "azurerm_network_interface" "fortiweb-dmz-network-interface" {
   name                = "fortiweb-dmz-network-interface"
-  location            = azurerm_resource_group.resource-group.location
-  resource_group_name = azurerm_resource_group.resource-group.name
+  location            = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.location
+  resource_group_name = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.name
   ip_configuration {
     name                          = "fortiweb-dmz-ipconfig"
     private_ip_address_allocation = "Static"
@@ -22,8 +22,8 @@ resource "azurerm_network_interface" "fortiweb-dmz-network-interface" {
 }
 resource "azurerm_network_interface" "fortiweb-internal-network-interface" {
   name                = "fortiweb-internal-network-interface"
-  location            = azurerm_resource_group.resource-group.location
-  resource_group_name = azurerm_resource_group.resource-group.name
+  location            = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.location
+  resource_group_name = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.name
   ip_configuration {
     name                          = "fortiweb-internal-ipconfig"
     private_ip_address_allocation = "Static"
@@ -39,8 +39,8 @@ resource "azurerm_linux_virtual_machine" "fortiweb-virtual-machine" {
   allow_extension_operations      = false
   availability_set_id             = azurerm_availability_set.fortinet-availability-set.id
   disable_password_authentication = true
-  location                        = azurerm_resource_group.resource-group.location
-  resource_group_name             = azurerm_resource_group.resource-group.name
+  location                        = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.location
+  resource_group_name             = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.name
   network_interface_ids           = [azurerm_network_interface.fortiweb-internal-network-interface.id, azurerm_network_interface.fortiweb-dmz-network-interface.id]
   #size                            = "Standard_F4s"
   size = "Standard_D4s_v3"
@@ -81,8 +81,8 @@ resource "azurerm_virtual_machine_data_disk_attachment" "fortiweb-data-disk-atta
 }
 resource "azurerm_managed_disk" "fortiweb-log-disk" {
   create_option        = "Empty"
-  location             = azurerm_resource_group.resource-group.location
-  resource_group_name  = azurerm_resource_group.resource-group.name
+  location             = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.location
+  resource_group_name  = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.name
   name                 = "fortiweb-log-disk"
   storage_account_type = "Premium_LRS"
   disk_size_gb         = "30"
@@ -90,7 +90,7 @@ resource "azurerm_managed_disk" "fortiweb-log-disk" {
 
 #data "azurerm_public_ip" "fortiweb-public_ip" {
 #  name                = azurerm_public_ip.fortiweb-public_ip.name
-#  resource_group_name = azurerm_resource_group.resource-group.name
+#  resource_group_name = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.name
 #  depends_on = [
 #    azurerm_linux_virtual_machine.fortiweb-virtual-machine,
 #  ]
