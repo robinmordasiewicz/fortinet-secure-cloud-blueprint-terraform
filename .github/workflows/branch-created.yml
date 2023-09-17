@@ -1,0 +1,10 @@
+name: Branch Created
+on: create
+jobs:
+  delete:
+    if: github.event.ref_type == 'branch'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create Environment and Secrets
+        run: |
+          echo "Create environment and secrets for ${{ github.event.ref }}"
