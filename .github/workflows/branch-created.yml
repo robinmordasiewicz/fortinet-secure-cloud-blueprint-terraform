@@ -1,7 +1,7 @@
 name: Branch Created
 on: create
 jobs:
-  delete:
+  create:
     if: github.event.ref_type == 'branch'
     runs-on: ubuntu-latest
     steps:
