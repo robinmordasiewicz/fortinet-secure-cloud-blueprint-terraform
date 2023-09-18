@@ -10,4 +10,4 @@ jobs:
         env:
           GITHUB_TOKEN:  ${{ secrets.CONTROLLER_TOKEN }}
         run: |
-          gh workflow run tf-plan-apply.yml --ref main -R ${{ serets.CONTROLLER_REPOSITORY_FULL_NAME }}
+          gh workflow run tf-plan-apply.yml --ref main -R ${{ secrets.CONTROLLER_REPOSITORY_FULL_NAME }}
