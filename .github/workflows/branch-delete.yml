@@ -7,5 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Branch Deleted
+        env:
+          GITHUB_TOKEN:  ${{ secrets.CONTROLLER_TOKEN }}
         run: |
-          gh workflow run tf-plan-apply.yml --ref main -R robinmordasiewicz/multi-environment-controller
+          gh workflow run tf-plan-apply.yml --ref main -R ${{ secrets.CONTROLLER_REPOSITORY_FULL_NAME }}
