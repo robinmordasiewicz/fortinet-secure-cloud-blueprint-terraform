@@ -1,0 +1,12 @@
+name: Branch Created or Deleted
+on:
+  - create
+  - delete
+jobs:
+  create:
+    if: github.event.ref_type == 'branch'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Branch Created or Deleted
+        run: |
+          gh workflow run tf-plan-apply.yml --ref main -R robinmordasiewicz/multi-environment-controller
