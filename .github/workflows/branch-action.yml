@@ -1,13 +1,15 @@
-name: Branch Deleted
+name: Branch Actions
 on:
   - delete
+  - create
 jobs:
-  delete:
+  action:
     if: github.event.ref_type == 'branch'
     runs-on: ubuntu-latest
     steps:
-      - name: Branch Deleted
+      - name: Branch Action
         env:
           GITHUB_TOKEN:  ${{ secrets.CONTROLLER_TOKEN }}
         run: |
           gh workflow run tf-plan-apply.yml --ref main -R ${{ secrets.CONTROLLER_REPOSITORY_FULL_NAME }}
+          env
