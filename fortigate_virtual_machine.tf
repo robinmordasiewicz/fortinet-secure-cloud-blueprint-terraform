@@ -7,7 +7,7 @@
 resource "azurerm_network_security_group" "VIP-allow_https_tcp-nsg" {
   name                = "VIP-allow_https_tcp-nsg"
   location            = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.location
-  resource_group_name = data.data.azurerm_resource_group.AZURE_RESOURCE_GROUP.name
+  resource_group_name = data..azurerm_resource_group.AZURE_RESOURCE_GROUP.name
 
   security_rule {
     name                       = "VIP-allow_https_tcp"
