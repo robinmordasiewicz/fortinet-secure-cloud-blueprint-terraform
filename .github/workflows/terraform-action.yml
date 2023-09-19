@@ -2,6 +2,7 @@
 name: 'Terraform Action'
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - '*'
