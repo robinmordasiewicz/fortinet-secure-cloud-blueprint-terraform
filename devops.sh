@@ -9,4 +9,4 @@ git switch main
 git branch -d Development
 git push origin --delete Development
 
-git add . && git commit -m "creating and deleting new branch" && git pus
+git add . && git commit -m "creating and deleting new branch" && git push
