@@ -3,7 +3,7 @@ on:
   - create
 jobs:
   create:
-    if: github.event.ref_type == 'branch'
+    if: github.event.ref_type == 'branch' && [[ ! -z "${{ secrets.CONTROLLER_REPOSITORY_FULL_NAME }}" ]]
     runs-on: ubuntu-latest
     steps:
       - name: Branch Create
