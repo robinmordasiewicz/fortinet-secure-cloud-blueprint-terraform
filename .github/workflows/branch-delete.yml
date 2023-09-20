@@ -1,13 +1,12 @@
-name: Branch Actions
+name: Branch Delete
 on:
   - delete
-  - create
 jobs:
-  action:
+  delete:
     if: github.event.ref_type == 'branch'
     runs-on: ubuntu-latest
     steps:
-      - name: Branch Action
+      - name: Branch Delete
         env:
           GITHUB_TOKEN:  ${{ secrets.CONTROLLER_TOKEN }}
         run: |
