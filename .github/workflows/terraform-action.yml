@@ -29,12 +29,15 @@ jobs:
         name: "${{ github.ref_name }} deployed is ${{ vars.ENVIRONMENT_DEPLOYED }}"
         shell: bash
         run: |
-          env
-          if [[ "${{ vars.ENVIRONMENT_DEPLOYED }}" == "true" ]]
-          then
-            echo 'action=apply' >> ${GITHUB_OUTPUT}
+          if [[ -z "${{ vars.ENVIRONMENT_DEPLOYED }}" ]]
+            if [[ "${{ vars.ENVIRONMENT_DEPLOYED }}" == "true" ]]
+            then
+              echo 'action=apply' >> ${GITHUB_OUTPUT}
+            else
+              echo 'action=destroy' >> ${GITHUB_OUTPUT}
+            fi
           else
-            echo 'action=destroy' >> ${GITHUB_OUTPUT}
+            echo 'action=skip' >> ${GITHUB_OUTPUT}
           fi
 
   plan:
