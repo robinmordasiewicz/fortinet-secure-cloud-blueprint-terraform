@@ -1,5 +1,5 @@
 ---
-name: 'Terraform Action'
+name: 'Environment Provisioning'
 
 on:
   workflow_dispatch:
@@ -59,9 +59,9 @@ jobs:
       - name: Microsoft Azure Authentication
         uses: azure/login@v1
         with:
-          client-id: ${{ secrets.ARM_CLIENT_ID }}
-          tenant-id: ${{ secrets.ARM_TENANT_ID }}
-          subscription-id: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+          client-id: ${{ secrets.ENVIRONMENT_ARM_CLIENT_ID }}
+          tenant-id: ${{ secrets.ENVIRONMENT_ARM_TENANT_ID }}
+          subscription-id: ${{ secrets.ENVIRONMENT_ARM_SUBSCRIPTION_ID }}
 
       - name: Hashicorp Terraform
         uses: hashicorp/setup-terraform@v2
@@ -75,25 +75,25 @@ jobs:
       - name: terraform init
         id: init
         env:
-          AZURE_TFSTATE_STORAGE_ACCOUNT_NAME: ${{ secrets.AZURE_TFSTATE_STORAGE_ACCOUNT_NAME }}
-          AZURE_TFSTATE_CONTAINER_NAME: ${{ secrets.AZURE_TFSTATE_CONTAINER_NAME }}
-          AZURE_TFSTATE_KEY: ${{ github.ref_name }}
-          AZURE_RESOURCE_GROUP_NAME: ${{ secrets.AZURE_RESOURCE_GROUP_NAME }}
-          ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
-          ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
-          ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+          ENVIRONMENT_AZURE_TFSTATE_STORAGE_ACCOUNT_NAME: ${{ secrets.ENVIRONMENT_AZURE_TFSTATE_STORAGE_ACCOUNT_NAME }}
+          ENVIRONMENT_AZURE_TFSTATE_CONTAINER_NAME: ${{ secrets.ENVIRONMENT_AZURE_TFSTATE_CONTAINER_NAME }}
+          ENVIRONMENT_AZURE_TFSTATE_KEY: ${{ github.ref_name }}
+          ENVIRONMENT_AZURE_RESOURCE_GROUP_NAME: ${{ secrets.ENVIRONMENT_AZURE_RESOURCE_GROUP_NAME }}
+          ARM_SUBSCRIPTION_ID: ${{ secrets.ENVIRONMENT_ENVIRONMENT_ARM_SUBSCRIPTION_ID }}
+          ARM_CLIENT_ID: ${{ secrets.ENVIRONMENT_ENVIRONMENT_ARM_CLIENT_ID }}
+          ARM_TENANT_ID: ${{ secrets.ENVIRONMENT_ENVIRONMENT_ARM_TENANT_ID }}
           ARM_USE_OIDC: true
-        run: terraform init -backend-config="storage_account_name=${AZURE_TFSTATE_STORAGE_ACCOUNT_NAME}" -backend-config="container_name=${AZURE_TFSTATE_CONTAINER_NAME}" -backend-config="resource_group_name=${AZURE_RESOURCE_GROUP_NAME}" -backend-config="key=${AZURE_TFSTATE_KEY}" -backend-config="use_oidc=true" -input=false
+        run: terraform init -backend-config="storage_account_name=${ENVIRONMENT_AZURE_TFSTATE_STORAGE_ACCOUNT_NAME}" -backend-config="container_name=${ENVIRONMENT_AZURE_TFSTATE_CONTAINER_NAME}" -backend-config="resource_group_name=${ENVIRONMENT_AZURE_RESOURCE_GROUP_NAME}" -backend-config="key=${ENVIRONMENT_AZURE_TFSTATE_KEY}" -backend-config="use_oidc=true" -input=false
 
       - name: terraform plan
         id: tf-plan
         env:
-          TF_VAR_AZURE_RESOURCE_GROUP_NAME: ${{ secrets.AZURE_RESOURCE_GROUP_NAME }}
-          TF_VAR_AZURE_REGION: ${{ secrets.TF_VAR_AZURE_REGION }}
-          TF_VAR_AZURE_USERNAME: ${{ secrets.TF_VAR_AZURE_USERNAME }}
-          ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
-          ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
-          ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+          TF_VAR_ENVIRONMENT_AZURE_RESOURCE_GROUP_NAME: ${{ secrets.ENVIRONMENT_AZURE_RESOURCE_GROUP_NAME }}
+          TF_VAR_ENVIRONMENT_AZURE_REGION: ${{ secrets.ENVIRONMENT_AZURE_REGION }}
+          TF_VAR_ENVIRONMENT_AZURE_USERNAME: ${{ secrets.ENVIRONMENT_AZURE_USERNAME }}
+          ARM_SUBSCRIPTION_ID: ${{ secrets.ENVIRONMENT_ARM_SUBSCRIPTION_ID }}
+          ARM_CLIENT_ID: ${{ secrets.ENVIRONMENT_ARM_CLIENT_ID }}
+          ARM_TENANT_ID: ${{ secrets.ENVIRONMENT_ARM_TENANT_ID }}
           ARM_USE_OIDC: true
         run: |
           export exitcode=0
@@ -160,12 +160,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: 'Az CLI login'
+      - name: Microsoft Azure Authentication
         uses: azure/login@v1
         with:
-          client-id: ${{ secrets.ARM_CLIENT_ID }}
-          tenant-id: ${{ secrets.ARM_TENANT_ID }}
-          subscription-id: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+          client-id: ${{ secrets.ENVIRONMENT_ARM_CLIENT_ID }}
+          tenant-id: ${{ secrets.ENVIRONMENT_ARM_TENANT_ID }}
+          subscription-id: ${{ secrets.ENVIRONMENT_ARM_SUBSCRIPTION_ID }}
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
@@ -175,15 +175,15 @@ jobs:
       - name: Terraform Init
         id: init
         env:
-          AZURE_TFSTATE_STORAGE_ACCOUNT_NAME: ${{ secrets.AZURE_TFSTATE_STORAGE_ACCOUNT_NAME }}
-          AZURE_TFSTATE_CONTAINER_NAME: ${{ secrets.AZURE_TFSTATE_CONTAINER_NAME }}
-          AZURE_TFSTATE_KEY: "tfstate"
-          AZURE_RESOURCE_GROUP_NAME: ${{ secrets.AZURE_RESOURCE_GROUP_NAME }}
-          ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
-          ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
-          ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+          ENVIRONMENT_AZURE_TFSTATE_STORAGE_ACCOUNT_NAME: ${{ secrets.ENVIRONMENT_AZURE_TFSTATE_STORAGE_ACCOUNT_NAME }}
+          ENVIRONMENT_AZURE_TFSTATE_CONTAINER_NAME: ${{ secrets.ENVIRONMENT_AZURE_TFSTATE_CONTAINER_NAME }}
+          ENVIRONMENT_AZURE_TFSTATE_KEY: "tfstate"
+          ENVIRONMENT_AZURE_RESOURCE_GROUP_NAME: ${{ secrets.ENVIRONMENT_AZURE_RESOURCE_GROUP_NAME }}
+          ARM_SUBSCRIPTION_ID: ${{ secrets.ENVIRONMENT_ARM_SUBSCRIPTION_ID }}
+          ARM_CLIENT_ID: ${{ secrets.ENVIRONMENT_ARM_CLIENT_ID }}
+          ARM_TENANT_ID: ${{ secrets.ENVIRONMENT_ARM_TENANT_ID }}
           ARM_USE_OIDC: true
-        run: terraform init -backend-config="storage_account_name=${AZURE_TFSTATE_STORAGE_ACCOUNT_NAME}" -backend-config="container_name=${AZURE_TFSTATE_CONTAINER_NAME}" -backend-config="resource_group_name=${AZURE_RESOURCE_GROUP_NAME}" -backend-config="key=${AZURE_TFSTATE_KEY}" -backend-config="use_oidc=true" -input=false
+        run: terraform init -backend-config="storage_account_name=${ENVIRONMENT_AZURE_TFSTATE_STORAGE_ACCOUNT_NAME}" -backend-config="container_name=${ENVIRONMENT_AZURE_TFSTATE_CONTAINER_NAME}" -backend-config="resource_group_name=${ENVIRONMENT_AZURE_RESOURCE_GROUP_NAME}" -backend-config="key=${ENVIRONMENT_AZURE_TFSTATE_KEY}" -backend-config="use_oidc=true" -input=false
 
       - name: Download Terraform Plan
         uses: actions/download-artifact@v3
@@ -193,9 +193,9 @@ jobs:
       - name: Terraform Apply
         id: apply
         env:
-          ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
-          ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
-          ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+          ARM_CLIENT_ID: ${{ secrets.ENVIRONMENT_ARM_CLIENT_ID }}
+          ARM_SUBSCRIPTION_ID: ${{ secrets.ENVIRONMENT_ARM_SUBSCRIPTION_ID }}
+          ARM_TENANT_ID: ${{ secrets.ENVIRONMENT_ARM_TENANT_ID }}
           ARM_USE_OIDC: true
         run: terraform apply -auto-approve tfplan
 
@@ -213,9 +213,9 @@ jobs:
       - name: Microsoft Azure Authentication
         uses: azure/login@v1
         with:
-          client-id: ${{ secrets.ARM_CLIENT_ID }}
-          tenant-id: ${{ secrets.ARM_TENANT_ID }}
-          subscription-id: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+          client-id: ${{ secrets.ENVIRONMENT_ARM_CLIENT_ID }}
+          tenant-id: ${{ secrets.ENVIRONMENT_ARM_TENANT_ID }}
+          subscription-id: ${{ secrets.ENVIRONMENT_ARM_SUBSCRIPTION_ID }}
 
       - name: Hashicorp Terraform
         uses: hashicorp/setup-terraform@v2
@@ -225,25 +225,25 @@ jobs:
       - name: terraform init
         id: init
         env:
-          AZURE_TFSTATE_STORAGE_ACCOUNT_NAME: ${{ secrets.AZURE_TFSTATE_STORAGE_ACCOUNT_NAME }}
-          AZURE_TFSTATE_CONTAINER_NAME: ${{ secrets.AZURE_TFSTATE_CONTAINER_NAME }}
-          AZURE_TFSTATE_KEY: ${{ github.ref_name }}
-          AZURE_RESOURCE_GROUP_NAME: ${{ secrets.AZURE_RESOURCE_GROUP_NAME }}
-          ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
-          ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
-          ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+          ENVIRONMENT_AZURE_TFSTATE_STORAGE_ACCOUNT_NAME: ${{ secrets.ENVIRONMENT_AZURE_TFSTATE_STORAGE_ACCOUNT_NAME }}
+          ENVIRONMENT_AZURE_TFSTATE_CONTAINER_NAME: ${{ secrets.ENVIRONMENT_AZURE_TFSTATE_CONTAINER_NAME }}
+          ENVIRONMENT_AZURE_TFSTATE_KEY: ${{ github.ref_name }}
+          ENVIRONMENT_AZURE_RESOURCE_GROUP_NAME: ${{ secrets.ENVIRONMENT_AZURE_RESOURCE_GROUP_NAME }}
+          ARM_SUBSCRIPTION_ID: ${{ secrets.ENVIRONMENT_ARM_SUBSCRIPTION_ID }}
+          ARM_CLIENT_ID: ${{ secrets.ENVIRONMENT_ARM_CLIENT_ID }}
+          ARM_TENANT_ID: ${{ secrets.ENVIRONMENT_ARM_TENANT_ID }}
           ARM_USE_OIDC: true
-        run: terraform init -backend-config="storage_account_name=${AZURE_TFSTATE_STORAGE_ACCOUNT_NAME}" -backend-config="container_name=${AZURE_TFSTATE_CONTAINER_NAME}" -backend-config="resource_group_name=${AZURE_RESOURCE_GROUP_NAME}" -backend-config="key=${AZURE_TFSTATE_KEY}" -backend-config="use_oidc=true" -input=false
+        run: terraform init -backend-config="storage_account_name=${ENVIRONMENT_AZURE_TFSTATE_STORAGE_ACCOUNT_NAME}" -backend-config="container_name=${ENVIRONMENT_AZURE_TFSTATE_CONTAINER_NAME}" -backend-config="resource_group_name=${ENVIRONMENT_AZURE_RESOURCE_GROUP_NAME}" -backend-config="key=${ENVIRONMENT_AZURE_TFSTATE_KEY}" -backend-config="use_oidc=true" -input=false
 
       - name: terraform destroy
         id: destroy
         env:
-          TF_VAR_AZURE_RESOURCE_GROUP_NAME: ${{ secrets.AZURE_RESOURCE_GROUP_NAME }}
-          TF_VAR_AZURE_REGION: ${{ secrets.TF_VAR_AZURE_REGION }}
-          TF_VAR_AZURE_USERNAME: ${{ secrets.TF_VAR_AZURE_USERNAME }}
-          ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
-          ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
-          ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+          TF_VAR_ENVIRONMENT_AZURE_RESOURCE_GROUP_NAME: ${{ secrets.ENVIRONMENT_AZURE_RESOURCE_GROUP_NAME }}
+          TF_VAR_ENVIRONMENT_AZURE_REGION: ${{ secrets.ENVIRONMENT_AZURE_REGION }}
+          TF_VAR_ENVIRONMENT_AZURE_USERNAME: ${{ secrets.ENVIRONMENT_AZURE_USERNAME }}
+          ARM_CLIENT_ID: ${{ secrets.ENVIRONMENT_ARM_CLIENT_ID }}
+          ARM_SUBSCRIPTION_ID: ${{ secrets.ENVIRONMENT_ARM_SUBSCRIPTION_ID }}
+          ARM_TENANT_ID: ${{ secrets.ENVIRONMENT_ARM_TENANT_ID }}
           ARM_USE_OIDC: true
         run: |
           terraform destroy -auto-approve
