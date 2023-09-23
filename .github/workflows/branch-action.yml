@@ -14,5 +14,5 @@ jobs:
           if [[ ! -z "${{ secrets.CONTROLLER_REPOSITORY_FULL_NAME }}" ]]
           then
             APPLICATION_REPOSITORY_FULL_NAME_BASE64=$( echo ${{ github.repository }} | base64 | tr -d '\n\r' )
-            gh workflow run application-authorization.yml -R "${{ secrets.CONTROLLER_REPOSITORY_FULL_NAME }}" -f "application=${APPLICATION_REPOSITORY_FULL_NAME_BASE64}"
+            gh workflow run environment-authorization.yml -R "${{ secrets.CONTROLLER_REPOSITORY_FULL_NAME }}" -f "application=${APPLICATION_REPOSITORY_FULL_NAME_BASE64}"
             fi
