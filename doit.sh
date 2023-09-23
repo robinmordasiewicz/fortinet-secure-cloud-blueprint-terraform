@@ -1,6 +1,20 @@
 #!/bin/bash
 #
 
+ if [[ ! -z "true" ]]
+  then
+    if [[ "true" == "true" ]]
+    then
+      echo 'action=apply'
+    else
+      echo 'action=destroy'
+    fi
+  else
+    echo 'action=skip'
+  fi
+
+  exit 0
+
 git switch main
 
 git checkout main

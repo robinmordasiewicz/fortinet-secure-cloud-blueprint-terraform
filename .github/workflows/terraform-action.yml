@@ -29,7 +29,7 @@ jobs:
         name: "${{ github.ref_name }} deployed is ${{ vars.ENVIRONMENT_DEPLOYED }}"
         shell: bash
         run: |
-          if [[ -z "${{ vars.ENVIRONMENT_DEPLOYED }}" ]]
+          if [[ ! -z "${{ vars.ENVIRONMENT_DEPLOYED }}" ]]
           then
             if [[ "${{ vars.ENVIRONMENT_DEPLOYED }}" == "true" ]]
             then
