@@ -9,7 +9,7 @@ jobs:
     steps:
       - name: Branch Action
         env:
-          GITHUB_TOKEN:  ${{ secrets.CONTROLLER_TOKEN }}
+          GH_TOKEN: ${{ secrets.CONTROLLER_TOKEN }}
         run: |
           if [[ ! -z "${{ secrets.CONTROLLER_REPOSITORY_FULL_NAME }}" ]]
           then
