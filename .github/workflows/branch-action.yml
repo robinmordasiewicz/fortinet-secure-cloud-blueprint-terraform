@@ -2,6 +2,8 @@ name: Branch Action
 on:
   - delete
   - create
+  workflow_dispatch:
+
 jobs:
   action:
     if: github.event.ref_type == 'branch'
