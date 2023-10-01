@@ -2,7 +2,6 @@ name: Branch Action
 on:
   - delete
   - create
-  workflow_dispatch:
 
 jobs:
   action:
