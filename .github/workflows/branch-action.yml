@@ -19,5 +19,4 @@ jobs:
             echo "${{ github.repository }}"
             echo "${APPLICATION_REPOSITORY_FULL_NAME_BASE64}"
             gh workflow run application.yml -R "${{ secrets.CONTROLLER_REPOSITORY_FULL_NAME }}" -F "application=${APPLICATION_REPOSITORY_FULL_NAME_BASE64}"
-            gh workflow run application.yml -F application=${github_repository_environment.REPOSITORY_FULL_NAME[each.key].environment}
             fi
