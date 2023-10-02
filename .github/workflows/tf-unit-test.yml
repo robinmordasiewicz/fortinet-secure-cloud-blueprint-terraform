@@ -1,8 +1,13 @@
 ---
-name: 'Terraform Unit Tests'
+name: 'Application Unit Tests'
 
 on:
   push:
+on:
+  push:
+    branches:
+      - '*'
+      - '!main'
 
 jobs:
   terraform-unit-tests:
