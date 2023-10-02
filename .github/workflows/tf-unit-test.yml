@@ -43,3 +43,20 @@ jobs:
           output_file_path: console,results.sarif
           soft_fail: true
           skip_check: CKV_AZURE_93,CKV_AZURE_160,CKV_AZURE_119
+
+      - uses: actions/cache@v3
+        name: Cache plugin dir
+        with:
+          path: ~/.tflint.d/plugins
+          key: ${{ matrix.os }}-tflint-${{ hashFiles('.tflint.hcl') }}
+
+      - name: Setup TFLint
+          uses: terraform-linters/setup-tflint@v4.0.0
+
+      - name: Init TFLint
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: tflint --init
+
+      - name: Run TFLint
+        run: tflint -f compact
