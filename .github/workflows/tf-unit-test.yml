@@ -3,8 +3,6 @@ name: 'Application Unit Tests'
 
 on:
   push:
-on:
-  push:
     branches:
       - '*'
       - '!main'
@@ -45,4 +43,3 @@ jobs:
           output_file_path: console,results.sarif
           soft_fail: true
           skip_check: CKV_AZURE_93,CKV_AZURE_160,CKV_AZURE_119
-
