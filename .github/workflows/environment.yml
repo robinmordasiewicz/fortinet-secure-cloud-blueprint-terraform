@@ -232,8 +232,7 @@ jobs:
           TFSTATE_CONTAINER_NAME: ${{ secrets.TFSTATE_CONTAINER_NAME }}
           TFSTATE_KEY: ${{ github.ref_name }}
           AZURE_RESOURCE_GROUP_NAME: ${{ secrets.AZURE_RESOURCE_GROUP_NAME }}
-          #ARM_SUBSCRIPTION_ID: ${{ secrets.SUBSCRIPTION_ID }}
-          ARM_SUBSCRIPTION_ID: "fda770f9-b125-4474-abec-65a1cc1df596"
+          ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
           ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
           ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
           ARM_USE_OIDC: true
@@ -246,8 +245,7 @@ jobs:
           TF_VAR_AZURE_REGION: ${{ secrets.AZURE_REGION }}
           TF_VAR_AZURE_USERNAME: ${{ secrets.AZURE_USERNAME }}
           ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
-          #ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
-          ARM_SUBSCRIPTION_ID: "fda770f9-b125-4474-abec-65a1cc1df596"
+          ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
           ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
           ARM_USE_OIDC: true
         run: |
