@@ -1,0 +1,8 @@
+---
+pr:
+  branches:
+    include:
+    - main
+
+
+      #   condition: eq(variables['Build.Reason'], 'IndividualCI')
