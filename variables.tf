@@ -1,15 +1,7 @@
-#variable "AZURE_REGION" {
-#  description = "Azure region for resources."
-#  type        = string
-#}
 variable "AZURE_RESOURCE_GROUP_NAME" {
   description = "Name of the resource group."
   type        = string
 }
-#variable "AZURE_USERNAME" {
-#  description = "Azure username for resource group tag"
-#  type        = string
-#}
 variable "vnetAddressPrefix" {
   description = "Virtual Network Address prefix"
   type        = string
