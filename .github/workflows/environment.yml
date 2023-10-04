@@ -4,6 +4,8 @@ name: 'Environment Provisioning'
 on:
   workflow_dispatch:
   push:
+    paths:
+      - '**.tf'
     branches:
       - '*'
       - '!main'
