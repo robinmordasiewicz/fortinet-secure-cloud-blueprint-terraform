@@ -34,4 +34,3 @@ variable "dmz-Prefix" {
   description = "DMZ Subnet Prefix"
   type        = string
 }
-
