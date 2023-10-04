@@ -2,6 +2,7 @@ variable "AZURE_RESOURCE_GROUP_NAME" {
   description = "Name of the resource group."
   type        = string
 }
+
 variable "vnetAddressPrefix" {
   description = "Virtual Network Address prefix"
   type        = string
