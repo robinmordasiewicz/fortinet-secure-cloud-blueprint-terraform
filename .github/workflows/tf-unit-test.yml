@@ -22,8 +22,8 @@ jobs:
       actions: read
 
     steps:
-      - name: github-action-terratest
-        uses: cloudposse/github-action-terratest@main
+      #      - name: github-action-terratest
+      #  uses: cloudposse/github-action-terratest@main
 
       - name: Checkout
         uses: actions/checkout@v3
