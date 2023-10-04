@@ -50,6 +50,11 @@ jobs:
           soft_fail: true
           skip_check: CKV_AZURE_93,CKV_AZURE_160,CKV_AZURE_119
 
+      - name: Upload SARIF file
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: results.sarif
+
       - uses: actions/cache@v3
         name: Cache plugin dir
         with:
