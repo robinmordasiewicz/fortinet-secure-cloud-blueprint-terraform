@@ -6,7 +6,6 @@ variable "vnetAddressPrefix" {
   description = "Virtual Network Address prefix"
   type        = string
 }
-
 variable "external-Name" {
   description = "External Subnet Name"
   type        = string
