@@ -7,6 +7,9 @@ on:
       - '*'
       - '!main'
 
+permissions:
+  security-events: write
+
 jobs:
   terraform-unit-tests:
     name: 'Terraform Unit Tests'
@@ -83,3 +86,15 @@ jobs:
         uses: github/codeql-action/upload-sarif@v2
         with:
           sarif_file: 'trivy-results.sarif'
+
+      - name: Run Terrascan
+        id: terrascan
+        uses: tenable/terrascan-action@main
+        with:
+          iac_type: 'terraform'
+          policy_type: 'azure'
+
+      - name: Upload SARIF file
+        uses: github/codeql-action/upload-sarif@v1
+        with:
+          sarif_file: terrascan.sarif
