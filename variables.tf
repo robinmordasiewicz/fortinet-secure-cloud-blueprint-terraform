@@ -21,7 +21,6 @@ variable "internal-Name" {
   description = "Internal Subnet Name"
   type        = string
 }
-
 variable "internal-Prefix" {
   description = "Internal Subnet Prefix"
   type        = string
