@@ -66,5 +66,6 @@ jobs:
 
       - name: Go Version
         run: go version
+
       - name: github-action-terratest
         uses: cloudposse/github-action-terratest@main
