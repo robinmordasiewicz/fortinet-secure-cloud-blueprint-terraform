@@ -9,7 +9,7 @@ on:
 
 jobs:
   build:
-    name: FortiDevSec SAST scanner
+    name: https://fortidevsec.forticloud.com/
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
