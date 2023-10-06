@@ -1,5 +1,5 @@
 ---
-name: FortiDevSec Scanner CI
+name: FortiDevSec SAST
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
 
 jobs:
   build:
-    name: Fortinet SAST
+    name: SAST
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
