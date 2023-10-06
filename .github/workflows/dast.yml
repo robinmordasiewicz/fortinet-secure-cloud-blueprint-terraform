@@ -3,17 +3,18 @@ name: FortiDevSec Scanner CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      – uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v3
 
-      – name: DAST
+      - name: SAST
         run: |
           env | grep -E "GITHUB_ACTIONS|GITHUB_RUN_NUMBER|GITHUB_REF_NAME|GITHUB_SHA" > /tmp/env
           docker pull registry.fortidevsec.forticloud.com/fdevsec_dast:latest
