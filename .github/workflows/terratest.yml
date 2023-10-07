@@ -43,7 +43,10 @@ jobs:
         uses: actions/setup-go@v4
 
       - name: Setup Dependencies
-        run:  go get -v -t -d && go mod tidy
+        run:  |
+          go build .
+          go mod init github.com/robinmordasiewicz/fortinet-secure-cloud-blueprint-terraform
+          go mod tidy
 
       - name: Run Terratest
         env:
