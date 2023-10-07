@@ -42,14 +42,11 @@ jobs:
       - name: Setup Go environment
         uses: actions/setup-go@v4
 
-      - name: Download Go modules
-        run: go mod download
+      - name: Go Mod init
+        run: go mod init github.com/robinmordasiewicz/fortinet-secure-cloud-blueprint-terraform
 
-      - name: Setup Dependencies
-        run:  |
-          go mod init github.com/robinmordasiewicz/fortinet-secure-cloud-blueprint-terraform
-          go build .
-          go mod tidy
+      - name: Go tidy
+        run:  go mod tidy
 
       - name: Run Terratest
         env:
@@ -57,5 +54,8 @@ jobs:
           ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
           ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
           ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+          AZURE_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+          AZURE_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+          AZURE_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
           ARM_USE_OIDC: true
-        run: go test -v -tags azure .
+        run: go test -v -timeout 30m -tags azure .
