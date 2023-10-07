@@ -7,8 +7,11 @@ on:
       - '!main'
 
 jobs:
-  context:
+  teratest:
+    name: Terratest
     runs-on: ubuntu-latest
+    environment:
+      name: ${{ github.ref_name }}
     steps:
       #      - name: Setup Go environment
       #  uses: actions/setup-go@v4
