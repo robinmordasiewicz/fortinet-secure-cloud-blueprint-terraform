@@ -1,5 +1,5 @@
 ---
-name: Unit Testing
+name: Terratest
 on:
   workflow_dispatch:
   push:
