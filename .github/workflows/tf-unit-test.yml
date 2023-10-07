@@ -74,11 +74,6 @@ jobs:
       - name: Run TFLint
         run: tflint -f compact
 
-      - name: Setup Go environment
-        uses: actions/setup-go@v4
-
-      - name: Go Version
-        run: go version
 
       - name: Run Trivy vulnerability scanner in repo mode
         uses: aquasecurity/trivy-action@master
