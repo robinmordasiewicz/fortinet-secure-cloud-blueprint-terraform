@@ -10,11 +10,11 @@ jobs:
   context:
     runs-on: ubuntu-latest
     steps:
-      - name: Setup Go environment
-        uses: actions/setup-go@v4
+      #      - name: Setup Go environment
+      #  uses: actions/setup-go@v4
 
-      - name: Go Version
-        run: go version
+      #- name: Go Version
+      #  run: go version
 
       - name: Run Terratest
         env:
