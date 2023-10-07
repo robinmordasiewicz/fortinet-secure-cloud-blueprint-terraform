@@ -4,8 +4,12 @@ name: FortiDevSec DAST
 on:
   push:
     branches: [main]
+    paths:
+      - '**.tf'
   pull_request:
     branches: [main]
+    paths:
+      - '**.tf'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}

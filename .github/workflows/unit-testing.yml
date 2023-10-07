@@ -1,10 +1,15 @@
 ---
-name: Terratest
+name: Unit Testing
 on:
   push:
+    paths:
+      - '**.tf'
     branches:
       - '*'
       - '!main'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
 
 jobs:
   teratest:
