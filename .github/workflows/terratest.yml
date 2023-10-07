@@ -44,8 +44,8 @@ jobs:
 
       - name: Setup Dependencies
         run:  |
-          go build .
           go mod init github.com/robinmordasiewicz/fortinet-secure-cloud-blueprint-terraform
+          go build .
           go mod tidy
 
       - name: Run Terratest
