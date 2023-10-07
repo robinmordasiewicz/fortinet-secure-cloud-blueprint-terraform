@@ -1,0 +1,14 @@
+---
+name: Pull Request
+on:
+  push:
+    branches:
+      - '*'
+      - '!main'
+
+jobs:
+  context:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run Terratest
+        uses: cloudposse/github-action-terratest@main
