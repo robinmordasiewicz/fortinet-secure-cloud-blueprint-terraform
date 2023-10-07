@@ -13,11 +13,23 @@ jobs:
     environment:
       name: ${{ github.ref_name }}
     steps:
-      #      - name: Setup Go environment
-      #  uses: actions/setup-go@v4
+      - name: Github Repository checkout
+        uses: actions/checkout@v3
 
-      #- name: Go Version
-      #  run: go version
+      - name: Microsoft Azure Authentication
+        uses: azure/login@v1
+        with:
+          client-id: ${{ secrets.ARM_CLIENT_ID }}
+          tenant-id: ${{ secrets.ARM_TENANT_ID }}
+          subscription-id: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+
+      - name: Hashicorp Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_wrapper: false
+
+      - name: Setup Go environment
+        uses: actions/setup-go@v4
 
       - name: Run Terratest
         env:
