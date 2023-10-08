@@ -14,11 +14,12 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestTerraformAzureResourceGroupExample(t *testing.T) {
+func TestTerraformAzure(t *testing.T) {
 	t.Parallel()
 
 	// subscriptionID is overridden by the environment variable "ARM_SUBSCRIPTION_ID"
-	subscriptionID := ""
+	// subscriptionID := ""
+	subscriptionID := terraform.Output(t, terraformOptions, "current_subscription_id")
   expectedAvsName := "fortinet-availability-set"
 //	uniquePostfix := random.UniqueId()
 
