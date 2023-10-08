@@ -9,16 +9,16 @@ package test
 import (
 	"testing"
 
-	"github.com/gruntwork-io/terratest/modules/azure"
+//	"github.com/gruntwork-io/terratest/modules/azure"
 	"github.com/gruntwork-io/terratest/modules/terraform"
-	"github.com/stretchr/testify/assert"
+//	"github.com/stretchr/testify/assert"
 )
 
 func TestTerraformAzureResourceGroupExample(t *testing.T) {
 	t.Parallel()
 
 	// subscriptionID is overridden by the environment variable "ARM_SUBSCRIPTION_ID"
-	subscriptionID := ""
+//	subscriptionID := ""
 //	uniquePostfix := random.UniqueId()
 
 	// website::tag::1:: Configure Terraform setting up a path to Terraform code.
