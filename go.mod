@@ -1,6 +1,6 @@
 module robinmordasiewicz/fortinet-secure-cloud-blueprint-terraform
 
-go 1.20
+go 1.21.2
 
 require (
 	github.com/gruntwork-io/terratest v0.45.0
