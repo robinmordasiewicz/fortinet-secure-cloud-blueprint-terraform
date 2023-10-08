@@ -9,3 +9,7 @@ output "availability_set_fdc" {
 output "vm_name" {
   value = azurerm_linux_virtual_machine.ubuntu-virtual-machine.name
 }
+
+output "resource_group_name" {
+  value = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.name
+}
