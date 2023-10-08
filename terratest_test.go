@@ -26,9 +26,6 @@ func TestTerraformAzureResourceGroupExample(t *testing.T) {
 	terraformOptions := &terraform.Options{
 		// The path to where our Terraform code is located
 		TerraformDir: ".",
-		Vars: map[string]interface{}{
-			"postfix": uniquePostfix,
-		},
 	}
 
 	// website::tag::4:: At the end of the test, run `terraform destroy` to clean up any resources that were created
