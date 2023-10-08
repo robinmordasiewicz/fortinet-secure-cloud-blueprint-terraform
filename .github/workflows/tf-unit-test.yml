@@ -1,8 +1,10 @@
 ---
-name: 'Application Unit Tests'
+name: 'Syntax Lint'
 
 on:
   push:
+    paths:
+      - '**.tf'
     branches:
       - '*'
       - '!main'
@@ -22,8 +24,6 @@ jobs:
       actions: read
 
     steps:
-      #      - name: github-action-terratest
-      #  uses: cloudposse/github-action-terratest@main
 
       - name: Checkout
         uses: actions/checkout@v3
@@ -73,7 +73,6 @@ jobs:
 
       - name: Run TFLint
         run: tflint -f compact
-
 
       - name: Run Trivy vulnerability scanner in repo mode
         uses: aquasecurity/trivy-action@master
