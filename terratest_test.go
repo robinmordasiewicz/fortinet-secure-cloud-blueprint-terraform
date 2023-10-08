@@ -19,8 +19,8 @@ func TestTerraformAzure(t *testing.T) {
 
 	// subscriptionID is overridden by the environment variable "ARM_SUBSCRIPTION_ID"
 	// subscriptionID := ""
-  expectedAvsName := "fortinet-availability-set"
-//	uniquePostfix := random.UniqueId()
+	expectedAvsName := "fortinet-availability-set"
+	//	uniquePostfix := random.UniqueId()
 
 	// website::tag::1:: Configure Terraform setting up a path to Terraform code.
 	terraformOptions := &terraform.Options{
@@ -34,10 +34,10 @@ func TestTerraformAzure(t *testing.T) {
 	// website::tag::2:: Run `terraform init` and `terraform apply`. Fail the test if there are any errors.
 	terraform.InitAndApply(t, terraformOptions)
 
-//	availability_set_name := terraform.Output(t, terraformOptions, "availability_set_name")
-//	assert.Equal(t, "Hello, World!", availability_set_name)
+	//	availability_set_name := terraform.Output(t, terraformOptions, "availability_set_name")
+	//	assert.Equal(t, "Hello, World!", availability_set_name)
 
-  // Run `terraform output` to get the values of output variables
+	// Run `terraform output` to get the values of output variables
 	subscriptionID := terraform.Output(t, terraformOptions, "current_subscription_id")
 	resourceGroupName := terraform.Output(t, terraformOptions, "resource_group_name")
 
@@ -46,9 +46,9 @@ func TestTerraformAzure(t *testing.T) {
 	assert.True(t, actualAvsExists)
 
 	// website::tag::3:: Run `terraform output` to get the values of output variables
-//	resourceGroupName := terraform.Output(t, terraformOptions, "resource_group_name")
+	//	resourceGroupName := terraform.Output(t, terraformOptions, "resource_group_name")
 
 	// website::tag::4:: Verify the resource group exists
-//	exists := azure.ResourceGroupExists(t, resourceGroupName, subscriptionID)
-//	assert.True(t, exists, "Resource group does not exist")
+	//	exists := azure.ResourceGroupExists(t, resourceGroupName, subscriptionID)
+	//	assert.True(t, exists, "Resource group does not exist")
 }
