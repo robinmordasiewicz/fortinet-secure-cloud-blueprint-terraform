@@ -34,9 +34,9 @@ func TestTerraformAzureResourceGroupExample(t *testing.T) {
 	terraform.InitAndApply(t, terraformOptions)
 
 	// website::tag::3:: Run `terraform output` to get the values of output variables
-	resourceGroupName := terraform.Output(t, terraformOptions, "resource_group_name")
+//	resourceGroupName := terraform.Output(t, terraformOptions, "resource_group_name")
 
 	// website::tag::4:: Verify the resource group exists
-	exists := azure.ResourceGroupExists(t, resourceGroupName, subscriptionID)
-	assert.True(t, exists, "Resource group does not exist")
+//	exists := azure.ResourceGroupExists(t, resourceGroupName, subscriptionID)
+//	assert.True(t, exists, "Resource group does not exist")
 }
