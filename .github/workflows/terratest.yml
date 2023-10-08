@@ -51,6 +51,9 @@ jobs:
       - name: Go tidy
         run:  go mod tidy
 
+      - name: go format
+        run: go fmt
+
       - name: Run Terratest
         env:
           TF_VAR_AZURE_RESOURCE_GROUP_NAME: ${{ secrets.AZURE_RESOURCE_GROUP_NAME }}
