@@ -61,4 +61,4 @@ jobs:
           AZURE_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
           AZURE_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
           ARM_USE_OIDC: true
-        run: go test -v -timeout 30m -tags azure .
+        run: go test -timeout 30m -tags azure .
