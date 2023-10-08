@@ -9,7 +9,7 @@ package test
 import (
 	"testing"
 
-//	"github.com/gruntwork-io/terratest/modules/azure"
+	"github.com/gruntwork-io/terratest/modules/azure"
 	"github.com/gruntwork-io/terratest/modules/terraform"
 	"github.com/stretchr/testify/assert"
 )
@@ -18,7 +18,8 @@ func TestTerraformAzureResourceGroupExample(t *testing.T) {
 	t.Parallel()
 
 	// subscriptionID is overridden by the environment variable "ARM_SUBSCRIPTION_ID"
-//	subscriptionID := ""
+	subscriptionID := ""
+  expectedAvsName := "fortinet-availability-set"
 //	uniquePostfix := random.UniqueId()
 
 	// website::tag::1:: Configure Terraform setting up a path to Terraform code.
@@ -33,8 +34,15 @@ func TestTerraformAzureResourceGroupExample(t *testing.T) {
 	// website::tag::2:: Run `terraform init` and `terraform apply`. Fail the test if there are any errors.
 	terraform.InitAndApply(t, terraformOptions)
 
-	availability_set_name := terraform.Output(t, terraformOptions, "availability_set_name")
-	assert.Equal(t, "Hello, World!", availability_set_name)
+//	availability_set_name := terraform.Output(t, terraformOptions, "availability_set_name")
+//	assert.Equal(t, "Hello, World!", availability_set_name)
+
+  // Run `terraform output` to get the values of output variables
+	resourceGroupName := terraform.Output(t, terraformOptions, "resource_group_name")
+
+	// Check the Availability Set Exists
+	actualAvsExists := azure.AvailabilitySetExists(t, expectedAvsName, resourceGroupName, subscriptionID)
+	assert.True(t, actualAvsExists)
 
 	// website::tag::3:: Run `terraform output` to get the values of output variables
 //	resourceGroupName := terraform.Output(t, terraformOptions, "resource_group_name")

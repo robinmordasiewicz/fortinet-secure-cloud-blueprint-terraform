@@ -1,7 +1,3 @@
 provider "azurerm" {
-  features {
-    #    resource_group {
-    #      prevent_deletion_if_contains_resources = false
-    #    }
-  }
+  features {} # after version 2.0 this is mandatory
 }
