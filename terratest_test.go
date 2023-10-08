@@ -26,6 +26,7 @@ func TestTerraformAzure(t *testing.T) {
 	terraformOptions := &terraform.Options{
 		// The path to where our Terraform code is located
 		TerraformDir: ".",
+    EnvVars: globalEnvVars,
 	}
 
 	// website::tag::4:: At the end of the test, run `terraform destroy` to clean up any resources that were created
