@@ -19,7 +19,6 @@ func TestTerraformAzure(t *testing.T) {
 
 	// subscriptionID is overridden by the environment variable "ARM_SUBSCRIPTION_ID"
 	// subscriptionID := ""
-	subscriptionID := terraform.Output(t, terraformOptions, "current_subscription_id")
   expectedAvsName := "fortinet-availability-set"
 //	uniquePostfix := random.UniqueId()
 
@@ -39,6 +38,7 @@ func TestTerraformAzure(t *testing.T) {
 //	assert.Equal(t, "Hello, World!", availability_set_name)
 
   // Run `terraform output` to get the values of output variables
+	subscriptionID := terraform.Output(t, terraformOptions, "current_subscription_id")
 	resourceGroupName := terraform.Output(t, terraformOptions, "resource_group_name")
 
 	// Check the Availability Set Exists
