@@ -11,9 +11,9 @@ import (
   "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/resources/armresources"
 )
 
-//var (
-//  subscriptionId = "fda770f9-b125-4474-abec-65a1cc1df596"
-//)
+var (
+  subscriptionId = "fda770f9-b125-4474-abec-65a1cc1df596"
+)
 
 func TestTerraformAzure(t *testing.T) {
 	t.Parallel()
