@@ -1,27 +1,21 @@
 package main
 
 import (
-  "context"
-
-  "github.com/Azure/azure-sdk-for-go/sdk/azidentity"
-  "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/subscription/armsubscription"
+	"github.com/Azure/azure-sdk-for-go/sdk/azidentity"
+	"log"
+	 "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/resources/armresources"
 )
 
-const subscriptionID = "fda770f9-b125-4474-abec-65a1cc1df596"
+var (
+	subscriptionId = "fda770f9-b125-4474-abec-65a1cc1df596"
+)
 
 func main() {
-  cred, err := azidentity.NewDefaultAzureCredential(nil)
-  if err != nil {
-    // TODO: handle error
-  }
-  // Azure SDK Resource Management clients accept the credential as a parameter.
-  // The client will authenticate with the credential as necessary.
-  client, err := armsubscription.NewSubscriptionsClient(cred, nil)
-  if err != nil {
-    // TODO: handle error
-  }
-  _, err = client.Get(context.TODO(), subscriptionID, nil)
-  if err != nil {
-    // TODO: handle error
-  }
+	cred, err := azidentity.NewDefaultAzureCredential(nil)
+	if err != nil {
+		log.Fatal("Invalid credentials with error: " + err.Error())
+		// TODO: handle error
+	}
+	client, _ := armresources.NewClient(subscriptionId, cred, nil)
+	log.Print("Great, You are Authenticated to subscription", client)
 }
