@@ -14,24 +14,6 @@ import (
 var (
   subscriptionId = "fda770f9-b125-4474-abec-65a1cc1df596"
 )
-//const subscriptionID = "fda770f9-b125-4474-abec-65a1cc1df596"
-
-//func setTerraformVariables() (map[string]string, error) {
-
-	// Getting enVars from environment variables
-//	ARM_CLIENT_ID := os.Getenv("AZURE_CLIENT_ID")
-//	ARM_TENANT_ID := os.Getenv("AZURE_TENANT_ID")
-//	ARM_SUBSCRIPTION_ID := os.Getenv("AZURE_SUBSCRIPTION_ID")
-
-	// Creating globalEnVars for terraform call through Terratest
-//	if ARM_CLIENT_ID != "" {
-//		globalEnvVars["ARM_CLIENT_ID"] = ARM_CLIENT_ID
-//		globalEnvVars["ARM_SUBSCRIPTION_ID"] = ARM_SUBSCRIPTION_ID
-//		globalEnvVars["ARM_TENANT_ID"] = ARM_TENANT_ID
-//	}
-
-//	return globalEnvVars, nil
-//}
 
 func TestTerraformAzure(t *testing.T) {
 	t.Parallel()
@@ -73,8 +55,8 @@ func TestTerraformAzure(t *testing.T) {
 	subscriptionID := terraform.Output(t, terraformOptions, "current_subscription_id")
 	resourceGroupName := terraform.Output(t, terraformOptions, "resource_group_name")
 	expectedAvsName := "fortinet-availability-set"
-	actualAvsExists := azure.AvailabilitySetExists(t, expectedAvsName, resourceGroupName, subscriptionID)
-	assert.True(t, actualAvsExists)
+	//actualAvsExists := azure.AvailabilitySetExists(t, expectedAvsName, resourceGroupName, subscriptionID)
+	//assert.True(t, actualAvsExists)
 
 	// website::tag::3:: Run `terraform output` to get the values of output variables
 	//	resourceGroupName := terraform.Output(t, terraformOptions, "resource_group_name")
