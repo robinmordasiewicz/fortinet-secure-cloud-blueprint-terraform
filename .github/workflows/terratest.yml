@@ -34,6 +34,9 @@ jobs:
           tenant-id: ${{ secrets.ARM_TENANT_ID }}
           subscription-id: ${{ secrets.ARM_SUBSCRIPTION_ID }}
 
+      - name: az debug
+        run: az account get-access-token
+
       - name: Hashicorp Terraform
         uses: hashicorp/setup-terraform@v2
         with:
