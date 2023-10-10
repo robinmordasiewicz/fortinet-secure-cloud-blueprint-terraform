@@ -4,16 +4,16 @@ import (
 	"testing"
   "log"
 
-	"github.com/gruntwork-io/terratest/modules/azure"
+//	"github.com/gruntwork-io/terratest/modules/azure"
 	"github.com/gruntwork-io/terratest/modules/terraform"
 	"github.com/stretchr/testify/assert"
   "github.com/Azure/azure-sdk-for-go/sdk/azidentity"
   "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/resources/armresources"
 )
 
-var (
-  subscriptionId = "fda770f9-b125-4474-abec-65a1cc1df596"
-)
+//var (
+//  subscriptionId = "fda770f9-b125-4474-abec-65a1cc1df596"
+//)
 
 func TestTerraformAzure(t *testing.T) {
 	t.Parallel()
@@ -52,9 +52,9 @@ func TestTerraformAzure(t *testing.T) {
   log.Print("Great, You are Authenticated to subscription", client)
 
 	// Check the Availability Set Exists
-	subscriptionID := terraform.Output(t, terraformOptions, "current_subscription_id")
-	resourceGroupName := terraform.Output(t, terraformOptions, "resource_group_name")
-	expectedAvsName := "fortinet-availability-set"
+//	subscriptionID := terraform.Output(t, terraformOptions, "current_subscription_id")
+//	resourceGroupName := terraform.Output(t, terraformOptions, "resource_group_name")
+//	expectedAvsName := "fortinet-availability-set"
 	//actualAvsExists := azure.AvailabilitySetExists(t, expectedAvsName, resourceGroupName, subscriptionID)
 	//assert.True(t, actualAvsExists)
 
