@@ -17,42 +17,36 @@ import (
   "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/subscription/armsubscription"
 )
 
-const subscriptionID = "fda770f9-b125-4474-abec-65a1cc1df596"
+var (
+  subscriptionId = "fda770f9-b125-4474-abec-65a1cc1df596"
+)
+//const subscriptionID = "fda770f9-b125-4474-abec-65a1cc1df596"
 
-func setTerraformVariables() (map[string]string, error) {
+//func setTerraformVariables() (map[string]string, error) {
 
 	// Getting enVars from environment variables
-	ARM_CLIENT_ID := os.Getenv("AZURE_CLIENT_ID")
-	ARM_TENANT_ID := os.Getenv("AZURE_TENANT_ID")
-	ARM_SUBSCRIPTION_ID := os.Getenv("AZURE_SUBSCRIPTION_ID")
+//	ARM_CLIENT_ID := os.Getenv("AZURE_CLIENT_ID")
+//	ARM_TENANT_ID := os.Getenv("AZURE_TENANT_ID")
+//	ARM_SUBSCRIPTION_ID := os.Getenv("AZURE_SUBSCRIPTION_ID")
 
 	// Creating globalEnVars for terraform call through Terratest
-	if ARM_CLIENT_ID != "" {
-		globalEnvVars["ARM_CLIENT_ID"] = ARM_CLIENT_ID
-		globalEnvVars["ARM_SUBSCRIPTION_ID"] = ARM_SUBSCRIPTION_ID
-		globalEnvVars["ARM_TENANT_ID"] = ARM_TENANT_ID
-	}
+//	if ARM_CLIENT_ID != "" {
+//		globalEnvVars["ARM_CLIENT_ID"] = ARM_CLIENT_ID
+//		globalEnvVars["ARM_SUBSCRIPTION_ID"] = ARM_SUBSCRIPTION_ID
+//		globalEnvVars["ARM_TENANT_ID"] = ARM_TENANT_ID
+//	}
 
-	return globalEnvVars, nil
-}
+//	return globalEnvVars, nil
+//}
 
 func TestTerraformAzure(t *testing.T) {
 	t.Parallel()
   cred, err := azidentity.NewDefaultAzureCredential(nil)
   if err != nil {
-    // TODO: handle error
+    log.Fatal("Invalid credentials with error: " + err.Error())
   }
   // Azure SDK Resource Management clients accept the credential as a parameter.
   // The client will authenticate with the credential as necessary.
-  client, err := armsubscription.NewSubscriptionsClient(cred, nil)
-  if err != nil {
-    // TODO: handle error
-  }
-  _, err = client.Get(context.TODO(), subscriptionID, nil)
-  if err != nil {
-    // TODO: handle error
-  }
-
 	// subscriptionID is overridden by the environment variable "ARM_SUBSCRIPTION_ID"
 	// subscriptionID := ""
 	expectedAvsName := "fortinet-availability-set"
@@ -62,7 +56,7 @@ func TestTerraformAzure(t *testing.T) {
 	terraformOptions := &terraform.Options{
 		// The path to where our Terraform code is located
 		TerraformDir: ".",
-    EnvVars: globalEnvVars,
+   // EnvVars: globalEnvVars,
     NoColor: true,
     // Reconfigure is required if module deployment and go test pipelines are running in one stage
 		Reconfigure: true,
