@@ -54,9 +54,6 @@ jobs:
       - name: Go tidy
         run:  go mod tidy
 
-      - name: go format
-        run: go fmt
-
       - name: Run Terratest
         env:
           TF_VAR_AZURE_RESOURCE_GROUP_NAME: ${{ secrets.AZURE_RESOURCE_GROUP_NAME }}
@@ -70,4 +67,4 @@ jobs:
           AZURE_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
           AZURE_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
           ARM_USE_OIDC: true
-        run: go test -timeout 30m -tags azure .
+        run: go test -v -timeout 30m -tags azure .
