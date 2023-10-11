@@ -12,13 +12,13 @@ import (
 )
 
 var (
-	subscriptionId    = "fda770f9-b125-4474-abec-65a1cc1df596"
+	subscriptionID    = "fda770f9-b125-4474-abec-65a1cc1df596"
 	resourceGroupName = "fortinet-secure-cloud-blueprint-terraform-Development"
 )
 
 const (
-	subscriptionId          = "fda770f9-b125-4474-abec-65a1cc1df596"
-	resourceGroupName       = "fortinet-secure-cloud-blueprint-terraform-Development"
+	//	subscriptionID          = "fda770f9-b125-4474-abec-65a1cc1df596"
+	//	resourceGroupName       = "fortinet-secure-cloud-blueprint-terraform-Development"
 	apiVersion              = "2019-06-01"
 	resourceProvisionStatus = "Succeeded"
 )
