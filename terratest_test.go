@@ -17,10 +17,6 @@ var (
 
 func TestTerraformAzure(t *testing.T) {
 	t.Parallel()
-  cred, err := azidentity.NewDefaultAzureCredential(nil)
-  if err != nil {
-    log.Fatal("Invalid credentials with error: " + err.Error())
-  }
   // Azure SDK Resource Management clients accept the credential as a parameter.
   // The client will authenticate with the credential as necessary.
 	// subscriptionID is overridden by the environment variable "ARM_SUBSCRIPTION_ID"
@@ -47,6 +43,15 @@ func TestTerraformAzure(t *testing.T) {
 	assert.Equal(t, "fortinet-availability-set", availability_set_name)
 
 	// Run `terraform output` to get the values of output variables
+  cred, err := azidentity.NewDefaultAzureCredential(nil)
+  if err != nil {
+    log.Fatal("Invalid credentials with error: " + err.Error())
+  }
+  // Azure Resource Management clients accept the credential as a parameter
+  client, err := armresources.NewClient("fda770f9-b125-4474-abec-65a1cc1df596", cred, nil)
+  if err != nil {
+    log.Fatal("Invalid credentials with error: " + err.Error())
+  }
 
   client, _ := armresources.NewClient(subscriptionId, cred, nil)
   log.Print("Great, You are Authenticated to subscription", client)
