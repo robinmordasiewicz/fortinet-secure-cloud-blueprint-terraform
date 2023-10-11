@@ -60,7 +60,7 @@ func TestTerraformAzure(t *testing.T) {
 	if err != nil {
 		log.Fatal("Invalid credentials with error: " + err.Error())
 	}
-	log.Printf("Great, You are Authenticated to subscription", client)
+	log.Print("Great, You are Authenticated to subscription", client)
 
 	exists := azure.ResourceGroupExists(t, resourceGroupName, subscriptionID)
 	assert.True(t, exists, "Resource group does not exist")
