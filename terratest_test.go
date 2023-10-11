@@ -13,6 +13,11 @@ import (
 
 var (
   subscriptionId = "fda770f9-b125-4474-abec-65a1cc1df596"
+  resource_group_name = "fortinet-secure-cloud-blueprint-terraform-Development"
+)
+const (
+	apiVersion              = "2019-06-01"
+	resourceProvisionStatus = "Succeeded"
 )
 
 func TestTerraformAzure(t *testing.T) {
@@ -52,7 +57,10 @@ func TestTerraformAzure(t *testing.T) {
   if err != nil {
     log.Fatal("Invalid credentials with error: " + err.Error())
   }
-  log.Print("Great, You are Authenticated to subscription", client)
+  log.Printf("Great, You are Authenticated to subscription", client)
+
+  exists := azure.ResourceGroupExists(t, resourceGroupName, subscriptionID)
+	assert.True(t, exists, "Resource group does not exist")
 
 	// Check the Availability Set Exists
 //	subscriptionID := terraform.Output(t, terraformOptions, "current_subscription_id")
