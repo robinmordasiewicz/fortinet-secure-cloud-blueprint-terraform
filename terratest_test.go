@@ -1,29 +1,32 @@
 package test
 
 import (
+	"log"
 	"testing"
-  "log"
 
-//	"github.com/gruntwork-io/terratest/modules/azure"
+	//	"github.com/gruntwork-io/terratest/modules/azure"
+	"github.com/Azure/azure-sdk-for-go/sdk/azidentity"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/resources/armresources"
 	"github.com/gruntwork-io/terratest/modules/terraform"
 	"github.com/stretchr/testify/assert"
-  "github.com/Azure/azure-sdk-for-go/sdk/azidentity"
-  "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/resources/armresources"
 )
 
 var (
-  subscriptionId = "fda770f9-b125-4474-abec-65a1cc1df596"
-  resource_group_name = "fortinet-secure-cloud-blueprint-terraform-Development"
+	subscriptionId    = "fda770f9-b125-4474-abec-65a1cc1df596"
+	resourceGroupName = "fortinet-secure-cloud-blueprint-terraform-Development"
 )
+
 const (
+	subscriptionId          = "fda770f9-b125-4474-abec-65a1cc1df596"
+	resourceGroupName       = "fortinet-secure-cloud-blueprint-terraform-Development"
 	apiVersion              = "2019-06-01"
 	resourceProvisionStatus = "Succeeded"
 )
 
 func TestTerraformAzure(t *testing.T) {
 	t.Parallel()
-  // Azure SDK Resource Management clients accept the credential as a parameter.
-  // The client will authenticate with the credential as necessary.
+	// Azure SDK Resource Management clients accept the credential as a parameter.
+	// The client will authenticate with the credential as necessary.
 	// subscriptionID is overridden by the environment variable "ARM_SUBSCRIPTION_ID"
 	// subscriptionID := ""
 	//	uniquePostfix := random.UniqueId()
@@ -32,9 +35,9 @@ func TestTerraformAzure(t *testing.T) {
 	terraformOptions := &terraform.Options{
 		// The path to where our Terraform code is located
 		TerraformDir: ".",
-   // EnvVars: globalEnvVars,
-    NoColor: true,
-    // Reconfigure is required if module deployment and go test pipelines are running in one stage
+		// EnvVars: globalEnvVars,
+		NoColor: true,
+		// Reconfigure is required if module deployment and go test pipelines are running in one stage
 		Reconfigure: true,
 	}
 
@@ -48,24 +51,24 @@ func TestTerraformAzure(t *testing.T) {
 	assert.Equal(t, "fortinet-availability-set", availability_set_name)
 
 	// Run `terraform output` to get the values of output variables
-  cred, err := azidentity.NewDefaultAzureCredential(nil)
-  if err != nil {
-    log.Fatal("Invalid credentials with error: " + err.Error())
-  }
-  // Azure Resource Management clients accept the credential as a parameter
-  client, err := armresources.NewClient("fda770f9-b125-4474-abec-65a1cc1df596", cred, nil)
-  if err != nil {
-    log.Fatal("Invalid credentials with error: " + err.Error())
-  }
-  log.Printf("Great, You are Authenticated to subscription", client)
+	cred, err := azidentity.NewDefaultAzureCredential(nil)
+	if err != nil {
+		log.Fatal("Invalid credentials with error: " + err.Error())
+	}
+	// Azure Resource Management clients accept the credential as a parameter
+	client, err := armresources.NewClient("fda770f9-b125-4474-abec-65a1cc1df596", cred, nil)
+	if err != nil {
+		log.Fatal("Invalid credentials with error: " + err.Error())
+	}
+	log.Printf("Great, You are Authenticated to subscription", client)
 
-  exists := azure.ResourceGroupExists(t, resourceGroupName, subscriptionID)
+	exists := azure.ResourceGroupExists(t, resourceGroupName, subscriptionID)
 	assert.True(t, exists, "Resource group does not exist")
 
 	// Check the Availability Set Exists
-//	subscriptionID := terraform.Output(t, terraformOptions, "current_subscription_id")
-//	resourceGroupName := terraform.Output(t, terraformOptions, "resource_group_name")
-//	expectedAvsName := "fortinet-availability-set"
+	//	subscriptionID := terraform.Output(t, terraformOptions, "current_subscription_id")
+	//	resourceGroupName := terraform.Output(t, terraformOptions, "resource_group_name")
+	//	expectedAvsName := "fortinet-availability-set"
 	//actualAvsExists := azure.AvailabilitySetExists(t, expectedAvsName, resourceGroupName, subscriptionID)
 	//assert.True(t, actualAvsExists)
 
