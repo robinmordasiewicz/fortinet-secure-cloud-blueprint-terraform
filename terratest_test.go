@@ -52,8 +52,6 @@ func TestTerraformAzure(t *testing.T) {
   if err != nil {
     log.Fatal("Invalid credentials with error: " + err.Error())
   }
-
-  client, _ := armresources.NewClient(subscriptionId, cred, nil)
   log.Print("Great, You are Authenticated to subscription", client)
 
 	// Check the Availability Set Exists
