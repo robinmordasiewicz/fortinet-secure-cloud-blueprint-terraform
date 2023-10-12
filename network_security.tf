@@ -1,4 +1,5 @@
-resource "azurerm_network_security_group" "nsg" {
+resource "azurerm_network_security_group" "nsg" { #tfsec:ignore:azure-network-no-public-ingress
+  #checkov:skip=CKV_AZURE_160: Port 80 and 443 are open the internet
   name                = "nsg"
   location            = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.location
   resource_group_name = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.name

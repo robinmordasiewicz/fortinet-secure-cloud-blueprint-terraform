@@ -4,6 +4,9 @@ on:
   - delete
   - create
 
+permissions:
+  contents: none
+
 jobs:
   action:
     if: github.event.ref_type == 'branch'

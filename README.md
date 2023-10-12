@@ -24,6 +24,10 @@ https://fortinetcloudcse.github.io/FortiDevSec-Workshop/index.html
 
 https://brendanthompson.com/posts/2021/09/getting-started-with-terratest-on-azure
 
+https://brasoe.no/2023/08/30/testing-terraform-code-part-1-2-intro-and-pre-commit-hooks/
+
+https://github.com/antonbabenko/pre-commit-terraform
+
 ```
 export TF_CLI_ARGS_init="-backend-config=backend.hcl"
 terraform output -raw admin_password
