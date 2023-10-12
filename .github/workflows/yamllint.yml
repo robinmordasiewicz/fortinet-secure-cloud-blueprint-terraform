@@ -1,6 +1,8 @@
 ---
 name: 'Yamllint'
 on: push  # yamllint disable-line rule:truthy
+permissions:
+  contents: none
 jobs:
   yamllint:
     name: 'Yamllint'

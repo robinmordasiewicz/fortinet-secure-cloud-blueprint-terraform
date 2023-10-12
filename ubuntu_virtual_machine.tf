@@ -74,4 +74,3 @@ resource "azurerm_linux_virtual_machine" "ubuntu-virtual-machine" {
 #output "ubuntu-public_ip_address" {
 #  value = data.azurerm_public_ip.ubuntu-public_ip.ip_address
 #}
-
