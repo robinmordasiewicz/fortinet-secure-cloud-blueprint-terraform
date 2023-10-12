@@ -1,6 +1,6 @@
 ---
 name: Terratest
-on: # yamllint disable-line rule:truthy
+on:  # yamllint disable-line rule:truthy
   workflow_dispatch:
   push:
     paths:
@@ -52,7 +52,7 @@ jobs:
         run: go mod init ${{ github.repository }}
 
       - name: Go tidy
-        run:  go mod tidy
+        run: go mod tidy
 
       - name: Run Terratest
         env:
