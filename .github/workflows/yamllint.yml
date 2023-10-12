@@ -1,6 +1,8 @@
 ---
 name: 'Yamllint'
 on: push  # yamllint disable-line rule:truthy
+permissions:
+  contents: none
 jobs:
   yamllint:
     name: 'Yamllint'
@@ -8,10 +10,5 @@ jobs:
     steps:
       - name: 'Checkout'
         uses: actions/checkout@v3
-      - name: 'Yamllint'
-        uses: karancode/yamllint-github-action@master
-        with:
-          yamllint_strict: true
-          yamllint_comment: true
-        env:
-          GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: yaml-lint
+        uses: ibiqlik/action-yamllint@v3

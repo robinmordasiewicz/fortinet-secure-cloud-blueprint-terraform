@@ -6,6 +6,9 @@ on:  # yamllint disable-line rule:truthy
       - '*'
       - '!main'
 
+permissions:
+  contents: none
+
 jobs:
   pull-request:
     runs-on: ubuntu-latest
