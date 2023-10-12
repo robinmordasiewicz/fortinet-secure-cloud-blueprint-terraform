@@ -16,3 +16,12 @@ repos:
       args:
       - --args=--non-recursive
       - --args=--policy-type=azure
+-   repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+    - id: check-yaml
+    - id: check-json
+    - id: check-toml
+    - id: no-commit-to-branch
+    - id: end-of-file-fixer
+    - id: trailing-whitespace
