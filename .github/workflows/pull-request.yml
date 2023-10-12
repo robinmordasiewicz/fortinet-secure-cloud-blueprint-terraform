@@ -1,5 +1,5 @@
 ---
-
+name: 'Auto Pull Request'
 on:  # yamllint disable-line rule:truthy
   push:
     branches:
