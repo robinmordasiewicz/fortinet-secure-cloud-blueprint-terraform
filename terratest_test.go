@@ -3,10 +3,11 @@ package test
 import (
 	"log"
 	"testing"
+  "os"
 
-	"github.com/gruntwork-io/terratest/modules/azure"
 	"github.com/Azure/azure-sdk-for-go/sdk/azidentity"
 	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/resources/armresources"
+	"github.com/gruntwork-io/terratest/modules/azure"
 	"github.com/gruntwork-io/terratest/modules/terraform"
 	"github.com/stretchr/testify/assert"
 )
@@ -61,6 +62,11 @@ func TestTerraformAzure(t *testing.T) {
 		log.Fatal("Invalid credentials with error: " + err.Error())
 	}
 	log.Print("Great, You are Authenticated to subscription", client)
+
+	// Create env variables for Azure client communication
+	os.Setenv("AZURE_CLIENT_ID", os.Getenv("ARM_CLIENT_ID"))
+	os.Setenv("AZURE_CLIENT_SECRET", os.Getenv("ARM_CLIENT_SECRET"))
+	os.Setenv("AZURE_TENANT_ID", os.Getenv("ARM_TENANT_ID"))
 
 	exists := azure.ResourceGroupExists(t, resourceGroupName, subscriptionID)
 	assert.True(t, exists, "Resource group does not exist")

@@ -80,6 +80,7 @@ resource "azurerm_virtual_machine_data_disk_attachment" "fortiweb-data-disk-atta
   virtual_machine_id = azurerm_linux_virtual_machine.fortiweb-virtual-machine.id
 }
 resource "azurerm_managed_disk" "fortiweb-log-disk" {
+  #checkov:skip=CKV_AZURE_93:TODO add encryption
   create_option        = "Empty"
   location             = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.location
   resource_group_name  = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.name

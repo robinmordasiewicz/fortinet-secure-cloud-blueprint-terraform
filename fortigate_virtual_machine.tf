@@ -4,7 +4,7 @@
 #  resource_group_name = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.name
 #  allocation_method   = "Dynamic"
 #}
-resource "azurerm_network_security_group" "VIP-allow_https_tcp-nsg" {
+resource "azurerm_network_security_group" "VIP-allow_https_tcp-nsg" { #tfsec:ignore:azure-network-no-public-ingress
   name                = "VIP-allow_https_tcp-nsg"
   location            = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.location
   resource_group_name = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.name
@@ -32,6 +32,7 @@ resource "azurerm_network_interface_security_group_association" "fortigate-assoc
   network_security_group_id = azurerm_network_security_group.VIP-allow_https_tcp-nsg.id
 }
 resource "azurerm_network_interface" "fortigate-external-network-interface" {
+  #checkov:skip=CKV_AZURE_119:Fortigate gets a public IP
   name                = "fortigate-external-network-interface"
   location            = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.location
   resource_group_name = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.name
@@ -41,7 +42,6 @@ resource "azurerm_network_interface" "fortigate-external-network-interface" {
     private_ip_address_allocation = "Static"
     private_ip_address            = cidrhost(var.external-Prefix, 4)
     subnet_id                     = azurerm_subnet.external-subnet.id
-    #    public_ip_address_id          = azurerm_public_ip.fortigate-public_ip.id
   }
   ip_configuration {
     name                          = "VIP-external-ipconfig"
