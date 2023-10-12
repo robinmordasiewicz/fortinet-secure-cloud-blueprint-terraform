@@ -28,6 +28,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - name: Go Mod init
+        run: go mod init ${{ github.repository }}
+
       - name: go format
         run: go fmt
 
