@@ -53,7 +53,7 @@ gh workflow run environment.yml --ref Production -R robinmordasiewicz/fortinet-s
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | 1.5.7 |
-| <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) | 3.71.0 |
+| <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) | 3.75.0 |
 | <a name="requirement_random"></a> [random](#requirement\_random) | 3.5.1 |
 | <a name="requirement_tls"></a> [tls](#requirement\_tls) | 4.0.4 |
 
@@ -61,7 +61,7 @@ gh workflow run environment.yml --ref Production -R robinmordasiewicz/fortinet-s
 
 | Name | Version |
 |------|---------|
-| <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | 3.71.0 |
+| <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | 3.75.0 |
 | <a name="provider_random"></a> [random](#provider\_random) | 3.5.1 |
 | <a name="provider_tls"></a> [tls](#provider\_tls) | 4.0.4 |
 
@@ -73,36 +73,36 @@ No modules.
 
 | Name | Type |
 |------|------|
-| [azurerm_availability_set.fortinet-availability-set](https://registry.terraform.io/providers/hashicorp/azurerm/3.71.0/docs/resources/availability_set) | resource |
-| [azurerm_linux_virtual_machine.fortigate-virtual-machine](https://registry.terraform.io/providers/hashicorp/azurerm/3.71.0/docs/resources/linux_virtual_machine) | resource |
-| [azurerm_linux_virtual_machine.fortiweb-virtual-machine](https://registry.terraform.io/providers/hashicorp/azurerm/3.71.0/docs/resources/linux_virtual_machine) | resource |
-| [azurerm_linux_virtual_machine.ubuntu-virtual-machine](https://registry.terraform.io/providers/hashicorp/azurerm/3.71.0/docs/resources/linux_virtual_machine) | resource |
-| [azurerm_managed_disk.fortiweb-log-disk](https://registry.terraform.io/providers/hashicorp/azurerm/3.71.0/docs/resources/managed_disk) | resource |
-| [azurerm_network_interface.fortigate-dmz-network-interface](https://registry.terraform.io/providers/hashicorp/azurerm/3.71.0/docs/resources/network_interface) | resource |
-| [azurerm_network_interface.fortigate-external-network-interface](https://registry.terraform.io/providers/hashicorp/azurerm/3.71.0/docs/resources/network_interface) | resource |
-| [azurerm_network_interface.fortiweb-dmz-network-interface](https://registry.terraform.io/providers/hashicorp/azurerm/3.71.0/docs/resources/network_interface) | resource |
-| [azurerm_network_interface.fortiweb-internal-network-interface](https://registry.terraform.io/providers/hashicorp/azurerm/3.71.0/docs/resources/network_interface) | resource |
-| [azurerm_network_interface.ubuntu-dmz-network-interface](https://registry.terraform.io/providers/hashicorp/azurerm/3.71.0/docs/resources/network_interface) | resource |
-| [azurerm_network_interface.ubuntu-internal-network-interface](https://registry.terraform.io/providers/hashicorp/azurerm/3.71.0/docs/resources/network_interface) | resource |
-| [azurerm_network_interface_security_group_association.fortigate-association](https://registry.terraform.io/providers/hashicorp/azurerm/3.71.0/docs/resources/network_interface_security_group_association) | resource |
-| [azurerm_network_security_group.VIP-allow_https_tcp-nsg](https://registry.terraform.io/providers/hashicorp/azurerm/3.71.0/docs/resources/network_security_group) | resource |
-| [azurerm_network_security_group.nsg](https://registry.terraform.io/providers/hashicorp/azurerm/3.71.0/docs/resources/network_security_group) | resource |
-| [azurerm_network_security_group.private-nsg](https://registry.terraform.io/providers/hashicorp/azurerm/3.71.0/docs/resources/network_security_group) | resource |
-| [azurerm_public_ip.VIP-public_ip](https://registry.terraform.io/providers/hashicorp/azurerm/3.71.0/docs/resources/public_ip) | resource |
-| [azurerm_subnet.dmz-subnet](https://registry.terraform.io/providers/hashicorp/azurerm/3.71.0/docs/resources/subnet) | resource |
-| [azurerm_subnet.external-subnet](https://registry.terraform.io/providers/hashicorp/azurerm/3.71.0/docs/resources/subnet) | resource |
-| [azurerm_subnet.internal-subnet](https://registry.terraform.io/providers/hashicorp/azurerm/3.71.0/docs/resources/subnet) | resource |
-| [azurerm_subnet_network_security_group_association.dmz-subnet-association](https://registry.terraform.io/providers/hashicorp/azurerm/3.71.0/docs/resources/subnet_network_security_group_association) | resource |
-| [azurerm_subnet_network_security_group_association.external-subnet-association](https://registry.terraform.io/providers/hashicorp/azurerm/3.71.0/docs/resources/subnet_network_security_group_association) | resource |
-| [azurerm_subnet_network_security_group_association.internal-subnet-association](https://registry.terraform.io/providers/hashicorp/azurerm/3.71.0/docs/resources/subnet_network_security_group_association) | resource |
-| [azurerm_virtual_machine_data_disk_attachment.fortiweb-data-disk-attachment](https://registry.terraform.io/providers/hashicorp/azurerm/3.71.0/docs/resources/virtual_machine_data_disk_attachment) | resource |
-| [azurerm_virtual_network.vnet](https://registry.terraform.io/providers/hashicorp/azurerm/3.71.0/docs/resources/virtual_network) | resource |
+| [azurerm_availability_set.fortinet-availability-set](https://registry.terraform.io/providers/hashicorp/azurerm/3.75.0/docs/resources/availability_set) | resource |
+| [azurerm_linux_virtual_machine.fortigate-virtual-machine](https://registry.terraform.io/providers/hashicorp/azurerm/3.75.0/docs/resources/linux_virtual_machine) | resource |
+| [azurerm_linux_virtual_machine.fortiweb-virtual-machine](https://registry.terraform.io/providers/hashicorp/azurerm/3.75.0/docs/resources/linux_virtual_machine) | resource |
+| [azurerm_linux_virtual_machine.ubuntu-virtual-machine](https://registry.terraform.io/providers/hashicorp/azurerm/3.75.0/docs/resources/linux_virtual_machine) | resource |
+| [azurerm_managed_disk.fortiweb-log-disk](https://registry.terraform.io/providers/hashicorp/azurerm/3.75.0/docs/resources/managed_disk) | resource |
+| [azurerm_network_interface.fortigate-dmz-network-interface](https://registry.terraform.io/providers/hashicorp/azurerm/3.75.0/docs/resources/network_interface) | resource |
+| [azurerm_network_interface.fortigate-external-network-interface](https://registry.terraform.io/providers/hashicorp/azurerm/3.75.0/docs/resources/network_interface) | resource |
+| [azurerm_network_interface.fortiweb-dmz-network-interface](https://registry.terraform.io/providers/hashicorp/azurerm/3.75.0/docs/resources/network_interface) | resource |
+| [azurerm_network_interface.fortiweb-internal-network-interface](https://registry.terraform.io/providers/hashicorp/azurerm/3.75.0/docs/resources/network_interface) | resource |
+| [azurerm_network_interface.ubuntu-dmz-network-interface](https://registry.terraform.io/providers/hashicorp/azurerm/3.75.0/docs/resources/network_interface) | resource |
+| [azurerm_network_interface.ubuntu-internal-network-interface](https://registry.terraform.io/providers/hashicorp/azurerm/3.75.0/docs/resources/network_interface) | resource |
+| [azurerm_network_interface_security_group_association.fortigate-association](https://registry.terraform.io/providers/hashicorp/azurerm/3.75.0/docs/resources/network_interface_security_group_association) | resource |
+| [azurerm_network_security_group.VIP-allow_https_tcp-nsg](https://registry.terraform.io/providers/hashicorp/azurerm/3.75.0/docs/resources/network_security_group) | resource |
+| [azurerm_network_security_group.nsg](https://registry.terraform.io/providers/hashicorp/azurerm/3.75.0/docs/resources/network_security_group) | resource |
+| [azurerm_network_security_group.private-nsg](https://registry.terraform.io/providers/hashicorp/azurerm/3.75.0/docs/resources/network_security_group) | resource |
+| [azurerm_public_ip.VIP-public_ip](https://registry.terraform.io/providers/hashicorp/azurerm/3.75.0/docs/resources/public_ip) | resource |
+| [azurerm_subnet.dmz-subnet](https://registry.terraform.io/providers/hashicorp/azurerm/3.75.0/docs/resources/subnet) | resource |
+| [azurerm_subnet.external-subnet](https://registry.terraform.io/providers/hashicorp/azurerm/3.75.0/docs/resources/subnet) | resource |
+| [azurerm_subnet.internal-subnet](https://registry.terraform.io/providers/hashicorp/azurerm/3.75.0/docs/resources/subnet) | resource |
+| [azurerm_subnet_network_security_group_association.dmz-subnet-association](https://registry.terraform.io/providers/hashicorp/azurerm/3.75.0/docs/resources/subnet_network_security_group_association) | resource |
+| [azurerm_subnet_network_security_group_association.external-subnet-association](https://registry.terraform.io/providers/hashicorp/azurerm/3.75.0/docs/resources/subnet_network_security_group_association) | resource |
+| [azurerm_subnet_network_security_group_association.internal-subnet-association](https://registry.terraform.io/providers/hashicorp/azurerm/3.75.0/docs/resources/subnet_network_security_group_association) | resource |
+| [azurerm_virtual_machine_data_disk_attachment.fortiweb-data-disk-attachment](https://registry.terraform.io/providers/hashicorp/azurerm/3.75.0/docs/resources/virtual_machine_data_disk_attachment) | resource |
+| [azurerm_virtual_network.vnet](https://registry.terraform.io/providers/hashicorp/azurerm/3.75.0/docs/resources/virtual_network) | resource |
 | [random_password.admin_password](https://registry.terraform.io/providers/hashicorp/random/3.5.1/docs/resources/password) | resource |
 | [random_pet.admin_username](https://registry.terraform.io/providers/hashicorp/random/3.5.1/docs/resources/pet) | resource |
 | [tls_private_key.ssh-key](https://registry.terraform.io/providers/hashicorp/tls/4.0.4/docs/resources/private_key) | resource |
-| [azurerm_public_ip.VIP-public_ip](https://registry.terraform.io/providers/hashicorp/azurerm/3.71.0/docs/data-sources/public_ip) | data source |
-| [azurerm_resource_group.AZURE_RESOURCE_GROUP](https://registry.terraform.io/providers/hashicorp/azurerm/3.71.0/docs/data-sources/resource_group) | data source |
-| [azurerm_subscription.current](https://registry.terraform.io/providers/hashicorp/azurerm/3.71.0/docs/data-sources/subscription) | data source |
+| [azurerm_public_ip.VIP-public_ip](https://registry.terraform.io/providers/hashicorp/azurerm/3.75.0/docs/data-sources/public_ip) | data source |
+| [azurerm_resource_group.AZURE_RESOURCE_GROUP](https://registry.terraform.io/providers/hashicorp/azurerm/3.75.0/docs/data-sources/resource_group) | data source |
+| [azurerm_subscription.current](https://registry.terraform.io/providers/hashicorp/azurerm/3.75.0/docs/data-sources/subscription) | data source |
 
 ## Inputs
 
@@ -124,12 +124,12 @@ No modules.
 | <a name="output_VIP-public_ip_address"></a> [VIP-public\_ip\_address](#output\_VIP-public\_ip\_address) | n/a |
 | <a name="output_admin_password"></a> [admin\_password](#output\_admin\_password) | n/a |
 | <a name="output_admin_username"></a> [admin\_username](#output\_admin\_username) | n/a |
-| <a name="output_availability_set_fdc"></a> [availability\_set\_fdc](#output\_availability\_set\_fdc) | n/a |
-| <a name="output_availability_set_id"></a> [availability\_set\_id](#output\_availability\_set\_id) | n/a |
-| <a name="output_availability_set_name"></a> [availability\_set\_name](#output\_availability\_set\_name) | n/a |
-| <a name="output_current_subscription_display_name"></a> [current\_subscription\_display\_name](#output\_current\_subscription\_display\_name) | n/a |
-| <a name="output_current_subscription_id"></a> [current\_subscription\_id](#output\_current\_subscription\_id) | n/a |
-| <a name="output_resource_group_name"></a> [resource\_group\_name](#output\_resource\_group\_name) | n/a |
+| <a name="output_availability_set_fdc"></a> [availability\_set\_fdc](#output\_availability\_set\_fdc) | Number of fault domains in the availability set. |
+| <a name="output_availability_set_id"></a> [availability\_set\_id](#output\_availability\_set\_id) | ID of the Azure availability set. |
+| <a name="output_availability_set_name"></a> [availability\_set\_name](#output\_availability\_set\_name) | Name of the Azure availability set. |
+| <a name="output_current_subscription_display_name"></a> [current\_subscription\_display\_name](#output\_current\_subscription\_display\_name) | Azure subscription Name |
+| <a name="output_current_subscription_id"></a> [current\_subscription\_id](#output\_current\_subscription\_id) | Azure subscription ID |
+| <a name="output_resource_group_name"></a> [resource\_group\_name](#output\_resource\_group\_name) | Azure resource group for all objects |
 | <a name="output_tls_private_key"></a> [tls\_private\_key](#output\_tls\_private\_key) | n/a |
-| <a name="output_vm_name"></a> [vm\_name](#output\_vm\_name) | n/a |
+| <a name="output_vm_name"></a> [vm\_name](#output\_vm\_name) | Ubuntu machine name. |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
