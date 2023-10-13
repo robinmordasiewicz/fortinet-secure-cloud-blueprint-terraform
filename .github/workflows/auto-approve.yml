@@ -1,0 +1,14 @@
+---
+name: Auto approve
+on: pull_request_target  # yamllint disable-line rule:truthy
+
+permissions:
+  contents: none
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    steps:
+      - uses: hmarr/auto-approve-action@v3
