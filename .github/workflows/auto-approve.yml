@@ -3,7 +3,7 @@ name: Auto approve
 on: pull_request_target  # yamllint disable-line rule:truthy
 
 permissions:
-  contents: none
+  pull-requests: write
 
 jobs:
   build:
