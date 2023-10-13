@@ -9,7 +9,20 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Approve pull Request
-        uses: hmarr/auto-approve-action@v3
+      #  - name: Approve pull Request
+      #   uses: hmarr/auto-approve-action@v3
+      #   with:
+      #     github-token: ${{ secrets.GH_AUTO_APPROVE_PR }}
+      - name: Approve PR
+        uses: actions/github-script@v6
+        if: github.actor == 'robinmordasiewicz'
         with:
-          github-token: ${{ secrets.GH_AUTO_APPROVE_PR }}
+          script: |
+            github.rest.pulls.createReview({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number,
+              review_id: 1,
+              event: 'APPROVE',
+              body: 'Auto-Merge'
+            })
