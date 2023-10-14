@@ -7,6 +7,9 @@ on:          # yamllint disable-line rule:truthy
 permissions:
   contents: none
 
+concurrency:
+  group: ${{ github.workflow }}
+
 jobs:
   action:
     if: github.event.ref_type == 'branch'
