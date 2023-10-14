@@ -30,7 +30,7 @@ repos:
     rev: v1.5.1
     hooks:
     - id: opa-fmt
-    #  - id: opa-check
+    - id: opa-check
     #  - id: opa-test
     #  - id: conftest-test
     #  - id: conftest-verify
