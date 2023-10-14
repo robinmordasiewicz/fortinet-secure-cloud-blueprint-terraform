@@ -5,10 +5,14 @@ on:          # yamllint disable-line rule:truthy
     paths:
       - '**.rego'
       - '**.tf'
+
 permissions:
-  contents: none
+  id-token: write
+  contents: read
+
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
+
 jobs:
   Run-OPA-Tests:
     runs-on: ubuntu-latest
