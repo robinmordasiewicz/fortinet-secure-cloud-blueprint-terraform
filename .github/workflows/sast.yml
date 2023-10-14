@@ -2,31 +2,31 @@
 name: FortiDevSec SAST scanner
 
 on:          # yamllint disable-line rule:truthy
-    push:
-        branches: [main]
-        paths:
-            - '**.tf'
-    pull_request:
-        branches: [main]
-        paths:
-            - '**.tf'
+  push:
+    branches: [main]
+    paths:
+      - '**.tf'
+  pull_request:
+    branches: [main]
+    paths:
+      - '**.tf'
 
 permissions:
-    contents: read
+  contents: read
 
 concurrency:
-    group: ${{ github.workflow }}
+  group: ${{ github.workflow }}
 
 jobs:
-    build:
-        name: https://fortidevsec.forticloud.com/
-        runs-on: ubuntu-latest
-        steps:
-            - name: Checkout
-              uses: actions/checkout@v3
+  build:
+    name: https://fortidevsec.forticloud.com/
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
 
-            - name: Scan
-              run: |
-                  env | grep -E "GITHUB_ACTIONS|GITHUB_RUN_NUMBER|GITHUB_REF_NAME|GITHUB_SHA" > /tmp/env
-                  docker pull registry.fortidevsec.forticloud.com/fdevsec_sast:latest
-                  docker run --rm --env-file /tmp/env --mount type=bind,source=$PWD,target=/scan registry.fortidevsec.forticloud.com/fdevsec_sast:latest
+      - name: Scan
+        run: |
+          env | grep -E "GITHUB_ACTIONS|GITHUB_RUN_NUMBER|GITHUB_REF_NAME|GITHUB_SHA" > /tmp/env
+          docker pull registry.fortidevsec.forticloud.com/fdevsec_sast:latest
+          docker run --rm --env-file /tmp/env --mount type=bind,source=$PWD,target=/scan registry.fortidevsec.forticloud.com/fdevsec_sast:latest

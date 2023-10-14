@@ -2,110 +2,110 @@
 name: Syntax Lint
 
 on:          # yamllint disable-line rule:truthy
-    push:
-        paths:
-            - '**.tf'
-        branches:
-            - '*'
-            - '!main'
+  push:
+    paths:
+      - '**.tf'
+    branches:
+      - '*'
+      - '!main'
 
 permissions:
-    security-events: write
+  security-events: write
 
 jobs:
-    terraform-unit-tests:
-        name: Terraform Unit Tests
-        environment:
-            name: ${{ github.ref_name }}
-        runs-on: ubuntu-latest
-        permissions:
-            contents: read
-            security-events: write
-            actions: read
+  terraform-unit-tests:
+    name: Terraform Unit Tests
+    environment:
+      name: ${{ github.ref_name }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+      actions: read
 
-        steps:
+    steps:
 
-            - name: Checkout
-              uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v3
 
-            - name: Go Mod init
-              run: go mod init ${{ github.repository }}
+      - name: Go Mod init
+        run: go mod init ${{ github.repository }}
 
-            - name: go format
-              run: go fmt
+      - name: go format
+        run: go fmt
 
-            - name: Setup Terraform
-              uses: hashicorp/setup-terraform@v2
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
 
-            - name: Terraform Init
-              run: terraform init -backend=false
+      - name: Terraform Init
+        run: terraform init -backend=false
 
-            - name: Terraform Validate
-              run: terraform validate
+      - name: Terraform Validate
+        run: terraform validate
 
-            - name: Terraform Format
-              run: terraform fmt -check -recursive
+      - name: Terraform Format
+        run: terraform fmt -check -recursive
 
-            - name: Run Checkov action
-              id: checkov
-              uses: bridgecrewio/checkov-action@v12
-              with:
-                  framework: terraform
-                  download_external_modules: true
-                  output_format: cli,sarif
-                  output_file_path: console,results.sarif
-                  soft_fail: true
-                  skip_check: CKV_AZURE_93,CKV_AZURE_160,CKV_AZURE_119
+      - name: Run Checkov action
+        id: checkov
+        uses: bridgecrewio/checkov-action@v12
+        with:
+          framework: terraform
+          download_external_modules: true
+          output_format: cli,sarif
+          output_file_path: console,results.sarif
+          soft_fail: true
+          skip_check: CKV_AZURE_93,CKV_AZURE_160,CKV_AZURE_119
 
-            - name: Upload SARIF file
-              uses: github/codeql-action/upload-sarif@v2
+      - name: Upload SARIF file
+        uses: github/codeql-action/upload-sarif@v2
         # if: success() || failure()
-              with:
-                  sarif_file: results.sarif
+        with:
+          sarif_file: results.sarif
 
-            - uses: actions/cache@v3
-              name: Cache plugin dir
-              with:
-                  path: ~/.tflint.d/plugins
-                  key: tflint-${{ hashFiles('.tflint.hcl') }}
+      - uses: actions/cache@v3
+        name: Cache plugin dir
+        with:
+          path: ~/.tflint.d/plugins
+          key: tflint-${{ hashFiles('.tflint.hcl') }}
 
-            - name: Setup TFLint
-              uses: terraform-linters/setup-tflint@v4.0.0
+      - name: Setup TFLint
+        uses: terraform-linters/setup-tflint@v4.0.0
 
-            - name: Init TFLint
-              env:
-                  GITHUB_TOKEN: ${{ github.token }}
-              run: tflint --init
+      - name: Init TFLint
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: tflint --init
 
-            - name: Run TFLint
-              run: tflint -f compact
+      - name: Run TFLint
+        run: tflint -f compact
 
-            - name: Run Trivy vulnerability scanner in repo mode
-              uses: aquasecurity/trivy-action@master
-              with:
-                  scan-type: fs
-                  ignore-unfixed: true
-                  format: sarif
-                  output: trivy-results.sarif
-                  severity: CRITICAL
+      - name: Run Trivy vulnerability scanner in repo mode
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: fs
+          ignore-unfixed: true
+          format: sarif
+          output: trivy-results.sarif
+          severity: CRITICAL
 
-            - name: Upload Trivy scan results to GitHub Security tab
-              uses: github/codeql-action/upload-sarif@v2
+      - name: Upload Trivy scan results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v2
         # if: success() || failure()
-              with:
-                  sarif_file: trivy-results.sarif
+        with:
+          sarif_file: trivy-results.sarif
 
-            - name: Run Terrascan
-              id: terrascan
-              uses: tenable/terrascan-action@main
-              with:
-                  iac_type: terraform
-                  policy_type: azure
-                  sarif_upload: true
-                  non_recursive: true
+      - name: Run Terrascan
+        id: terrascan
+        uses: tenable/terrascan-action@main
+        with:
+          iac_type: terraform
+          policy_type: azure
+          sarif_upload: true
+          non_recursive: true
 
-            - name: Upload SARIF file
-              uses: github/codeql-action/upload-sarif@v2
+      - name: Upload SARIF file
+        uses: github/codeql-action/upload-sarif@v2
         # if: success() || failure()
-              with:
-                  sarif_file: terrascan.sarif
+        with:
+          sarif_file: terrascan.sarif
