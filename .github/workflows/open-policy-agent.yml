@@ -1,5 +1,5 @@
 ---
-name: Run OPA Tests
+name: Policy Enforcement
 
 on:          # yamllint disable-line rule:truthy
   workflow_dispatch:
@@ -16,7 +16,7 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
 
 jobs:
-  Run-OPA-Tests:
+  open-policy-agent:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
