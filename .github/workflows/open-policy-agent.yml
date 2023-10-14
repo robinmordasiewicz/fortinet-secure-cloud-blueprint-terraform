@@ -76,5 +76,5 @@ jobs:
                     exit 0
                   fi
 
-      #  - name: Run OPA Tests
-      #    run: opa test *.rego -v
+            - name: Run OPA Tests
+              run: opa test policies/*.rego -v
