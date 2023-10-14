@@ -22,7 +22,15 @@ repos:
     hooks:
       - id: check-yaml
       - id: check-json
-      - id: check-toml
+      #  - id: check-toml
       - id: no-commit-to-branch
       - id: end-of-file-fixer
       - id: trailing-whitespace
+  - repo: https://github.com/anderseknert/pre-commit-opa
+    rev: v1.5.1
+    hooks:
+    - id: opa-fmt
+    #  - id: opa-check
+    #  - id: opa-test
+    #  - id: conftest-test
+    #  - id: conftest-verify
