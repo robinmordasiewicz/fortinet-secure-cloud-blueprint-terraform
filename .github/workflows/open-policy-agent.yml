@@ -3,6 +3,7 @@ name: Run OPA Tests
 on:  # yamllint disable-line rule:truthy
   push:
     paths:
+      - '**.rego'
       - '**.tf'
 permissions:
   contents: none
