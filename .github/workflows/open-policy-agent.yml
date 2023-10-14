@@ -1,6 +1,8 @@
 ---
 name: Run OPA Tests
+
 on:          # yamllint disable-line rule:truthy
+  workflow_dispatch:
   push:
     paths:
       - '**.rego'
