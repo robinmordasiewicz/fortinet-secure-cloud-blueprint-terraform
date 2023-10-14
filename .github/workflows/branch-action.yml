@@ -1,23 +1,23 @@
 ---
 name: Branch Action
-on:  # yamllint disable-line rule:truthy
-  - delete
-  - create
+on:          # yamllint disable-line rule:truthy
+    - delete
+    - create
 
 permissions:
-  contents: none
+    contents: none
 
 jobs:
-  action:
-    if: github.event.ref_type == 'branch'
-    runs-on: ubuntu-latest
-    steps:
-      - name: Branch Action
-        env:
-          GH_TOKEN: ${{ secrets.CONTROLLER_REPOSITORY_TOKEN }}
-        run: |
-          if [[ ! -z "${{ secrets.CONTROLLER_REPOSITORY_FULL_NAME }}" ]]
-          then
-            APPLICATION_REPOSITORY_FULL_NAME_BASE64=$( echo -n ${{ github.repository }} | base64 | tr -d '\n\r' )
-            gh workflow run application.yml -R "${{ secrets.CONTROLLER_REPOSITORY_FULL_NAME }}" -F "application=${APPLICATION_REPOSITORY_FULL_NAME_BASE64}"
-            fi
+    action:
+        if: github.event.ref_type == 'branch'
+        runs-on: ubuntu-latest
+        steps:
+            - name: Branch Action
+              env:
+                  GH_TOKEN: ${{ secrets.CONTROLLER_REPOSITORY_TOKEN }}
+              run: |
+                  if [[ ! -z "${{ secrets.CONTROLLER_REPOSITORY_FULL_NAME }}" ]]
+                  then
+                    APPLICATION_REPOSITORY_FULL_NAME_BASE64=$( echo -n ${{ github.repository }} | base64 | tr -d '\n\r' )
+                    gh workflow run application.yml -R "${{ secrets.CONTROLLER_REPOSITORY_FULL_NAME }}" -F "application=${APPLICATION_REPOSITORY_FULL_NAME_BASE64}"
+                    fi

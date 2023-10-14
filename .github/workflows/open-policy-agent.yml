@@ -1,78 +1,80 @@
 ---
 name: Run OPA Tests
-on:  # yamllint disable-line rule:truthy
-  push:
-    paths:
-      - '**.rego'
-      - '**.tf'
+on:          # yamllint disable-line rule:truthy
+    push:
+        paths:
+            - '**.rego'
+            - '**.tf'
 permissions:
-  contents: none
+    contents: none
 jobs:
-  Run-OPA-Tests:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out repository code
-        uses: actions/checkout@v3
+    Run-OPA-Tests:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Check out repository code
+              uses: actions/checkout@v3
 
-      - name: Setup OPA
-        uses: open-policy-agent/setup-opa@v2
-        with:
-          version: latest
+            - name: Setup OPA
+              uses: open-policy-agent/setup-opa@v2
+              with:
+                  version: latest
 
-      - name: Microsoft Azure Authentication
-        uses: azure/login@v1
-        with:
-          client-id: ${{ secrets.ARM_CLIENT_ID }}
-          tenant-id: ${{ secrets.ARM_TENANT_ID }}
-          subscription-id: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+            - name: Microsoft Azure Authentication
+              uses: azure/login@v1
+              with:
+                  client-id: ${{ secrets.ARM_CLIENT_ID }}
+                  tenant-id: ${{ secrets.ARM_TENANT_ID }}
+                  subscription-id: ${{ secrets.ARM_SUBSCRIPTION_ID }}
 
-      - name: Hashicorp Terraform
-        uses: hashicorp/setup-terraform@v2
-        with:
-          terraform_version: 1.5.7
-          terraform_wrapper: false
+            - name: Hashicorp Terraform
+              uses: hashicorp/setup-terraform@v2
+              with:
+                  terraform_version: 1.5.7
+                  terraform_wrapper: false
 
-      - name: terraform format
-        id: format
-        run: terraform fmt -check
+            - name: terraform format
+              id: format
+              run: terraform fmt -check
 
-      - name: terraform init
-        id: init
-        env:
-          TFSTATE_STORAGE_ACCOUNT_NAME: ${{ secrets.TFSTATE_STORAGE_ACCOUNT_NAME }}
-          TFSTATE_CONTAINER_NAME: ${{ secrets.TFSTATE_CONTAINER_NAME }}
-          TFSTATE_KEY: ${{ github.ref_name }}
-          AZURE_RESOURCE_GROUP_NAME: ${{ secrets.AZURE_RESOURCE_GROUP_NAME }}
-          ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
-          ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
-          ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
-          ARM_USE_OIDC: true
-          TF_IN_AUTOMATION: true
-          TF_CLI_ARGS_init: '-backend-config="storage_account_name=${TFSTATE_STORAGE_ACCOUNT_NAME}" -backend-config="container_name  =${TFSTATE_CONTAINER_NAME}" -backend-config="resource_group_name=${AZURE_RESOURCE_GROUP_NAME}" -backend-config="key=${TFSTATE_KEY}  " -backend-config="use_oidc=true" -input=false'
-        run: terraform init
+            - name: terraform init
+              id: init
+              env:
+                  TFSTATE_STORAGE_ACCOUNT_NAME: ${{ secrets.TFSTATE_STORAGE_ACCOUNT_NAME }}
+                  TFSTATE_CONTAINER_NAME: ${{ secrets.TFSTATE_CONTAINER_NAME }}
+                  TFSTATE_KEY: ${{ github.ref_name }}
+                  AZURE_RESOURCE_GROUP_NAME: ${{ secrets.AZURE_RESOURCE_GROUP_NAME }}
+                  ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+                  ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+                  ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+                  ARM_USE_OIDC: true
+                  TF_IN_AUTOMATION: true
+                  TF_CLI_ARGS_init: -backend-config="storage_account_name=${TFSTATE_STORAGE_ACCOUNT_NAME}" -backend-config="container_name  =${TFSTATE_CONTAINER_NAME}"
+                      -backend-config="resource_group_name=${AZURE_RESOURCE_GROUP_NAME}" -backend-config="key=${TFSTATE_KEY}  " -backend-config="use_oidc=true"
+                      -input=false
+              run: terraform init
 
-      - name: terraform plan
-        id: tf-plan
-        env:
-          TF_VAR_AZURE_RESOURCE_GROUP_NAME: ${{ secrets.AZURE_RESOURCE_GROUP_NAME }}
-          TF_VAR_AZURE_REGION: ${{ secrets.AZURE_REGION }}
-          TF_VAR_AZURE_USERNAME: ${{ secrets.AZURE_USERNAME }}
-          ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
-          ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
-          ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
-          ARM_USE_OIDC: true
-          TF_IN_AUTOMATION: true
-        run: |
-          export exitcode=0
-          terraform plan -detailed-exitcode -no-color -out tfplan || export exitcode=$?
-          echo "exitcode=$exitcode" >> $GITHUB_OUTPUT
-          if [ $exitcode -eq 1 ]; then
-            echo Terraform Plan Failed!
-            exit 1
-          else
-            terraform show -json tfplan > tfplan.json
-            exit 0
-          fi
+            - name: terraform plan
+              id: tf-plan
+              env:
+                  TF_VAR_AZURE_RESOURCE_GROUP_NAME: ${{ secrets.AZURE_RESOURCE_GROUP_NAME }}
+                  TF_VAR_AZURE_REGION: ${{ secrets.AZURE_REGION }}
+                  TF_VAR_AZURE_USERNAME: ${{ secrets.AZURE_USERNAME }}
+                  ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+                  ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+                  ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+                  ARM_USE_OIDC: true
+                  TF_IN_AUTOMATION: true
+              run: |
+                  export exitcode=0
+                  terraform plan -detailed-exitcode -no-color -out tfplan || export exitcode=$?
+                  echo "exitcode=$exitcode" >> $GITHUB_OUTPUT
+                  if [ $exitcode -eq 1 ]; then
+                    echo Terraform Plan Failed!
+                    exit 1
+                  else
+                    terraform show -json tfplan > tfplan.json
+                    exit 0
+                  fi
 
       #  - name: Run OPA Tests
       #    run: opa test *.rego -v
