@@ -1,7 +1,7 @@
 ---
-name: 'Environment Provisioning'
+name: Environment Provisioning
 
-on:  # yamllint disable-line rule:truthy
+on:  #  yamllint disable-line rule:truthy
   workflow_dispatch:
   push:
     paths:
@@ -20,7 +20,7 @@ concurrency:
 
 jobs:
   terraform:
-    name: 'Terraform Init'
+    name: Terraform Init
     runs-on: ubuntu-latest
     environment:
       name: ${{ github.ref_name }}
@@ -28,7 +28,7 @@ jobs:
       action: ${{ steps.terraform.outputs.action }}
     steps:
       - id: terraform
-        name: "${{ github.ref_name }} deployed is ${{ vars.DEPLOYED }}"
+        name: ${{ github.ref_name }} deployed is ${{ vars.DEPLOYED }}
         shell: bash
         run: |
           env
@@ -47,7 +47,7 @@ jobs:
   plan:
     needs: [terraform]
     if: needs.terraform.outputs.action == 'apply'
-    name: 'Terraform Plan'
+    name: Terraform Plan
     runs-on: ubuntu-latest
     environment:
       name: ${{ github.ref_name }}
@@ -89,7 +89,8 @@ jobs:
           ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
           ARM_USE_OIDC: true
           TF_IN_AUTOMATION: true
-          TF_CLI_ARGS_init: '-backend-config="storage_account_name=${TFSTATE_STORAGE_ACCOUNT_NAME}" -backend-config="container_name  =${TFSTATE_CONTAINER_NAME}" -backend-config="resource_group_name=${AZURE_RESOURCE_GROUP_NAME}" -backend-config="key=${TFSTATE_KEY}  " -backend-config="use_oidc=true" -input=false'
+          TF_CLI_ARGS_init: -backend-config="storage_account_name=${TFSTATE_STORAGE_ACCOUNT_NAME}" -backend-config="container_name  =${TFSTATE_CONTAINER_NAME}" -backend-config="resource_group_name=${AZURE_RESOURCE_GROUP_NAME}"
+            -backend-config="key=${TFSTATE_KEY}  " -backend-config="use_oidc=true" -input=false
         run: terraform init
 
       - name: terraform plan
@@ -158,7 +159,7 @@ jobs:
       #        })
 
   apply:
-    name: 'Terraform Apply'
+    name: Terraform Apply
     if: needs.terraform.outputs.action == 'apply'
     environment:
       name: ${{ github.ref_name }}
@@ -186,14 +187,15 @@ jobs:
         env:
           TFSTATE_STORAGE_ACCOUNT_NAME: ${{ secrets.TFSTATE_STORAGE_ACCOUNT_NAME }}
           TFSTATE_CONTAINER_NAME: ${{ secrets.TFSTATE_CONTAINER_NAME }}
-          TFSTATE_KEY: "tfstate"
+          TFSTATE_KEY: tfstate
           AZURE_RESOURCE_GROUP_NAME: ${{ secrets.AZURE_RESOURCE_GROUP_NAME }}
           ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
           ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
           ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
           ARM_USE_OIDC: true
           TF_IN_AUTOMATION: true
-          TF_CLI_ARGS_init: '-backend-config="storage_account_name=${TFSTATE_STORAGE_ACCOUNT_NAME}" -backend-config="container_name  =${TFSTATE_CONTAINER_NAME}" -backend-config="resource_group_name=${AZURE_RESOURCE_GROUP_NAME}" -backend-config="key=${TFSTATE_KEY}  " -backend-config="use_oidc=true" -input=false'
+          TF_CLI_ARGS_init: -backend-config="storage_account_name=${TFSTATE_STORAGE_ACCOUNT_NAME}" -backend-config="container_name  =${TFSTATE_CONTAINER_NAME}" -backend-config="resource_group_name=${AZURE_RESOURCE_GROUP_NAME}"
+            -backend-config="key=${TFSTATE_KEY}  " -backend-config="use_oidc=true" -input=false
         run: terraform init
 
       - name: Download Terraform Plan
@@ -212,7 +214,7 @@ jobs:
         run: terraform apply -auto-approve tfplan
 
   destroy:
-    name: 'Terraform Destroy'
+    name: Terraform Destroy
     needs: [terraform]
     if: needs.terraform.outputs.action == 'destroy'
     environment:
@@ -248,7 +250,8 @@ jobs:
           ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
           ARM_USE_OIDC: true
           TF_IN_AUTOMATION: true
-          TF_CLI_ARGS_init: '-backend-config="storage_account_name=${TFSTATE_STORAGE_ACCOUNT_NAME}" -backend-config="container_name  =${TFSTATE_CONTAINER_NAME}" -backend-config="resource_group_name=${AZURE_RESOURCE_GROUP_NAME}" -backend-config="key=${TFSTATE_KEY}  " -backend-config="use_oidc=true" -input=false'
+          TF_CLI_ARGS_init: -backend-config="storage_account_name=${TFSTATE_STORAGE_ACCOUNT_NAME}" -backend-config="container_name  =${TFSTATE_CONTAINER_NAME}" -backend-config="resource_group_name=${AZURE_RESOURCE_GROUP_NAME}"
+            -backend-config="key=${TFSTATE_KEY}  " -backend-config="use_oidc=true" -input=false
         run: terraform init
 
       - name: terraform destroy

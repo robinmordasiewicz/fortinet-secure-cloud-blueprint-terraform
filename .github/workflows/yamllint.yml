@@ -1,19 +1,19 @@
 ---
-name: 'Yamllint'
-on:  # yamllint disable-line rule:truthy
+name: Yamllint
+on:          #  yamllint disable-line rule:truthy
   push:
     paths:
       - '**.yml'
       - '**.yaml'
-      - '.yamllint'
+      - .yamllint
 permissions:
   contents: none
 jobs:
   yamllint:
-    name: 'Yamllint'
+    name: Yamllint
     runs-on: ubuntu-latest
     steps:
-      - name: 'Checkout'
+      - name: Checkout
         uses: actions/checkout@v3
       - name: yaml-lint
         uses: ibiqlik/action-yamllint@v3

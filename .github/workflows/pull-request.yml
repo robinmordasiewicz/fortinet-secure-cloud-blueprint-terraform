@@ -1,6 +1,6 @@
 ---
-name: 'Auto Pull Request'
-on:  # yamllint disable-line rule:truthy
+name: Auto Pull Request
+on:          # yamllint disable-line rule:truthy
   push:
     branches:
       - '*'
@@ -17,4 +17,4 @@ jobs:
       - name: pull-request
         uses: diillson/auto-pull-request@v1.0.1
         with:
-          destination_branch: "main"
+          destination_branch: main

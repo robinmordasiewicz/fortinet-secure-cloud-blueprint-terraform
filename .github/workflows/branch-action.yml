@@ -1,11 +1,14 @@
 ---
 name: Branch Action
-on:  # yamllint disable-line rule:truthy
+on:          # yamllint disable-line rule:truthy
   - delete
   - create
 
 permissions:
   contents: none
+
+concurrency:
+  group: ${{ github.workflow }}
 
 jobs:
   action:
