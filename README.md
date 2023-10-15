@@ -34,6 +34,8 @@ https://github.com/antonbabenko/pre-commit-terraform
 
 https://github.com/marketplace/actions/secret-scanner
 
+https://microsoft.github.io/code-with-engineering-playbook/continuous-integration/dev-sec-ops/secret-management/recipes/detect-secrets-ado/
+
 ```
 export TF_CLI_ARGS_init="-backend-config=backend.hcl"
 terraform output -raw admin_password
