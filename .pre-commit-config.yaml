@@ -39,7 +39,6 @@ repos:
       - id: pretty-format-json
       - id: check-merge-conflict
       - id: mixed-line-ending
-      - id: no-commit-to-branch
       - id: end-of-file-fixer
       - id: trailing-whitespace
   - repo: https://github.com/anderseknert/pre-commit-opa
