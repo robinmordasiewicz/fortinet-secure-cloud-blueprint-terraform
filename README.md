@@ -2,7 +2,6 @@
 
 Azure Automation Fortinet Terraform.
 
-
 Configure pre-commit
 
 ```
