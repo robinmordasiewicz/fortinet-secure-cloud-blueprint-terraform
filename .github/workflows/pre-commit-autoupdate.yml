@@ -63,7 +63,7 @@ jobs:
           branch: pre-commit-autoupdate
 
       - name: pre-commit autoupdate
-        run: git switch -c pre-commit-autoupdate && pre-commit autoupdate && pre-commit run --all-files
+        run: git switch -c pre-commit-autoupdate && pre-commit autoupdate --color never && pre-commit run --all-files --color never
 
       - uses: peter-evans/create-pull-request@v5
         with:
