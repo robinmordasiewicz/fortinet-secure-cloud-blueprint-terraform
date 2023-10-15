@@ -2,6 +2,8 @@
 
 Azure Automation Fortinet Terraform.
 
+[![GitHub Super-Linter](https://github.com/robinmordasiewicz/fortinet-secure-cloud-blueprint-terraform/actions/workflows/linter.yml/badge.svg)](https://github.com/marketplace/actions/super-linter)
+
 Configure pre-commit
 
 ```
