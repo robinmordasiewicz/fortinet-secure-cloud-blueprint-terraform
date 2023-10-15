@@ -4,7 +4,8 @@ name: Auto approve PRs by dependabot
 on: pull_request_target
 
 permissions:
-  contents: none
+  contents: write
+  pull-requests: write
 
 jobs:
   autoapprove:
