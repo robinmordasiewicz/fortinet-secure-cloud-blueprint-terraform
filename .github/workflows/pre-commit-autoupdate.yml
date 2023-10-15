@@ -22,7 +22,7 @@ jobs:
         uses: pauloconnor/tflint-action@v0.0.2
 
       - name: tfsec action
-        uses: aquasecurity/tfsec-action@v1
+        uses: aquasecurity/tfsec-action@v1.0.3
 
       - name: Checkov GitHub Action
         run: pip3 install checkov
