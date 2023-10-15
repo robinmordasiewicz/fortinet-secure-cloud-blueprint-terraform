@@ -33,16 +33,16 @@ jobs:
         shell: bash
         run: |
           env
-          if [[ ! -z "${{ vars.DEPLOYED }}" ]]
+          if [[ -n "${{ vars.DEPLOYED }}" ]]
           then
             if [[ "${{ vars.DEPLOYED }}" == "true" ]]
             then
-              echo 'action=apply' >> ${GITHUB_OUTPUT}
+              echo 'action=apply' >> "${GITHUB_OUTPUT}"
             else
-              echo 'action=destroy' >> ${GITHUB_OUTPUT}
+              echo 'action=destroy' >> "${GITHUB_OUTPUT}"
             fi
           else
-            echo 'action=skip' >> ${GITHUB_OUTPUT}
+            echo 'action=skip' >> "${GITHUB_OUTPUT}"
           fi
 
   plan:
@@ -107,7 +107,7 @@ jobs:
         run: |
           export exitcode=0
           terraform plan -detailed-exitcode -no-color -out tfplan || export exitcode=$?
-          echo "exitcode=$exitcode" >> $GITHUB_OUTPUT
+          echo "exitcode=$exitcode" >> "$GITHUB_OUTPUT"
           if [ $exitcode -eq 1 ]; then
             echo Terraform Plan Failed!
             exit 1
@@ -126,21 +126,23 @@ jobs:
         run: |
           TERRAFORM_PLAN=$(terraform show -no-color tfplan)
           delimiter="$(openssl rand -hex 8)"
-          echo "summary<<${delimiter}" >> $GITHUB_OUTPUT
-          echo "## Terraform Plan Output" >> $GITHUB_OUTPUT
-          echo "<details><summary>Click to expand</summary>" >> $GITHUB_OUTPUT
-          echo "" >> $GITHUB_OUTPUT
-          echo '```terraform' >> $GITHUB_OUTPUT
-          echo "$TERRAFORM_PLAN" >> $GITHUB_OUTPUT
-          echo '```' >> $GITHUB_OUTPUT
-          echo "</details>" >> $GITHUB_OUTPUT
-          echo "${delimiter}" >> $GITHUB_OUTPUT
+          {
+            echo "summary<<${delimiter}"
+            echo "## Terraform Plan Output"
+            echo "<details><summary>Click to expand</summary>"
+            echo ""
+            echo '```terraform'
+            echo "$TERRAFORM_PLAN"
+            echo '```'
+            echo "</details>"
+            echo "${delimiter}"
+          } >> "$GITHUB_OUTPUT"
 
       - name: Publish Terraform Plan to Task Summary
         env:
           SUMMARY: ${{ steps.tf-plan-string.outputs.summary }}
         run: |
-          echo "$SUMMARY" >> $GITHUB_STEP_SUMMARY
+          echo "$SUMMARY" >> "$GITHUB_STEP_SUMMARY"
 
       # - name: Push Terraform Output to PR
       #   if: github.ref != 'refs/heads/main'
