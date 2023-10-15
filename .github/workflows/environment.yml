@@ -6,6 +6,7 @@ on:  #  yamllint disable-line rule:truthy
   push:
     paths:
       - '**.tf'
+      - cloud-init/*
     branches:
       - '*'
       - '!main'
