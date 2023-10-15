@@ -59,7 +59,7 @@ jobs:
 
     steps:
       - name: Github Repository checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Microsoft Azure Authentication
         uses: azure/login@v1
@@ -167,7 +167,7 @@ jobs:
     needs: [terraform, plan]
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Microsoft Azure Authentication
         uses: azure/login@v1
@@ -221,7 +221,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Github repository checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Microsoft Azure Authentication
         uses: azure/login@v1
