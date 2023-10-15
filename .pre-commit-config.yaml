@@ -58,3 +58,7 @@ repos:
     rev: v0.1.7
     hooks:
       - id: ripsecrets
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.18.0
+    hooks:
+      - id: gitleaks
