@@ -7,7 +7,8 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: none
+  contents: write
+  pull-requests: write
 
 jobs:
   auto-update:
@@ -17,12 +18,35 @@ jobs:
 
       - uses: actions/setup-python@v3
 
+      - name: TFLint GitHub Action
+        uses: pauloconnor/tflint-action@v0.0.2
+
+      - name: tfsec action
+        uses: aquasecurity/tfsec-action@v1.0.3
+
+      - name: Checkov GitHub Action
+        uses: bridgecrewio/checkov-action@v12.1347.0
+
+      - name: terraform-docs-gh-actions
+        uses: terraform-docs/gh-actions@v1.0.0
+
+      - name: Terrascan IaC scanner
+        uses: tenable/terrascan-action@v1.4.1
+
+      - name: Setup OPA
+        uses: open-policy-agent/setup-opa@v2
+        with:
+          version: latest
+
+      - name: Hashicorp Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.5.7
+          terraform_wrapper: false
+
       - uses: browniebroke/pre-commit-autoupdate-action@main
 
-      - uses: peter-evans/create-pull-request@v3
+      - uses: peter-evans/create-pull-request@v5
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          branch: update/pre-commit-hooks
           title: Update pre-commit hooks
-          commit-message: 'chore: update pre-commit hooks'
           body: Update versions of pre-commit hooks to latest version.
