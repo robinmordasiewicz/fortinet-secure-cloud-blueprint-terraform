@@ -22,16 +22,16 @@ jobs:
         uses: pauloconnor/tflint-action@v0.0.2
 
       - name: tfsec action
-        uses: aquasecurity/tfsec-action@v1.0.3
+        uses: aquasecurity/tfsec-action@v1
 
       - name: Checkov GitHub Action
-        uses: bridgecrewio/checkov-action@v12.1347.0
+        run: pip3 install checkov
 
       - name: terraform-docs-gh-actions
-        uses: terraform-docs/gh-actions@v1.0.0
+        uses: terraform-docs/gh-actions@v1
 
       - name: Terrascan IaC scanner
-        uses: tenable/terrascan-action@v1.4.1
+        uses: tenable/terrascan-action@v1
 
       - name: Setup OPA
         uses: open-policy-agent/setup-opa@v2
