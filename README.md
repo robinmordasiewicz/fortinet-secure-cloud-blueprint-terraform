@@ -1,6 +1,15 @@
 # fortinet-secure-cloud-blueprint-terraform
 
-Azure Automation Fortinet Terraform. foo
+Azure Automation Fortinet Terraform.
+
+
+Configure pre-commit
+
+```
+git config --global init.templateDir ~/.git-template
+pre-commit init-templatedir ~/.git-template
+git clone https://github.com/robinmordasiewicz/fortinet-secure-cloud-blueprint-terraform
+```
 
 https://learn.microsoft.com/en-us/azure/active-directory/saas-apps/media/fortigate-ssl-vpn-tutorial/fortigate-deployment-guide-converted?wt.mc_id=searchAPI_azureportal_inproduct_rmskilling&sessionId=87fe3bdc9f7449b6a8189c9250559e3b
 
