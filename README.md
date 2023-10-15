@@ -2,6 +2,8 @@
 
 <img alt="gitleaks badge" src="https://img.shields.io/badge/protected%20by-gitleaks-blue">
 
+[![gitleaks](https://github.com/robinmordasiewicz/fortinet-secure-cloud-blueprint-terraform/actions/workflows/gitleaks.yml/badge.svg)](https://github.com/robinmordasiewicz/fortinet-secure-cloud-blueprint-terraform/actions/workflows/gitleaks.yml)
+
 Azure Automation Fortinet Terraform.
 
 https://learn.microsoft.com/en-us/azure/active-directory/saas-apps/media/fortigate-ssl-vpn-tutorial/fortigate-deployment-guide-converted?wt.mc_id=searchAPI_azureportal_inproduct_rmskilling&sessionId=87fe3bdc9f7449b6a8189c9250559e3b
