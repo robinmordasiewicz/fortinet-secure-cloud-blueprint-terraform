@@ -38,6 +38,7 @@ jobs:
         run: |
           curl -L "$(curl -s https://api.github.com/repos/tenable/terrascan/releases/latest | grep -o -E "https://.+?_Darwin_x86_64.tar.gz")" > terrascan.tar.gz
           tar -xf terrascan.tar.gz terrascan && rm terrascan.tar.gz
+          chmod +x terrascan
           install terrascan /usr/local/bin && rm terrascan
 
       - name: Setup OPA
@@ -51,9 +52,21 @@ jobs:
           terraform_version: 1.5.7
           terraform_wrapper: false
 
-      - uses: browniebroke/pre-commit-autoupdate-action@main
+      - name: pre-commit
+        run: pip install pre-commit
+
+      - name: Create Branch
+        uses: peterjgrainger/action-create-branch@v2.2.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          branch: pre-commit-autoupdate
+
+      - name: pre-commit autoupdate
+        run: git switch pre-commit-autoupdate && pre-commit autoupdate && pre-commit run --all-files
 
       - uses: peter-evans/create-pull-request@v5
         with:
+          branch: pre-commit-autoupdate
           title: Update pre-commit hooks
           body: Update versions of pre-commit hooks to latest version.
