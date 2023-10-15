@@ -16,7 +16,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: detect-secrets
-        uses: reviewdog/action-detect-secrets@0.13.0
+        uses: reviewdog/action-detect-secrets@v0.13.0
         with:
           fail_on_error: true
           reporter: github-pr-review # Change reporter.
