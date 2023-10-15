@@ -32,6 +32,8 @@ https://brasoe.no/2023/08/30/testing-terraform-code-part-2-2-end-to-end-test-ter
 
 https://github.com/antonbabenko/pre-commit-terraform
 
+https://github.com/marketplace/actions/secret-scanner
+
 ```
 export TF_CLI_ARGS_init="-backend-config=backend.hcl"
 terraform output -raw admin_password
