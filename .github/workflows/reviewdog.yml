@@ -1,6 +1,8 @@
 ---
 name: reviewdog
 on: [pull_request]
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
 jobs:
   detect-secrets:
     runs-on: ubuntu-latest

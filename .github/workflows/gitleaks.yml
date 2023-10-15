@@ -1,5 +1,7 @@
 ---
 name: gitleaks
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
 on:
   pull_request:
   push:
