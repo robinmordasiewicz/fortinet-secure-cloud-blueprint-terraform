@@ -1,6 +1,6 @@
 ---
 name: Yamllint
-on:          #  yamllint disable-line rule:truthy
+on:          # yamllint disable-line rule:truthy
   push:
     paths:
       - '**.yml'

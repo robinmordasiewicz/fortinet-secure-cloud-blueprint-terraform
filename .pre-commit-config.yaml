@@ -4,7 +4,7 @@ repos:
     rev: v1.5.4
     hooks:
       - id: remove-crlf
-          #  - id: remove-tabs
+      #  - id: remove-tabs
   - repo: https://github.com/antonbabenko/pre-commit-terraform
     rev: v1.83.5
     hooks:
