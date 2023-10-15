@@ -56,7 +56,7 @@ jobs:
         run: pip install pre-commit
 
       - name: pre-commit autoupdate
-        run: git switch -c pre-commit-autoupdate && pre-commit autoupdate --color never && pre-commit run --all-files --color never
+        run: pre-commit autoupdate --color never && pre-commit run --all-files --color never
 
       - uses: peter-evans/create-pull-request@v5
         with:
