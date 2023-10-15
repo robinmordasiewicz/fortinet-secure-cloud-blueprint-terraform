@@ -90,7 +90,7 @@ jobs:
           ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
           ARM_USE_OIDC: true
           TF_IN_AUTOMATION: true
-          TF_CLI_ARGS_init: -backend-config="storage_account_name=${TFSTATE_STORAGE_ACCOUNT_NAME}" -backend-config="container_name  =${TFSTATE_CONTAINER_NAME}" -backend-config="resource_group_name=${AZURE_RESOURCE_GROUP_NAME}" -backend-config="key=${TFSTATE_KEY}" -backend-config="use_oidc=true" -input=false
+          TF_CLI_ARGS_init: -backend-config="storage_account_name=${{ secrets.TFSTATE_STORAGE_ACCOUNT_NAME }}" -backend-config="container_name=${{ secrets.TFSTATE_CONTAINER_NAME }}" -backend-config="resource_group_name=${{ secrets.AZURE_RESOURCE_GROUP_NAME }}" -backend-config="key=${{ github.ref_name }}" -backend-config="use_oidc=true" -input=false
         run: terraform init
 
       - name: terraform plan
@@ -194,7 +194,7 @@ jobs:
           ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
           ARM_USE_OIDC: true
           TF_IN_AUTOMATION: true
-          TF_CLI_ARGS_init: -backend-config="storage_account_name=${TFSTATE_STORAGE_ACCOUNT_NAME}" -backend-config="container_name  =${TFSTATE_CONTAINER_NAME}" -backend-config="resource_group_name=${AZURE_RESOURCE_GROUP_NAME}" -backend-config="key=${TFSTATE_KEY}" -backend-config="use_oidc=true" -input=false
+          TF_CLI_ARGS_init: -backend-config="storage_account_name=${{ secrets.TFSTATE_STORAGE_ACCOUNT_NAME }}" -backend-config="container_name=${{ secrets.TFSTATE_CONTAINER_NAME }}" -backend-config="resource_group_name=${{ secrets.AZURE_RESOURCE_GROUP_NAME }}" -backend-config="key=${{ github.ref_name }}" -backend-config="use_oidc=true" -input=false
         run: terraform init
 
       - name: Download Terraform Plan
@@ -249,7 +249,7 @@ jobs:
           ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
           ARM_USE_OIDC: true
           TF_IN_AUTOMATION: true
-          TF_CLI_ARGS_init: -backend-config="storage_account_name=${TFSTATE_STORAGE_ACCOUNT_NAME}" -backend-config="container_name  =${TFSTATE_CONTAINER_NAME}" -backend-config="resource_group_name=${AZURE_RESOURCE_GROUP_NAME}" -backend-config="key=${TFSTATE_KEY}" -backend-config="use_oidc=true" -input=false
+          TF_CLI_ARGS_init: -backend-config="storage_account_name=${{ secrets.TFSTATE_STORAGE_ACCOUNT_NAME }}" -backend-config="container_name=${{ secrets.TFSTATE_CONTAINER_NAME }}" -backend-config="resource_group_name=${{ secrets.AZURE_RESOURCE_GROUP_NAME }}" -backend-config="key=${{ github.ref_name }}" -backend-config="use_oidc=true" -input=false
         run: terraform init
 
       - name: terraform destroy
