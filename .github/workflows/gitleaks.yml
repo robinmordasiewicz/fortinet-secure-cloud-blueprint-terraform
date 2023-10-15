@@ -1,13 +1,18 @@
 ---
 name: gitleaks
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-on:
-  pull_request:
+
+on: #  yamllint disable-line rule:truthy
   push:
   workflow_dispatch:
   schedule:
     - cron: 0 4 * * *   # run once a day at 4 AM
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+
 jobs:
   scan:
     name: gitleaks

@@ -1,14 +1,22 @@
 ---
-name: reviewdog
-on: [pull_request]
+name: Detect Secrets
+
+on: #  yamllint disable-line rule:truthy
+  pull_request:
+
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
+
+permissions:
+  contents: read
+
 jobs:
   detect-secrets:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - name: detect-secrets
-        uses: reviewdog/action-detect-secrets@master
+        uses: reviewdog/action-detect-secrets@0.13.0
         with:
+          fail_on_error: true
           reporter: github-pr-review # Change reporter.

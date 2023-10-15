@@ -4,7 +4,6 @@ repos:
     rev: v1.5.4
     hooks:
       - id: remove-crlf
-      #  - id: remove-tabs
   - repo: https://github.com/antonbabenko/pre-commit-terraform
     rev: v1.83.5
     hooks:
@@ -54,6 +53,7 @@ repos:
     rev: v0.19.1
     hooks:
       - id: gitlint
+      - id: gitlint-ci
   - repo: https://github.com/sirwart/ripsecrets
     rev: v0.1.7
     hooks:
