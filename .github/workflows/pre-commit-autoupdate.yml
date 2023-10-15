@@ -52,6 +52,9 @@ jobs:
           terraform_version: 1.5.7
           terraform_wrapper: false
 
+      - name: pre-commit
+        run: pip install pre-commit
+
       - name: Create Branch
         uses: peterjgrainger/action-create-branch@v2.2.0
         env:
@@ -60,7 +63,7 @@ jobs:
           branch: pre-commit-autoupdate
 
       - name: pre-commit autoupdate
-        run: git switch pre-commit-autoupdate && pre-commit autoupdate
+        run: git switch pre-commit-autoupdate && pre-commit autoupdate && pre-commit run --all-files
 
       - uses: peter-evans/create-pull-request@v5
         with:
