@@ -25,7 +25,7 @@ jobs:
       name: ${{ github.ref_name }}
     steps:
       - name: Github Repository checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Microsoft Azure Authentication
         uses: azure/login@v1
