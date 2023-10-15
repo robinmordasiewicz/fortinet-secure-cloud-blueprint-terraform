@@ -18,20 +18,27 @@ jobs:
 
       - uses: actions/setup-python@v4
 
-      - name: TFLint GitHub Action
-        uses: pauloconnor/tflint-action@v0.0.2
+      - name: TFLint
+        run: curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
 
-      - name: tfsec action
-        uses: aquasecurity/tfsec-action@v1
+      - name: tfsec
+        run: curl -s https://raw.githubusercontent.com/aquasecurity/tfsec/master/scripts/install_linux.sh | bash
 
-      - name: Checkov GitHub Action
+      - name: Checkov
         run: pip3 install checkov
 
       - name: terraform-docs-gh-actions
-        uses: terraform-docs/gh-actions@v1
+        run: |
+          curl -Lo ./terraform-docs.tar.gz https://github.com/terraform-docs/terraform-docs/releases/download/v0.16.0/terraform-docs-v0.16.0-$(uname)-amd64.tar.gz
+          tar -xzf terraform-docs.tar.gz
+          chmod +x terraform-docs
+          mv terraform-docs /usr/local/terraform-docs
 
-      - name: Terrascan IaC scanner
-        uses: tenable/terrascan-action@v1
+      - name: Terrascan
+        run: |
+          curl -L "$(curl -s https://api.github.com/repos/tenable/terrascan/releases/latest | grep -o -E "https://.+?_Darwin_x86_64.tar.gz")" > terrascan.tar.gz
+          tar -xf terrascan.tar.gz terrascan && rm terrascan.tar.gz
+          install terrascan /usr/local/bin && rm terrascan
 
       - name: Setup OPA
         uses: open-policy-agent/setup-opa@v2
