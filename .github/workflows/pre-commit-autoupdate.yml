@@ -25,7 +25,7 @@ jobs:
         uses: aquasecurity/tfsec-action@v1
 
       - name: Checkov GitHub Action
-        uses: bridgecrewio/checkov-action@v12
+        run: pip3 install checkov
 
       - name: terraform-docs-gh-actions
         uses: terraform-docs/gh-actions@v1
