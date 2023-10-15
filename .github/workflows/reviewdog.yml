@@ -1,0 +1,14 @@
+---
+name: reviewdog
+on: [pull_request]
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+jobs:
+  detect-secrets:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: detect-secrets
+        uses: reviewdog/action-detect-secrets@master
+        with:
+          reporter: github-pr-review # Change reporter.
