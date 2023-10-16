@@ -10,9 +10,6 @@
     "**/report/**",
     "**/*.svg"
   ],
-  "reporters": [
-    "html",
-    "markdown"
-  ],
+  "reporters": ["html", "markdown"],
   "threshold": 0
 }

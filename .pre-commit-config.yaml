@@ -4,19 +4,11 @@ repos:
     rev: v1.5.4
     hooks:
       - id: remove-crlf
-  - repo: https://github.com/jumanjihouse/pre-commit-hook-yamlfmt
-    rev: 0.2.3
-    hooks:
-      - id: yamlfmt
-        args: [--mapping, '2', --sequence, '4', --offset, '2', --width, '1000']
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.5.0
     hooks:
       - id: check-yaml
       - id: check-json
-      - id: pretty-format-json
-        args:
-          - --autofix
       - id: check-merge-conflict
       - id: mixed-line-ending
       - id: end-of-file-fixer
@@ -28,26 +20,16 @@ repos:
         args: [policies, -w]
       - id: opa-check
         args: [policies, -b]
-  - repo: https://github.com/jorisroovers/gitlint
-    rev: v0.19.1
-    hooks:
-      - id: gitlint
-      - id: gitlint-ci
-  - repo: https://github.com/editorconfig-checker/editorconfig-checker.python
-    rev: 2.7.3
-    hooks:
-      - id: editorconfig-checker
-        alias: ec
   - repo: https://github.com/DavidAnson/markdownlint-cli2
     rev: v0.10.0
     hooks:
       - id: markdownlint-cli2
-        #  - repo: https://github.com/oxsecurity/megalinter
-        #rev: v7.4.0
-        #hooks:
-        #- id: megalinter-incremental
-        #stages:
-        #  - commit
-        #- id: megalinter-full
-        #stages:
-        #  - push
+  - repo: https://github.com/oxsecurity/megalinter
+    rev: v7.4.0
+    hooks:
+      - id: megalinter-incremental
+        stages:
+          - commit
+      - id: megalinter-full
+        stages:
+          - push
