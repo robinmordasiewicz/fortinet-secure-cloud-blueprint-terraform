@@ -1,0 +1,10 @@
+---
+APPLY_FIXES: all
+
+DISABLE:
+  - COPYPASTE
+  - SPELL
+
+SHOW_ELAPSED_TIME: true
+
+FILEIO_REPORTER: false

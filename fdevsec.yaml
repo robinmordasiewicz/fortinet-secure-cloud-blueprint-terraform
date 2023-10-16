@@ -20,7 +20,7 @@ id:
 
 # Configures target url where dynamic scan should be performed.
 # dast:
-#   url: https://your.url.com
+#   url: https://www.fortinet.com
 #   full_scan: true #true|false
 
 # Language scanners run sequentially by default.

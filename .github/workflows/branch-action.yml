@@ -1,6 +1,6 @@
 ---
 name: Branch Action
-on:          # yamllint disable-line rule:truthy
+on: # yamllint disable-line rule:truthy
   - delete
   - create
 
@@ -23,4 +23,4 @@ jobs:
           then
             APPLICATION_REPOSITORY_FULL_NAME_BASE64=$( echo -n ${{ github.repository }} | base64 | tr -d '\n\r' )
             gh workflow run application.yml -R "${{ secrets.CONTROLLER_REPOSITORY_FULL_NAME }}" -F "application=${APPLICATION_REPOSITORY_FULL_NAME_BASE64}"
-            fi
+          fi

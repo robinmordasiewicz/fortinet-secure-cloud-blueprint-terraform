@@ -48,8 +48,8 @@ func TestTerraformAzure(t *testing.T) {
     // website::tag::2:: Run `terraform init` and `terraform apply`. Fail the test if there are any errors.
     terraform.InitAndApply(t, terraformOptions)
 
-    availability_set_name := terraform.Output(t, terraformOptions, "availability_set_name")
-    assert.Equal(t, "fortinet-availability-set", availability_set_name)
+    availabilitySetName := terraform.Output(t, terraformOptions, "availabilitySetName")
+    assert.Equal(t, "fortinet-availability-set", availabilitySetName)
 
     // Run `terraform output` to get the values of output variables
     cred, err := azidentity.NewDefaultAzureCredential(nil)
