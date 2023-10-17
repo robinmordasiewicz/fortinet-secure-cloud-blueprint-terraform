@@ -14,7 +14,7 @@ output "availabilitySetFdc" {
 
 output "ubuntuVmName" {
   description = "Ubuntu machine name."
-  value       = azurerm_linux_virtual_machine.ubuntu-virtual-machine.name
+  value       = azurerm_linux_virtual_machine.ubuntu_virtual_machine.name
 }
 
 output "resourceGroupName" {
