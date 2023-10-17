@@ -65,6 +65,7 @@ resource "azurerm_network_interface" "fortigate_dmz_network_interface" {
 resource "azurerm_linux_virtual_machine" "fortigate_virtual_machine" {
   name                            = "fortigate_virtual_machine"
   computer_name                   = "fortigate"
+  admin_username                  = random_pet.admin_username.id
   availability_set_id             = azurerm_availability_set.fortinet_availability_set.id
   allow_extension_operations      = false
   disable_password_authentication = true
