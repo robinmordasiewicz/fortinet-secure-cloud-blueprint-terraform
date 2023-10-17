@@ -5,11 +5,11 @@ on: #  yamllint disable-line rule:truthy
   workflow_dispatch:
   push:
     paths:
-      - '**.rego'
-      - '**.tf'
+      - "**.rego"
+      - "**.tf"
     branches:
-      - '*'
-      - '!main'
+      - "*"
+      - "!main"
 
 permissions:
   id-token: write
@@ -23,22 +23,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
-        uses: actions/checkout@v4
+        uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608
 
       - name: Setup OPA
-        uses: open-policy-agent/setup-opa@v2
+        uses: open-policy-agent/setup-opa@9501844990f7dcfd09b17a8d97c794d294620f37
         with:
           version: latest
 
       - name: Microsoft Azure Authentication
-        uses: azure/login@v1
+        uses: azure/login@92a5484dfaf04ca78a94597f4f19fea633851fa2
         with:
           client-id: ${{ secrets.ARM_CLIENT_ID }}
           tenant-id: ${{ secrets.ARM_TENANT_ID }}
           subscription-id: ${{ secrets.ARM_SUBSCRIPTION_ID }}
 
       - name: Hashicorp Terraform
-        uses: hashicorp/setup-terraform@v2
+        uses: hashicorp/setup-terraform@633666f66e0061ca3b725c73b2ec20cd13a8fdd1
         with:
           terraform_version: 1.5.7
           terraform_wrapper: false

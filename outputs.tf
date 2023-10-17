@@ -1,15 +1,15 @@
 output "availabilitySetName" {
   description = "Name of the Azure availability set."
-  value       = azurerm_availability_set.fortinet-availability-set.name
+  value       = azurerm_availability_set.fortinet_availability_set.name
 }
 output "availabilitySetId" {
   description = "ID of the Azure availability set."
-  value       = azurerm_availability_set.fortinet-availability-set.id
+  value       = azurerm_availability_set.fortinet_availability_set.id
 }
 
 output "availabilitySetFdc" {
   description = "Number of fault domains in the availability set."
-  value       = azurerm_availability_set.fortinet-availability-set.platform_fault_domain_count
+  value       = azurerm_availability_set.fortinet_availability_set.platform_fault_domain_count
 }
 
 output "ubuntuVmName" {

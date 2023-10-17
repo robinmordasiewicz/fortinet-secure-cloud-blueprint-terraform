@@ -1,5 +1,5 @@
-resource "azurerm_network_security_group" "private-nsg" {
-  name                = "private-nsg"
+resource "azurerm_network_security_group" "private_nsg" {
+  name                = "private_nsg"
   location            = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.location
   resource_group_name = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.name
   security_rule {
@@ -25,32 +25,32 @@ resource "azurerm_network_security_group" "private-nsg" {
     destination_address_prefix = "*"
   }
 }
-resource "azurerm_subnet_network_security_group_association" "external-subnet-association" {
-  subnet_id                 = azurerm_subnet.external-subnet.id
-  network_security_group_id = azurerm_network_security_group.private-nsg.id
+resource "azurerm_subnet_network_security_group_association" "external_subnet_association" {
+  subnet_id                 = azurerm_subnet.external_subnet.id
+  network_security_group_id = azurerm_network_security_group.private_nsg.id
 }
-resource "azurerm_subnet_network_security_group_association" "dmz-subnet-association" {
-  subnet_id                 = azurerm_subnet.dmz-subnet.id
-  network_security_group_id = azurerm_network_security_group.private-nsg.id
+resource "azurerm_subnet_network_security_group_association" "dmz_subnet_association" {
+  subnet_id                 = azurerm_subnet.dmz_subnet.id
+  network_security_group_id = azurerm_network_security_group.private_nsg.id
 }
-resource "azurerm_subnet_network_security_group_association" "internal-subnet-association" {
-  subnet_id                 = azurerm_subnet.internal-subnet.id
-  network_security_group_id = azurerm_network_security_group.private-nsg.id
+resource "azurerm_subnet_network_security_group_association" "internal_subnet_association" {
+  subnet_id                 = azurerm_subnet.internal_subnet.id
+  network_security_group_id = azurerm_network_security_group.private_nsg.id
 }
 
-resource "azurerm_subnet" "external-subnet" {
+resource "azurerm_subnet" "external_subnet" {
   address_prefixes     = [var.external-Prefix]
   name                 = var.external-Name
   resource_group_name  = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.name
   virtual_network_name = azurerm_virtual_network.vnet.name
 }
-resource "azurerm_subnet" "dmz-subnet" {
+resource "azurerm_subnet" "dmz_subnet" {
   address_prefixes     = [var.dmz-Prefix]
   name                 = var.dmz-Name
   resource_group_name  = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.name
   virtual_network_name = azurerm_virtual_network.vnet.name
 }
-resource "azurerm_subnet" "internal-subnet" {
+resource "azurerm_subnet" "internal_subnet" {
   address_prefixes     = [var.internal-Prefix]
   name                 = var.internal-Name
   resource_group_name  = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.name
