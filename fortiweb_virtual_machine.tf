@@ -79,16 +79,16 @@ resource "azurerm_virtual_machine_data_disk_attachment" "fortiweb_data_disk_atta
   virtual_machine_id = azurerm_linux_virtual_machine.fortiweb_virtual_machine.id
 }
 resource "azurerm_managed_disk" "fortiweb_log_disk" {
-  create_option          = "Empty"
-  location               = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.location
-  resource_group_name    = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.name
-  name                   = "fortiweb_log_disk"
-  storage_account_type   = "Premium_LRS"
-  disk_size_gb           = "30"
-  disk_encryption_set_id = "koko"
-  #encryption_settings = {
-  #  enabled = true
-  #}
+  create_option        = "Empty"
+  location             = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.location
+  resource_group_name  = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.name
+  name                 = "fortiweb_log_disk"
+  storage_account_type = "Premium_LRS"
+  disk_size_gb         = "30"
+  #disk_encryption_set_id = "koko"
+  encryption_settings = {
+    enabled = true
+  }
 }
 
 #data "azurerm_public_ip" "fortiweb-public_ip" {
