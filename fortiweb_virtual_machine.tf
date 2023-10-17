@@ -86,9 +86,11 @@ resource "azurerm_managed_disk" "fortiweb_log_disk" {
   storage_account_type = "Premium_LRS"
   disk_size_gb         = "30"
   #disk_encryption_set_id = "koko"
-  encryption_settings = {
-    enabled = true
-  }
+  #disk_encryption_key  = "koko"
+  #disk_encryption_key =
+  #encryption_settings {
+  #  enabled = true
+  #}
 }
 
 #data "azurerm_public_ip" "fortiweb-public_ip" {
