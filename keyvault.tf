@@ -49,7 +49,7 @@ resource "azurerm_key_vault_key" "key" {
     notify_before_expiry = "P29D"
   }
 }
-resource "azurerm_disk_encryption_set" "en-set" {
+resource "azurerm_disk_encryption_set" "en_set" {
   provider            = azurerm
   name                = "des-01"
   location            = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.location
@@ -61,11 +61,11 @@ resource "azurerm_disk_encryption_set" "en-set" {
   }
 
 }
-resource "azurerm_key_vault_access_policy" "kv-access-policy-des" {
+resource "azurerm_key_vault_access_policy" "kv_access_policy_des" {
   provider     = azurerm
   key_vault_id = azurerm_key_vault.vault.id
   tenant_id    = data.azurerm_client_config.current.tenant_id
-  object_id    = azurerm_disk_encryption_set.en-set.identity.0.principal_id
+  object_id    = azurerm_disk_encryption_set.en_set.identity.0.principal_id
 
   key_permissions = [
     "Get",
