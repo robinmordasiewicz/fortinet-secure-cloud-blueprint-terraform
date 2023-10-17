@@ -38,7 +38,6 @@ resource "azurerm_key_vault" "vault" {
   tenant_id                   = data.azurerm_client_config.current.tenant_id
   sku_name                    = var.sku_name
   enabled_for_disk_encryption = true
-  soft_delete_enabled         = true
   purge_protection_enabled    = false
   soft_delete_retention_days  = 7
 
@@ -176,9 +175,11 @@ variable "msi_id" {
 }
 
 output "azurerm_key_vault_name" {
-  value = azurerm_key_vault.vault.name
+  description = "Name of the Azure key vault"
+  value       = azurerm_key_vault.vault.name
 }
 
 output "azurerm_key_vault_id" {
-  value = azurerm_key_vault.vault.id
+  description = "ID of the Azure key vault"
+  value       = azurerm_key_vault.vault.id
 }
