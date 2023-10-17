@@ -9,20 +9,51 @@ resource "random_string" "azurerm_key_vault_name" {
 locals {
   current_user_id = coalesce(var.msi_id, data.azurerm_client_config.current.object_id)
 }
+resource "azurerm_monitor_diagnostic_setting" "example" {
+  name               = "example"
+  target_resource_id = azurerm_key_vault.vault.id
+  storage_account_id = azurerm_storage_account.storage_account.id
+
+  log {
+    category = "AuditEvent"
+    enabled  = false
+
+    retention_policy {
+      enabled = false
+    }
+  }
+
+  metric {
+    category = "AllMetrics"
+
+    retention_policy {
+      enabled = false
+    }
+  }
+}
 resource "azurerm_key_vault" "vault" {
-  name                       = coalesce(var.vault_name, "vault-${random_string.azurerm_key_vault_name.result}")
-  location                   = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.location
-  resource_group_name        = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.name
-  tenant_id                  = data.azurerm_client_config.current.tenant_id
-  sku_name                   = var.sku_name
-  soft_delete_retention_days = 7
+  name                        = coalesce(var.vault_name, "vault-${random_string.azurerm_key_vault_name.result}")
+  location                    = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.location
+  resource_group_name         = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.name
+  tenant_id                   = data.azurerm_client_config.current.tenant_id
+  sku_name                    = var.sku_name
+  enabled_for_disk_encryption = true
+  soft_delete_enabled         = true
+  purge_protection_enabled    = false
+  soft_delete_retention_days  = 7
 
   access_policy {
     tenant_id = data.azurerm_client_config.current.tenant_id
     object_id = local.current_user_id
 
-    key_permissions    = var.key_permissions
-    secret_permissions = var.secret_permissions
+    key_permissions     = var.key_permissions
+    secret_permissions  = var.secret_permissions
+    storage_permissions = var.storage_permissions
+
+  }
+  network_acls {
+    default_action = "Deny"
+    bypass         = "AzureServices"
   }
 }
 resource "random_string" "azurerm_key_vault_key_name" {
@@ -32,13 +63,15 @@ resource "random_string" "azurerm_key_vault_key_name" {
   special = false
   upper   = false
 }
+
 resource "azurerm_key_vault_key" "key" {
   name = coalesce(var.key_name, "key-${random_string.azurerm_key_vault_key_name.result}")
 
-  key_vault_id = azurerm_key_vault.vault.id
-  key_type     = var.key_type
-  key_size     = var.key_size
-  key_opts     = var.key_ops
+  key_vault_id    = azurerm_key_vault.vault.id
+  key_type        = var.key_type
+  key_size        = var.key_size
+  key_opts        = var.key_ops
+  expiration_date = "2025-12-31T00:00:00Z"
 
   rotation_policy {
     automatic {
@@ -49,6 +82,7 @@ resource "azurerm_key_vault_key" "key" {
     notify_before_expiry = "P29D"
   }
 }
+
 resource "azurerm_disk_encryption_set" "en_set" {
   provider            = azurerm
   name                = "des-01"
@@ -106,6 +140,11 @@ variable "secret_permissions" {
   type        = list(string)
   description = "List of secret permissions."
   default     = ["Set"]
+}
+variable "storage_permissions" {
+  type        = list(string)
+  description = "List of secret permissions."
+  default     = ["Get"]
 }
 
 variable "key_type" {
