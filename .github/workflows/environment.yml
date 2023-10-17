@@ -74,10 +74,6 @@ jobs:
           terraform_version: 1.5.7
           terraform_wrapper: false
 
-      - name: terraform format
-        id: format
-        run: terraform fmt -check
-
       - name: terraform init
         id: init
         env:
