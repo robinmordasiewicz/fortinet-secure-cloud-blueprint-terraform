@@ -1,7 +1,7 @@
-data "azurerm_storage_account" "storage_account" {
-  name                = var.AZURE_STORAGE_ACCOUNT_NAME
-  resource_group_name = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.name
-}
+#data "azurerm_storage_account" "storage_account" {
+#  name                = var.AZURE_STORAGE_ACCOUNT_NAME
+#  resource_group_name = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.name
+#}
 
 output "storage_account_tier" {
   description = "Storage account tier"
@@ -22,7 +22,7 @@ locals {
 resource "azurerm_monitor_diagnostic_setting" "example" {
   name               = "example"
   target_resource_id = azurerm_key_vault.vault.id
-  storage_account_id = data.azurerm_storage_account.storage_account.id
+  storage_account_id = var.AZURE_STORAGE_ACCOUNT_ID
 
   enabled_log {
     category = "AuditEvent"

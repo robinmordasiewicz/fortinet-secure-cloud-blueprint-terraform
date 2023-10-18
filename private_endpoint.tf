@@ -4,7 +4,8 @@ resource "azurerm_subnet" "service" {
   virtual_network_name = azurerm_virtual_network.vnet.name
   address_prefixes     = ["10.0.4.0/24"]
 
-  enforce_private_link_service_network_policies = true
+  # enforce_private_link_service_network_policies = true
+  private_link_service_network_policies_enabled = true
 }
 
 resource "azurerm_subnet" "endpoint" {
