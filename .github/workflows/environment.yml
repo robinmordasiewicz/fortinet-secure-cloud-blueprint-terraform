@@ -91,7 +91,7 @@ jobs:
           TF_VAR_AZURE_RESOURCE_GROUP_NAME: ${{ secrets.AZURE_RESOURCE_GROUP_NAME }}
           TF_VAR_AZURE_REGION: ${{ secrets.AZURE_REGION }}
           TF_VAR_AZURE_USERNAME: ${{ secrets.AZURE_USERNAME }}
-          TF_VAR_AZURE_STORAGE_ACCOUNT_NAME: ${{ secrets.AZURE_STORAGE_ACCOUNT_NAME }}
+          TF_VAR_AZURE_STORAGE_ACCOUNT_ID: ${{ secrets.AZURE_STORAGE_ACCOUNT_ID }}
           ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
           ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
           ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
@@ -245,7 +245,7 @@ jobs:
           TF_VAR_AZURE_RESOURCE_GROUP_NAME: ${{ secrets.AZURE_RESOURCE_GROUP_NAME }}
           TF_VAR_AZURE_REGION: ${{ secrets.AZURE_REGION }}
           TF_VAR_AZURE_USERNAME: ${{ secrets.AZURE_USERNAME }}
-          TF_VAR_AZURE_STORAGE_ACCOUNT_NAME: ${{ secrets.AZURE_STORAGE_ACCOUNT_NAME }}
+          TF_VAR_AZURE_STORAGE_ACCOUNT_ID: ${{ secrets.AZURE_STORAGE_ACCOUNT_ID }}
           ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
           ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
           ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
