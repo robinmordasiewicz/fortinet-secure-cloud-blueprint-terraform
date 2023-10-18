@@ -1,11 +1,12 @@
 data "azurerm_storage_account" "storage_account" {
-  name                = "packerimages"
+  name                = var.AZURE_STORAGE_ACCOUNT_NAME
   resource_group_name = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.name
 }
 
 output "storage_account_tier" {
-  value = data.azurerm_storage_account.example.account_tier
+  value = data.azurerm_storage_account.storage_account.account_tier
 }
+
 data "azurerm_client_config" "current" {}
 resource "random_string" "azurerm_key_vault_name" {
   length  = 13
@@ -20,7 +21,7 @@ locals {
 resource "azurerm_monitor_diagnostic_setting" "example" {
   name               = "example"
   target_resource_id = azurerm_key_vault.vault.id
-  storage_account_id = azurerm_storage_account.storage_account.id
+  storage_account_id = data.azurerm_storage_account.storage_account.id
 
   log {
     category = "AuditEvent"
@@ -75,7 +76,7 @@ resource "azurerm_key_vault_key" "key" {
   name = coalesce(var.key_name, "key-${random_string.azurerm_key_vault_key_name.result}")
 
   key_vault_id    = azurerm_key_vault.vault.id
-  key_type        = var.key_type
+  key_type        = "RSA-HSM"
   key_size        = var.key_size
   key_opts        = var.key_ops
   expiration_date = "2025-12-31T00:00:00Z"
