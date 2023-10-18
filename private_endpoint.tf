@@ -14,7 +14,8 @@ resource "azurerm_subnet" "endpoint" {
   virtual_network_name = azurerm_virtual_network.vnet.name
   address_prefixes     = ["10.0.5.0/24"]
 
-  enforce_private_link_endpoint_network_policies = true
+  #enforce_private_link_endpoint_network_policies = true
+  private_link_service_network_policies_enabled = true
 }
 
 resource "azurerm_public_ip" "example" {
