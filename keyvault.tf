@@ -24,9 +24,9 @@ resource "azurerm_monitor_diagnostic_setting" "example" {
   target_resource_id = azurerm_key_vault.vault.id
   storage_account_id = data.azurerm_storage_account.storage_account.id
 
-  log {
+  enabled_log {
     category = "AuditEvent"
-    enabled  = false
+    #enabled  = false
 
     #retention_policy {
     #  enabled = false
@@ -108,7 +108,7 @@ resource "azurerm_key_vault_access_policy" "kv_access_policy_des" {
   provider     = azurerm
   key_vault_id = azurerm_key_vault.vault.id
   tenant_id    = data.azurerm_client_config.current.tenant_id
-  object_id    = azurerm_disk_encryption_set.en_set.identity.0.principal_id
+  object_id    = azurerm_disk_encryption_set.en_set.identity[0].principal_id
 
   key_permissions = [
     "Get",
