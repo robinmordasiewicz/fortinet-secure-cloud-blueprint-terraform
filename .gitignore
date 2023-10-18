@@ -57,3 +57,5 @@ terraform.rc
 go.work
 
 go.mod
+
+megalinter-reports/

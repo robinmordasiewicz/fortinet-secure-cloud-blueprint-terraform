@@ -3,6 +3,15 @@ variable "AZURE_RESOURCE_GROUP_NAME" {
   type        = string
 }
 
+#variable "AZURE_STORAGE_ACCOUNT_NAME" {
+#  description = "Name of the Azure storage account"
+#  type        = string
+#}
+variable "AZURE_STORAGE_ACCOUNT_ID" {
+  description = "ID of the Azure storage account"
+  type        = string
+}
+
 variable "vnetAddressPrefix" {
   description = "Virtual Network Address prefix"
   type        = string

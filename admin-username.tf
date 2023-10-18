@@ -13,9 +13,11 @@ resource "random_password" "admin_password" {
   min_upper   = 1
 }
 output "admin_username" {
-  value = random_pet.admin_username.id
+  description = "Username for admin account"
+  value       = random_pet.admin_username.id
 }
 output "admin_password" {
-  value     = random_password.admin_password.result
-  sensitive = true
+  description = "Password for admin account"
+  value       = random_password.admin_password.result
+  sensitive   = true
 }

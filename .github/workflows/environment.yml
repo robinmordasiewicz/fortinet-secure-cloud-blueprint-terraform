@@ -5,11 +5,11 @@ on: #  yamllint disable-line rule:truthy
   workflow_dispatch:
   push:
     paths:
-      - '**.tf'
+      - "**.tf"
       - cloud-init/*
     branches:
-      - '*'
-      - '!main'
+      - "*"
+      - "!main"
 
 permissions:
   id-token: write
@@ -33,16 +33,16 @@ jobs:
         shell: bash
         run: |
           env
-          if [[ ! -z "${{ vars.DEPLOYED }}" ]]
+          if [[ -n "${{ vars.DEPLOYED }}" ]]
           then
             if [[ "${{ vars.DEPLOYED }}" == "true" ]]
             then
-              echo 'action=apply' >> ${GITHUB_OUTPUT}
+              echo 'action=apply' >> "${GITHUB_OUTPUT}"
             else
-              echo 'action=destroy' >> ${GITHUB_OUTPUT}
+              echo 'action=destroy' >> "${GITHUB_OUTPUT}"
             fi
           else
-            echo 'action=skip' >> ${GITHUB_OUTPUT}
+            echo 'action=skip' >> "${GITHUB_OUTPUT}"
           fi
 
   plan:
@@ -59,38 +59,30 @@ jobs:
 
     steps:
       - name: Github Repository checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608
 
       - name: Microsoft Azure Authentication
-        uses: azure/login@v1
+        uses: azure/login@92a5484dfaf04ca78a94597f4f19fea633851fa2
         with:
           client-id: ${{ secrets.ARM_CLIENT_ID }}
           tenant-id: ${{ secrets.ARM_TENANT_ID }}
           subscription-id: ${{ secrets.ARM_SUBSCRIPTION_ID }}
 
       - name: Hashicorp Terraform
-        uses: hashicorp/setup-terraform@v2
+        uses: hashicorp/setup-terraform@633666f66e0061ca3b725c73b2ec20cd13a8fdd1
         with:
           terraform_version: 1.5.7
           terraform_wrapper: false
 
-      - name: terraform format
-        id: format
-        run: terraform fmt -check
-
       - name: terraform init
         id: init
         env:
-          TFSTATE_STORAGE_ACCOUNT_NAME: ${{ secrets.TFSTATE_STORAGE_ACCOUNT_NAME }}
-          TFSTATE_CONTAINER_NAME: ${{ secrets.TFSTATE_CONTAINER_NAME }}
-          TFSTATE_KEY: ${{ github.ref_name }}
-          AZURE_RESOURCE_GROUP_NAME: ${{ secrets.AZURE_RESOURCE_GROUP_NAME }}
           ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
           ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
           ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
           ARM_USE_OIDC: true
           TF_IN_AUTOMATION: true
-          TF_CLI_ARGS_init: -backend-config="storage_account_name=${{ secrets.TFSTATE_STORAGE_ACCOUNT_NAME }}" -backend-config="container_name=${{ secrets.TFSTATE_CONTAINER_NAME }}" -backend-config="resource_group_name=${{ secrets.AZURE_RESOURCE_GROUP_NAME }}" -backend-config="key=${{ github.ref_name }}" -backend-config="use_oidc=true" -input=false
+          TF_CLI_ARGS_init: -backend-config="storage_account_name=${{ secrets.AZURE_STORAGE_ACCOUNT_NAME }}" -backend-config="container_name=${{ secrets.TFSTATE_CONTAINER_NAME }}" -backend-config="resource_group_name=${{ secrets.AZURE_RESOURCE_GROUP_NAME }}" -backend-config="key=${{ github.ref_name }}" -backend-config="use_oidc=true" -input=false
         run: terraform init
 
       - name: terraform plan
@@ -99,6 +91,7 @@ jobs:
           TF_VAR_AZURE_RESOURCE_GROUP_NAME: ${{ secrets.AZURE_RESOURCE_GROUP_NAME }}
           TF_VAR_AZURE_REGION: ${{ secrets.AZURE_REGION }}
           TF_VAR_AZURE_USERNAME: ${{ secrets.AZURE_USERNAME }}
+          TF_VAR_AZURE_STORAGE_ACCOUNT_ID: ${{ secrets.AZURE_STORAGE_ACCOUNT_ID }}
           ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
           ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
           ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
@@ -107,7 +100,7 @@ jobs:
         run: |
           export exitcode=0
           terraform plan -detailed-exitcode -no-color -out tfplan || export exitcode=$?
-          echo "exitcode=$exitcode" >> $GITHUB_OUTPUT
+          echo "exitcode=$exitcode" >> "$GITHUB_OUTPUT"
           if [ $exitcode -eq 1 ]; then
             echo Terraform Plan Failed!
             exit 1
@@ -116,7 +109,7 @@ jobs:
           fi
 
       - name: Publish Terraform Plan
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@a8a3f3ad30e3422c9c7b888a15615d19a852ae32
         with:
           name: tfplan
           path: tfplan
@@ -126,21 +119,23 @@ jobs:
         run: |
           TERRAFORM_PLAN=$(terraform show -no-color tfplan)
           delimiter="$(openssl rand -hex 8)"
-          echo "summary<<${delimiter}" >> $GITHUB_OUTPUT
-          echo "## Terraform Plan Output" >> $GITHUB_OUTPUT
-          echo "<details><summary>Click to expand</summary>" >> $GITHUB_OUTPUT
-          echo "" >> $GITHUB_OUTPUT
-          echo '```terraform' >> $GITHUB_OUTPUT
-          echo "$TERRAFORM_PLAN" >> $GITHUB_OUTPUT
-          echo '```' >> $GITHUB_OUTPUT
-          echo "</details>" >> $GITHUB_OUTPUT
-          echo "${delimiter}" >> $GITHUB_OUTPUT
+          {
+            echo "summary<<${delimiter}"
+            echo "## Terraform Plan Output"
+            echo "<details><summary>Click to expand</summary>"
+            echo ""
+            echo '```terraform'
+            echo "$TERRAFORM_PLAN"
+            echo '```'
+            echo "</details>"
+            echo "${delimiter}"
+          } >> "$GITHUB_OUTPUT"
 
       - name: Publish Terraform Plan to Task Summary
         env:
           SUMMARY: ${{ steps.tf-plan-string.outputs.summary }}
         run: |
-          echo "$SUMMARY" >> $GITHUB_STEP_SUMMARY
+          echo "$SUMMARY" >> "$GITHUB_STEP_SUMMARY"
 
       # - name: Push Terraform Output to PR
       #   if: github.ref != 'refs/heads/main'
@@ -167,38 +162,34 @@ jobs:
     needs: [terraform, plan]
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608
 
       - name: Microsoft Azure Authentication
-        uses: azure/login@v1
+        uses: azure/login@92a5484dfaf04ca78a94597f4f19fea633851fa2
         with:
           client-id: ${{ secrets.ARM_CLIENT_ID }}
           tenant-id: ${{ secrets.ARM_TENANT_ID }}
           subscription-id: ${{ secrets.ARM_SUBSCRIPTION_ID }}
 
       - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v2
+        uses: hashicorp/setup-terraform@633666f66e0061ca3b725c73b2ec20cd13a8fdd1
         with:
           terraform_version: 1.5.7
           terraform_wrapper: false
 
-      - name: Terraform Init
+      - name: terraform init
         id: init
         env:
-          TFSTATE_STORAGE_ACCOUNT_NAME: ${{ secrets.TFSTATE_STORAGE_ACCOUNT_NAME }}
-          TFSTATE_CONTAINER_NAME: ${{ secrets.TFSTATE_CONTAINER_NAME }}
-          TFSTATE_KEY: tfstate
-          AZURE_RESOURCE_GROUP_NAME: ${{ secrets.AZURE_RESOURCE_GROUP_NAME }}
           ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
           ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
           ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
           ARM_USE_OIDC: true
           TF_IN_AUTOMATION: true
-          TF_CLI_ARGS_init: -backend-config="storage_account_name=${{ secrets.TFSTATE_STORAGE_ACCOUNT_NAME }}" -backend-config="container_name=${{ secrets.TFSTATE_CONTAINER_NAME }}" -backend-config="resource_group_name=${{ secrets.AZURE_RESOURCE_GROUP_NAME }}" -backend-config="key=${{ github.ref_name }}" -backend-config="use_oidc=true" -input=false
+          TF_CLI_ARGS_init: -backend-config="storage_account_name=${{ secrets.AZURE_STORAGE_ACCOUNT_NAME }}" -backend-config="container_name=${{ secrets.TFSTATE_CONTAINER_NAME }}" -backend-config="resource_group_name=${{ secrets.AZURE_RESOURCE_GROUP_NAME }}" -backend-config="key=${{ github.ref_name }}" -backend-config="use_oidc=true" -input=false
         run: terraform init
 
       - name: Download Terraform Plan
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a
         with:
           name: tfplan
 
@@ -221,10 +212,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Github repository checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608
 
       - name: Microsoft Azure Authentication
-        uses: azure/login@v1
+        uses: azure/login@92a5484dfaf04ca78a94597f4f19fea633851fa2
         with:
           subscription-id: ${{ secrets.ARM_SUBSCRIPTION_ID }}
           client-id: ${{ secrets.ARM_CLIENT_ID }}
@@ -232,7 +223,7 @@ jobs:
           allow-no-subscriptions: true
 
       - name: Hashicorp Terraform
-        uses: hashicorp/setup-terraform@v2
+        uses: hashicorp/setup-terraform@633666f66e0061ca3b725c73b2ec20cd13a8fdd1
         with:
           terraform_version: 1.5.7
           terraform_wrapper: false
@@ -240,16 +231,12 @@ jobs:
       - name: terraform init
         id: init
         env:
-          TFSTATE_STORAGE_ACCOUNT_NAME: ${{ secrets.TFSTATE_STORAGE_ACCOUNT_NAME }}
-          TFSTATE_CONTAINER_NAME: ${{ secrets.TFSTATE_CONTAINER_NAME }}
-          TFSTATE_KEY: ${{ github.ref_name }}
-          AZURE_RESOURCE_GROUP_NAME: ${{ secrets.AZURE_RESOURCE_GROUP_NAME }}
           ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
           ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
           ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
           ARM_USE_OIDC: true
           TF_IN_AUTOMATION: true
-          TF_CLI_ARGS_init: -backend-config="storage_account_name=${{ secrets.TFSTATE_STORAGE_ACCOUNT_NAME }}" -backend-config="container_name=${{ secrets.TFSTATE_CONTAINER_NAME }}" -backend-config="resource_group_name=${{ secrets.AZURE_RESOURCE_GROUP_NAME }}" -backend-config="key=${{ github.ref_name }}" -backend-config="use_oidc=true" -input=false
+          TF_CLI_ARGS_init: -backend-config="storage_account_name=${{ secrets.AZURE_STORAGE_ACCOUNT_NAME }}" -backend-config="container_name=${{ secrets.TFSTATE_CONTAINER_NAME }}" -backend-config="resource_group_name=${{ secrets.AZURE_RESOURCE_GROUP_NAME }}" -backend-config="key=${{ github.ref_name }}" -backend-config="use_oidc=true" -input=false
         run: terraform init
 
       - name: terraform destroy
@@ -258,6 +245,7 @@ jobs:
           TF_VAR_AZURE_RESOURCE_GROUP_NAME: ${{ secrets.AZURE_RESOURCE_GROUP_NAME }}
           TF_VAR_AZURE_REGION: ${{ secrets.AZURE_REGION }}
           TF_VAR_AZURE_USERNAME: ${{ secrets.AZURE_USERNAME }}
+          TF_VAR_AZURE_STORAGE_ACCOUNT_ID: ${{ secrets.AZURE_STORAGE_ACCOUNT_ID }}
           ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
           ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
           ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}

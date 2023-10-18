@@ -5,11 +5,11 @@
 #  allocation_method   = "Dynamic"
 #}
 #resource "azurerm_network_interface_security_group_association" "ubuntu-association" {
-#  network_interface_id      = azurerm_network_interface.ubuntu-internal-network-interface.id
+#  network_interface_id      = azurerm_network_interface.ubuntu_internal_network_interface.id
 #  network_security_group_id = azurerm_network_security_group.nsg.id
 #}
-resource "azurerm_network_interface" "ubuntu-internal-network-interface" {
-  name                = "ubuntu-internal-network-interface"
+resource "azurerm_network_interface" "ubuntu_internal_network_interface" {
+  name                = "ubuntu_internal_network_interface"
   location            = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.location
   resource_group_name = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.name
   ip_configuration {
@@ -17,35 +17,35 @@ resource "azurerm_network_interface" "ubuntu-internal-network-interface" {
     #private_ip_address_allocation = "Dynamic"
     private_ip_address_allocation = "Static"
     private_ip_address            = cidrhost(var.internal-Prefix, 5)
-    subnet_id                     = azurerm_subnet.internal-subnet.id
+    subnet_id                     = azurerm_subnet.internal_subnet.id
     #public_ip_address_id          = azurerm_public_ip.ubuntu-public_ip.id
   }
 }
-resource "azurerm_network_interface" "ubuntu-dmz-network-interface" {
-  name                = "ubuntu-dmz-network-interface"
+resource "azurerm_network_interface" "ubuntu_dmz_network_interface" {
+  name                = "ubuntu_dmz_network_interface"
   location            = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.location
   resource_group_name = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.name
   ip_configuration {
     name                          = "ubuntu-dmz-ipconfig"
     private_ip_address_allocation = "Static"
     private_ip_address            = cidrhost(var.dmz-Prefix, 6)
-    subnet_id                     = azurerm_subnet.dmz-subnet.id
+    subnet_id                     = azurerm_subnet.dmz_subnet.id
   }
 }
-resource "azurerm_linux_virtual_machine" "ubuntu-virtual-machine" {
-  name                            = "ubuntu-virtual-machine"
+resource "azurerm_linux_virtual_machine" "ubuntu_virtual_machine" {
+  name                            = "ubuntu_virtual_machine"
   computer_name                   = "ubuntu"
   admin_username                  = random_pet.admin_username.id
   disable_password_authentication = true
   allow_extension_operations      = false
-  availability_set_id             = azurerm_availability_set.fortinet-availability-set.id
+  availability_set_id             = azurerm_availability_set.fortinet_availability_set.id
   location                        = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.location
   resource_group_name             = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.name
-  network_interface_ids           = [azurerm_network_interface.ubuntu-internal-network-interface.id, azurerm_network_interface.ubuntu-dmz-network-interface.id]
+  network_interface_ids           = [azurerm_network_interface.ubuntu_internal_network_interface.id, azurerm_network_interface.ubuntu_dmz_network_interface.id]
   size                            = "Standard_F2s_v2"
   admin_ssh_key {
     username   = random_pet.admin_username.id
-    public_key = tls_private_key.ssh-key.public_key_openssh
+    public_key = tls_private_key.ssh_key.public_key_openssh
     #public_key = file("~/.ssh/id_rsa.pub")
   }
   #  boot_diagnostics {
@@ -67,7 +67,7 @@ resource "azurerm_linux_virtual_machine" "ubuntu-virtual-machine" {
 #  name                = azurerm_public_ip.ubuntu-public_ip.name
 #  resource_group_name = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.name
 #  depends_on = [
-#    azurerm_linux_virtual_machine.ubuntu-virtual-machine,
+#    azurerm_linux_virtual_machine.ubuntu_virtual_machine,
 #  ]
 #}
 
