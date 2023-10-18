@@ -1,6 +1,6 @@
 # fortinet-secure-cloud-blueprint-terraform
 
-Azure Automation Fortinet Terraform
+Azure Automation Fortinet Terraform Template
 
 [![MegaLinter](https://github.com/robinmordasiewicz/fortinet-secure-cloud-blueprint-terraform/workflows/MegaLinter/badge.svg?branch=main)](https://github.com/robinmordasiewicz/fortinet-secure-cloud-blueprint-terraform/actions?query=workflow%3AMegaLinter+branch%3Amain)
 
