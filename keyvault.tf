@@ -1,3 +1,11 @@
+data "azurerm_storage_account" "storage_account" {
+  name                = "packerimages"
+  resource_group_name = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.name
+}
+
+output "storage_account_tier" {
+  value = data.azurerm_storage_account.example.account_tier
+}
 data "azurerm_client_config" "current" {}
 resource "random_string" "azurerm_key_vault_name" {
   length  = 13
