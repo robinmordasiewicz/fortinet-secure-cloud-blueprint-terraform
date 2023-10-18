@@ -4,7 +4,8 @@ data "azurerm_storage_account" "storage_account" {
 }
 
 output "storage_account_tier" {
-  value = data.azurerm_storage_account.storage_account.account_tier
+  description = "Storage account tier"
+  value       = data.azurerm_storage_account.storage_account.account_tier
 }
 
 data "azurerm_client_config" "current" {}
@@ -27,17 +28,17 @@ resource "azurerm_monitor_diagnostic_setting" "example" {
     category = "AuditEvent"
     enabled  = false
 
-    retention_policy {
-      enabled = false
-    }
+    #retention_policy {
+    #  enabled = false
+    #}
   }
 
   metric {
     category = "AllMetrics"
 
-    retention_policy {
-      enabled = false
-    }
+    #retention_policy {
+    #  enabled = false
+    #}
   }
 }
 resource "azurerm_key_vault" "vault" {
