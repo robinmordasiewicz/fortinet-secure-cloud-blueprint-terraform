@@ -3,7 +3,7 @@ name: FortiDevSec SAST scanner
 
 on: # yamllint disable-line rule:truthy
   push:
-    # branches: [main]
+    branches: [main]
     paths:
       - "**.tf"
   #  pull_request:
