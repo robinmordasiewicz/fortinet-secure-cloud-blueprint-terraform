@@ -1,5 +1,5 @@
 ---
-name: Code Compliance
+name: "Code - Unit - E2E tests"
 
 # Trigger mega-linter at every push. Action will also be visible from
 # Pull Requests to main
