@@ -181,5 +181,5 @@ jobs:
               github.ref
             }}
           commit_message: "[MegaLinter] Apply linters fixes"
-          commit_user_name: megalinter-bot
+          commit_user_name: compliancybot
           commit_user_email: compliancybot@example.com
