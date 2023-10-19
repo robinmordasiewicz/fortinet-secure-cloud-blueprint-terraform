@@ -1,5 +1,5 @@
 ---
-name: MegaLinter
+name: "Code - Unit - E2E tests"
 
 # Trigger mega-linter at every push. Action will also be visible from
 # Pull Requests to main
@@ -38,7 +38,7 @@ permissions:
 
 jobs:
   megalinter:
-    name: MegaLinter
+    name: "Compliancy - Unit - E2E"
     runs-on: ubuntu-latest
 
     # Give the default GITHUB_TOKEN write permission to commit and push, comment
@@ -60,7 +60,7 @@ jobs:
           fetch-depth: 0
 
       # MegaLinter
-      - name: MegaLinter
+      - name: Linter
 
         # You can override MegaLinter flavor used to have faster performances
         # More info at https://megalinter.io/flavors/
@@ -182,4 +182,4 @@ jobs:
             }}
           commit_message: "[MegaLinter] Apply linters fixes"
           commit_user_name: megalinter-bot
-          commit_user_email: nicolas.vuillamy@ox.security
+          commit_user_email: compliancybot@example.com

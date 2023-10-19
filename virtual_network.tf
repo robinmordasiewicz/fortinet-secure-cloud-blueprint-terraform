@@ -3,14 +3,14 @@ resource "azurerm_virtual_network" "vnet" {
   name                = "vnet"
   location            = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.location
   resource_group_name = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.name
-  ddos_protection_plan {
-    id     = azurerm_network_ddos_protection_plan.ddos_protection_plan.id
-    enable = true
-  }
+  #ddos_protection_plan {
+  #  id     = azurerm_network_ddos_protection_plan.ddos_protection_plan.id
+  #  enable = true
+  #}
 }
 
-resource "azurerm_network_ddos_protection_plan" "ddos_protection_plan" {
-  name                = "ddos_protection_plan"
-  location            = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.location
-  resource_group_name = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.name
-}
+#resource "azurerm_network_ddos_protection_plan" "ddos_protection_plan" {
+#  name                = "ddos_protection_plan"
+#  location            = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.location
+#  resource_group_name = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.name
+#}
