@@ -6,10 +6,10 @@ on: # yamllint disable-line rule:truthy
     branches: [main]
     paths:
       - "**.tf"
-  pull_request:
-    branches: [main]
-    paths:
-      - "**.tf"
+  #  pull_request:
+  #  branches: [main]
+  #  paths:
+  #    - "**.tf"
 
 permissions:
   contents: read
