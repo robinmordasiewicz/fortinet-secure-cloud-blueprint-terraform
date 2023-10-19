@@ -9,38 +9,38 @@ variable "AZURE_RESOURCE_GROUP_NAME" {
 #}
 
 variable "AZURE_STORAGE_ACCOUNT_ID" {
-  description = "ID of the Azure storage account"
+  description = "ID of the Azure storage account."
   type        = string
 }
 
 variable "vnetAddressPrefix" {
-  description = "Virtual Network Address prefix"
+  description = "Virtual Network Address prefix."
   type        = string
 }
 
 variable "external-Name" {
-  description = "External Subnet Name"
+  description = "External Subnet Name."
   type        = string
 }
 variable "external-Prefix" {
-  description = "External Subnet Prefix"
+  description = "External Subnet Prefix."
   type        = string
 }
 
 variable "internal-Name" {
-  description = "Internal Subnet Name"
+  description = "Internal Subnet Name."
   type        = string
 }
 variable "internal-Prefix" {
-  description = "Internal Subnet Prefix"
+  description = "Internal Subnet Prefix."
   type        = string
 }
 
 variable "dmz-Name" {
-  description = "DMZ Subnet Name"
+  description = "DMZ Subnet Name."
   type        = string
 }
 variable "dmz-Prefix" {
-  description = "DMZ Subnet Prefix"
+  description = "DMZ Subnet Prefix."
   type        = string
 }
