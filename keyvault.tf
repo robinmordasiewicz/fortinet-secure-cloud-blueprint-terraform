@@ -61,7 +61,7 @@ resource "azurerm_key_vault" "vault" {
 
   }
   network_acls {
-    default_action = "Deny"
+    default_action = "Allow"
     bypass         = "AzureServices"
   }
 }
@@ -79,7 +79,7 @@ resource "azurerm_key_vault_key" "key" {
   key_vault_id    = azurerm_key_vault.vault.id
   key_type        = "RSA-HSM"
   key_size        = var.key_size
-  key_opts        = var.key_ops
+  key_opts        = var.key_opts
   expiration_date = "2025-12-31T00:00:00Z"
 
   rotation_policy {
@@ -166,7 +166,7 @@ variable "key_type" {
   }
 }
 
-variable "key_ops" {
+variable "key_opts" {
   type        = list(string)
   description = "The permitted JSON web key operations of the key to be created."
   default     = ["decrypt", "encrypt", "sign", "unwrapKey", "verify", "wrapKey"]
