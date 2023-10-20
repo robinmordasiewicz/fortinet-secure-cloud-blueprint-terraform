@@ -13,6 +13,11 @@ variable "AZURE_STORAGE_ACCOUNT_ID" {
   type        = string
 }
 
+variable "ARM_TENANT_ID" {
+  description = "Azure Tenant ID"
+  type = string
+}
+
 variable "vnetAddressPrefix" {
   description = "Virtual Network Address prefix."
   type        = string

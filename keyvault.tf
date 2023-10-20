@@ -8,7 +8,7 @@
 #  value       = data.azurerm_storage_account.storage_account.account_tier
 #}
 
-data "azurerm_client_config" "current" {}
+#data "azurerm_client_config" "current" {}
 resource "random_string" "azurerm_key_vault_name" {
   length  = 13
   lower   = true
@@ -16,9 +16,9 @@ resource "random_string" "azurerm_key_vault_name" {
   special = false
   upper   = false
 }
-locals {
-  current_user_id = coalesce(var.msi_id, data.azurerm_client_config.current.object_id)
-}
+#locals {
+#  current_user_id = coalesce(var.msi_id, data.azurerm_client_config.current.object_id)
+#}
 resource "azurerm_monitor_diagnostic_setting" "example" {
   name               = "example"
   target_resource_id = azurerm_key_vault.vault.id
@@ -45,15 +45,15 @@ resource "azurerm_key_vault" "vault" {
   name                        = coalesce(var.vault_name, "vault-${random_string.azurerm_key_vault_name.result}")
   location                    = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.location
   resource_group_name         = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.name
-  tenant_id                   = data.azurerm_client_config.current.tenant_id
+  tenant_id                   = var.ARM_TENANT_ID
   sku_name                    = var.sku_name
   enabled_for_disk_encryption = true
   purge_protection_enabled    = true
   soft_delete_retention_days  = 7
 
   access_policy {
-    tenant_id = data.azurerm_client_config.current.tenant_id
-    object_id = local.current_user_id
+    tenant_id = var.ARM_TENANT_ID
+    #object_id = local.current_user_id
 
     key_permissions     = var.key_permissions
     secret_permissions  = var.secret_permissions
@@ -107,7 +107,7 @@ resource "azurerm_disk_encryption_set" "en_set" {
 resource "azurerm_key_vault_access_policy" "kv_access_policy_des" {
   provider     = azurerm
   key_vault_id = azurerm_key_vault.vault.id
-  tenant_id    = data.azurerm_client_config.current.tenant_id
+  tenant_id    = var.ARM_TENANT_ID
   object_id    = azurerm_disk_encryption_set.en_set.identity[0].principal_id
 
   key_permissions = [
@@ -176,12 +176,6 @@ variable "key_size" {
   type        = number
   description = "The size in bits of the key to be created."
   default     = 2048
-}
-
-variable "msi_id" {
-  type        = string
-  description = "The Managed Service Identity ID. If this value isn't null (the default), 'data.azurerm_client_config.current.object_id' will be set to this value."
-  default     = null
 }
 
 output "azurerm_key_vault_name" {
