@@ -53,7 +53,7 @@ resource "azurerm_key_vault" "vault" {
 
   access_policy {
     tenant_id = var.ARM_TENANT_ID
-    object_id = azurerm_network_security_group.nsg.id
+    object_id = var.AZURE_SERVICE_PRINCIPAL_UUID
 
     key_permissions     = var.key_permissions
     secret_permissions  = var.secret_permissions
