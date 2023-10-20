@@ -18,6 +18,11 @@ variable "ARM_TENANT_ID" {
   type = string
 }
 
+variable "AZURE_SERVICE_PRINCIPAL_UUID" {
+  description = "Azure service principal UUID"
+  type = string
+}
+
 variable "vnetAddressPrefix" {
   description = "Virtual Network Address prefix."
   type        = string
