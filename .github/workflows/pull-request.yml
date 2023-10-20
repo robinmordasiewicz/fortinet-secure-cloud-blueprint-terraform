@@ -1,0 +1,20 @@
+---
+name: Auto Pull Request
+on: # yamllint disable-line rule:truthy
+  push:
+    branches:
+      - "*"
+      - "!main"
+
+permissions:
+  pull-requests: write
+
+jobs:
+  pull-request:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: pull-request
+        uses: diillson/auto-pull-request@4cf50b3681cd76250f37841466e61e514a377064
+        with:
+          destination_branch: main
