@@ -94,17 +94,17 @@ resource "azurerm_managed_disk" "fortiweb_log_disk" {
   #encryption_settings {
   #  enabled = true
   #}
-  encryption_settings {
-    enabled = true
-    disk_encryption_key {
-      secret_url      = azurerm_key_vault_secret.secret.id
-      source_vault_id = azurerm_key_vault.vault.id
-    }
-    key_encryption_key {
-      key_url         = azurerm_key_vault_key.key.id
-      source_vault_id = azurerm_key_vault.vault.id
-    }
-  }
+  #  encryption_settings {
+  #  enabled = true
+  #  disk_encryption_key {
+  #    secret_url      = azurerm_key_vault_secret.secret.id
+  #    source_vault_id = azurerm_key_vault.vault.id
+  #  }
+  #  key_encryption_key {
+  #    key_url         = azurerm_key_vault_key.key.id
+  #    source_vault_id = azurerm_key_vault.vault.id
+  #  }
+  #}
 }
 
 #data "azurerm_public_ip" "fortiweb-public_ip" {
