@@ -66,7 +66,6 @@ resource "random_string" "azurerm_key_vault_key_name" {
 resource "azurerm_key_vault_secret" "secret" {
   name         = "secret"
   value        = "szechuan"
-  vault_uri    = azurerm_key_vault.vault.vault_uri
   key_vault_id = azurerm_key_vault.vault.id
 }
 
