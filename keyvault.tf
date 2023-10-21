@@ -1,14 +1,3 @@
-#data "azurerm_storage_account" "storage_account" {
-#  name                = var.AZURE_STORAGE_ACCOUNT_NAME
-#  resource_group_name = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.name
-#}
-
-#output "storage_account_tier" {
-#  description = "Storage account tier"
-#  value       = data.azurerm_storage_account.storage_account.account_tier
-#}
-
-#data "azurerm_client_config" "current" {}
 resource "random_string" "azurerm_key_vault_name" {
   length  = 13
   lower   = true
@@ -30,24 +19,21 @@ resource "azurerm_monitor_diagnostic_setting" "example" {
 }
 
 resource "azurerm_key_vault" "vault" {
-  name                        = coalesce(var.vault_name, "vault-${random_string.azurerm_key_vault_name.result}")
-  location                    = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.location
-  resource_group_name         = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.name
-  tenant_id                   = var.ARM_TENANT_ID
-  sku_name                    = var.sku_name
-  enabled_for_disk_encryption = true
-  purge_protection_enabled    = true
-  soft_delete_retention_days  = 7
-  #public_network_access_enabled = false
-
+  name                          = coalesce(var.vault_name, "vault-${random_string.azurerm_key_vault_name.result}")
+  location                      = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.location
+  resource_group_name           = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.name
+  tenant_id                     = var.ARM_TENANT_ID
+  sku_name                      = var.sku_name
+  enabled_for_disk_encryption   = true
+  purge_protection_enabled      = true
+  soft_delete_retention_days    = 7
+  public_network_access_enabled = true
   access_policy {
-    tenant_id = var.ARM_TENANT_ID
-    object_id = var.AZURE_SERVICE_PRINCIPAL_UUID
-
+    tenant_id           = var.ARM_TENANT_ID
+    object_id           = var.AZURE_SERVICE_PRINCIPAL_UUID
     key_permissions     = var.key_permissions
     secret_permissions  = var.secret_permissions
     storage_permissions = var.storage_permissions
-
   }
   network_acls {
     default_action = "Allow"
@@ -64,25 +50,24 @@ resource "random_string" "azurerm_key_vault_key_name" {
 }
 
 resource "azurerm_key_vault_secret" "secret" {
-  name         = "secret"
-  value        = "szechuan"
-  key_vault_id = azurerm_key_vault.vault.id
+  name            = "secret"
+  value           = "szechuan"
+  key_vault_id    = azurerm_key_vault.vault.id
+  expiration_date = "2025-12-31T00:00:00Z"
+  content_type    = "password"
 }
 
 resource "azurerm_key_vault_key" "key" {
-  name = coalesce(var.key_name, "key-${random_string.azurerm_key_vault_key_name.result}")
-
+  name            = coalesce(var.key_name, "key-${random_string.azurerm_key_vault_key_name.result}")
   key_vault_id    = azurerm_key_vault.vault.id
   key_type        = "RSA-HSM"
   key_size        = var.key_size
   key_opts        = var.key_opts
   expiration_date = "2025-12-31T00:00:00Z"
-
   rotation_policy {
     automatic {
       time_before_expiry = "P30D"
     }
-
     expire_after         = "P90D"
     notify_before_expiry = "P29D"
   }
@@ -94,11 +79,9 @@ resource "azurerm_disk_encryption_set" "en_set" {
   location            = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.location
   resource_group_name = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.name
   key_vault_key_id    = azurerm_key_vault_key.key.id
-
   identity {
     type = "SystemAssigned"
   }
-
 }
 
 resource "azurerm_key_vault_access_policy" "kv_access_policy_des" {
@@ -106,7 +89,6 @@ resource "azurerm_key_vault_access_policy" "kv_access_policy_des" {
   key_vault_id = azurerm_key_vault.vault.id
   tenant_id    = var.ARM_TENANT_ID
   object_id    = azurerm_disk_encryption_set.en_set.identity[0].principal_id
-
   key_permissions = [
     "Get",
     "WrapKey",
