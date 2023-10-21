@@ -85,6 +85,9 @@ resource "azurerm_managed_disk" "fortiweb_log_disk" {
   name                 = "fortiweb_log_disk"
   storage_account_type = "Premium_LRS"
   disk_size_gb         = "30"
+  encryption_settings {
+    enabled = true
+  }
   #disk_encryption_set_id = "koko"
   #disk_encryption_key  = "koko"
   #disk_encryption_key =
