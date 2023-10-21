@@ -89,6 +89,7 @@ resource "azurerm_managed_disk" "fortiweb_log_disk" {
   name                 = "fortiweb_log_disk"
   storage_account_type = "Premium_LRS"
   disk_size_gb         = "30"
+  depends_on           = [azurerm_linux_virtual_machine.fortiweb_virtual_machine]
   #disk_encryption_key =
   #key_encryption_key =
   #encryption_settings {
@@ -106,15 +107,3 @@ resource "azurerm_managed_disk" "fortiweb_log_disk" {
   #  }
   #}
 }
-
-#data "azurerm_public_ip" "fortiweb-public_ip" {
-#  name                = azurerm_public_ip.fortiweb-public_ip.name
-#  resource_group_name = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.name
-#  depends_on = [
-#    azurerm_linux_virtual_machine.fortiweb_virtual_machine,
-#  ]
-#}
-
-#output "fortiweb-public_ip_address" {
-#  value = data.azurerm_public_ip.fortiweb-public_ip.ip_address
-#}
