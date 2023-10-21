@@ -15,12 +15,12 @@ variable "AZURE_STORAGE_ACCOUNT_ID" {
 
 variable "ARM_TENANT_ID" {
   description = "Azure Tenant ID"
-  type = string
+  type        = string
 }
 
 variable "AZURE_SERVICE_PRINCIPAL_UUID" {
   description = "Azure service principal UUID"
-  type = string
+  type        = string
 }
 
 variable "vnetAddressPrefix" {

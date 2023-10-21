@@ -13,6 +13,10 @@ repos:
       - id: mixed-line-ending
       - id: end-of-file-fixer
       - id: trailing-whitespace
+  - repo: https://github.com/terraform-docs/terraform-docs
+    rev: v0.16.0
+    hooks:
+      - id: terraform-docs-go
   - repo: https://github.com/anderseknert/pre-commit-opa
     rev: v1.5.1
     hooks:
@@ -20,16 +24,12 @@ repos:
         args: [policies, -w]
       - id: opa-check
         args: [policies, -b]
-  - repo: https://github.com/DavidAnson/markdownlint-cli2
-    rev: v0.10.0
+  - repo: https://github.com/oxsecurity/megalinter
+    rev: v7.4.0
     hooks:
-      - id: markdownlint-cli2
-  #- repo: https://github.com/oxsecurity/megalinter
-  #  rev: v7.4.0
-  #  hooks:
-  #    - id: megalinter-incremental
-  #      stages:
-  #        - commit
-  #    - id: megalinter-full
-  #      stages:
-  #        - push
+      - id: megalinter-incremental
+        stages:
+          - commit
+      - id: megalinter-full
+        stages:
+          - push

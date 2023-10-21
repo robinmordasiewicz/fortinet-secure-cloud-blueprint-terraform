@@ -1,4 +1,3 @@
----
 name: Branch Action
 on: # yamllint disable-line rule:truthy
   - delete
@@ -8,14 +7,14 @@ permissions:
   contents: none
 
 concurrency:
-  group: ${{ github.workflow }}
+  group: "${{ github.workflow }}"
 
 jobs:
   action:
     if: github.event.ref_type == 'branch'
     runs-on: ubuntu-latest
     steps:
-      - name: Branch Action
+      - name: "Branch Action"
         env:
           GH_TOKEN: ${{ secrets.CONTROLLER_REPOSITORY_TOKEN }}
         run: |
