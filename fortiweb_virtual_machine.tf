@@ -20,6 +20,7 @@ resource "azurerm_network_interface" "fortiweb_dmz_network_interface" {
     #    public_ip_address_id          = azurerm_public_ip.fortiweb-public_ip.id
   }
 }
+
 resource "azurerm_network_interface" "fortiweb_internal_network_interface" {
   name                = "fortiweb_internal_network_interface"
   location            = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.location
@@ -31,6 +32,7 @@ resource "azurerm_network_interface" "fortiweb_internal_network_interface" {
     subnet_id                     = azurerm_subnet.internal_subnet.id
   }
 }
+
 resource "azurerm_linux_virtual_machine" "fortiweb_virtual_machine" {
   name                            = "fortiweb_virtual_machine"
   computer_name                   = "fortiweb"
@@ -78,6 +80,7 @@ resource "azurerm_virtual_machine_data_disk_attachment" "fortiweb_data_disk_atta
   managed_disk_id    = azurerm_managed_disk.fortiweb_log_disk.id
   virtual_machine_id = azurerm_linux_virtual_machine.fortiweb_virtual_machine.id
 }
+
 resource "azurerm_managed_disk" "fortiweb_log_disk" {
   create_option        = "Empty"
   location             = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.location
@@ -85,15 +88,22 @@ resource "azurerm_managed_disk" "fortiweb_log_disk" {
   name                 = "fortiweb_log_disk"
   storage_account_type = "Premium_LRS"
   disk_size_gb         = "30"
-  encryption_settings {
-    enabled = true
-  }
-  #disk_encryption_set_id = "koko"
-  #disk_encryption_key  = "koko"
   #disk_encryption_key =
+  #key_encryption_key =
   #encryption_settings {
   #  enabled = true
   #}
+  encryption_settings {
+    enabled = true
+    disk_encryption_key {
+      secret_url      = azurerm_key_vault_secret.secret.id
+      source_vault_id = azurerm_key_vault.vault.id
+    }
+    key_encryption_key {
+      key_url         = azurerm_key_vault_key.key.id
+      source_vault_id = azurerm_key_vault.vault.id
+    }
+  }
 }
 
 #data "azurerm_public_ip" "fortiweb-public_ip" {

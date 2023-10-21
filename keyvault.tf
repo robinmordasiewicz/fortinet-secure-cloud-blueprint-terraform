@@ -30,15 +30,15 @@ resource "azurerm_monitor_diagnostic_setting" "example" {
 }
 
 resource "azurerm_key_vault" "vault" {
-  name                          = coalesce(var.vault_name, "vault-${random_string.azurerm_key_vault_name.result}")
-  location                      = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.location
-  resource_group_name           = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.name
-  tenant_id                     = var.ARM_TENANT_ID
-  sku_name                      = var.sku_name
-  enabled_for_disk_encryption   = true
-  purge_protection_enabled      = true
-  soft_delete_retention_days    = 7
-  public_network_access_enabled = false
+  name                        = coalesce(var.vault_name, "vault-${random_string.azurerm_key_vault_name.result}")
+  location                    = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.location
+  resource_group_name         = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.name
+  tenant_id                   = var.ARM_TENANT_ID
+  sku_name                    = var.sku_name
+  enabled_for_disk_encryption = true
+  purge_protection_enabled    = true
+  soft_delete_retention_days  = 7
+  #public_network_access_enabled = false
 
   access_policy {
     tenant_id = var.ARM_TENANT_ID
@@ -61,6 +61,12 @@ resource "random_string" "azurerm_key_vault_key_name" {
   numeric = false
   special = false
   upper   = false
+}
+
+resource "azurerm_key_vault_secret" "secret" {
+  name      = "secret"
+  value     = "szechuan"
+  vault_uri = azurerm_key_vault.vault.vault_uri
 }
 
 resource "azurerm_key_vault_key" "key" {
@@ -139,7 +145,7 @@ variable "key_permissions" {
 variable "secret_permissions" {
   type        = list(string)
   description = "List of secret permissions."
-  default     = ["Set"]
+  default     = ["Delete", "Get", "Set"]
 }
 
 variable "storage_permissions" {
