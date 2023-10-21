@@ -1,4 +1,4 @@
 ---
 MD013: false
 MD033:
-  allowed_elements: [a]
+  allowed_elements: [a, br, pre]

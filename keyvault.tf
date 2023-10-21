@@ -16,31 +16,19 @@ resource "random_string" "azurerm_key_vault_name" {
   special = false
   upper   = false
 }
-#locals {
-#  current_user_id = coalesce(var.msi_id, data.azurerm_client_config.current.object_id)
-#}
+
 resource "azurerm_monitor_diagnostic_setting" "example" {
   name               = "example"
   target_resource_id = azurerm_key_vault.vault.id
   storage_account_id = var.AZURE_STORAGE_ACCOUNT_ID
-
   enabled_log {
     category = "AuditEvent"
-    #enabled  = false
-
-    #retention_policy {
-    #  enabled = false
-    #}
   }
-
   metric {
     category = "AllMetrics"
-
-    #retention_policy {
-    #  enabled = false
-    #}
   }
 }
+
 resource "azurerm_key_vault" "vault" {
   name                          = coalesce(var.vault_name, "vault-${random_string.azurerm_key_vault_name.result}")
   location                      = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.location
@@ -62,10 +50,11 @@ resource "azurerm_key_vault" "vault" {
 
   }
   network_acls {
-    default_action = "Deny"
+    default_action = "Allow"
     bypass         = "AzureServices"
   }
 }
+
 resource "random_string" "azurerm_key_vault_key_name" {
   length  = 13
   lower   = true
@@ -105,6 +94,7 @@ resource "azurerm_disk_encryption_set" "en_set" {
   }
 
 }
+
 resource "azurerm_key_vault_access_policy" "kv_access_policy_des" {
   provider     = azurerm
   key_vault_id = azurerm_key_vault.vault.id
@@ -151,6 +141,7 @@ variable "secret_permissions" {
   description = "List of secret permissions."
   default     = ["Set"]
 }
+
 variable "storage_permissions" {
   type        = list(string)
   description = "List of secret permissions."
