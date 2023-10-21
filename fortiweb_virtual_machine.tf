@@ -44,7 +44,8 @@ resource "azurerm_linux_virtual_machine" "fortiweb_virtual_machine" {
   resource_group_name             = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.name
   network_interface_ids           = [azurerm_network_interface.fortiweb_internal_network_interface.id, azurerm_network_interface.fortiweb_dmz_network_interface.id]
   #size                            = "Standard_F4s"
-  size = "Standard_D4s_v3"
+  size                       = "Standard_D4s_v3"
+  encryption_at_host_enabled = true
   #  boot_diagnostics {
   #    storage_account_uri = azurerm_storage_account.storage-account.primary_blob_endpoint
   #  }
@@ -93,17 +94,17 @@ resource "azurerm_managed_disk" "fortiweb_log_disk" {
   #encryption_settings {
   #  enabled = true
   #}
-  #encryption_settings {
-  #  enabled = true
-  disk_encryption_key {
-    secret_url      = azurerm_key_vault_secret.secret.id
-    source_vault_id = azurerm_key_vault.vault.id
+  encryption_settings {
+    enabled = true
+    disk_encryption_key {
+      secret_url      = azurerm_key_vault_secret.secret.id
+      source_vault_id = azurerm_key_vault.vault.id
+    }
+    key_encryption_key {
+      key_url         = azurerm_key_vault_key.key.id
+      source_vault_id = azurerm_key_vault.vault.id
+    }
   }
-  key_encryption_key {
-    key_url         = azurerm_key_vault_key.key.id
-    source_vault_id = azurerm_key_vault.vault.id
-  }
-  #}
 }
 
 #data "azurerm_public_ip" "fortiweb-public_ip" {
