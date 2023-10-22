@@ -37,6 +37,7 @@ concurrency:
 
 # permissions:
 #  contents: read
+permissions: read-all
 
 jobs:
   megalinter:
