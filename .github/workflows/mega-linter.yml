@@ -1,5 +1,5 @@
 ---
-name: "Code - Unit - E2E tests"
+name: "MegaLinter"
 
 # Trigger mega-linter at every push. Action will also be visible from
 # Pull Requests to main
@@ -35,8 +35,9 @@ concurrency:
   group: ${{ github.ref }}-${{ github.workflow }}
   cancel-in-progress: true
 
-permissions:
-  contents: read
+# permissions:
+#  contents: read
+permissions: write-all
 
 jobs:
   megalinter:

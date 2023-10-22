@@ -2,6 +2,8 @@
 
 Azure Automation Fortinet Terraform.
 
+[![MegaLinter](https://github.com/robinmordasiewicz/fortigate-secure-cloud-blueprint-terraform/workflows/MegaLinter/badge.svg?branch=main)](https://github.com/robinmordasiewicz/fortigate-secure-cloud-blueprint-terraform/actions?query=workflow%3AMegaLinter+branch%3Amain)
+
 ```bash
 git config --global init.templateDir ~/.git-template
 pre-commit init-templatedir ~/.git-template

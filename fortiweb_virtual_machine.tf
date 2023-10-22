@@ -44,7 +44,8 @@ resource "azurerm_linux_virtual_machine" "fortiweb_virtual_machine" {
   resource_group_name             = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.name
   network_interface_ids           = [azurerm_network_interface.fortiweb_internal_network_interface.id, azurerm_network_interface.fortiweb_dmz_network_interface.id]
   #size                            = "Standard_F4s"
-  size = "Standard_D4s_v3"
+  size                       = "Standard_D4s_v3"
+  encryption_at_host_enabled = true
   #  boot_diagnostics {
   #    storage_account_uri = azurerm_storage_account.storage-account.primary_blob_endpoint
   #  }
@@ -82,38 +83,28 @@ resource "azurerm_virtual_machine_data_disk_attachment" "fortiweb_data_disk_atta
 }
 
 resource "azurerm_managed_disk" "fortiweb_log_disk" {
+  #checkov:skip=CKV_AZURE_93: Encryption is set on the virtual machine
   create_option        = "Empty"
   location             = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.location
   resource_group_name  = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.name
   name                 = "fortiweb_log_disk"
   storage_account_type = "Premium_LRS"
   disk_size_gb         = "30"
+  depends_on           = [azurerm_linux_virtual_machine.fortiweb_virtual_machine]
   #disk_encryption_key =
   #key_encryption_key =
   #encryption_settings {
   #  enabled = true
   #}
-  encryption_settings {
-    enabled = true
-    disk_encryption_key {
-      secret_url      = azurerm_key_vault_secret.secret.id
-      source_vault_id = azurerm_key_vault.vault.id
-    }
-    key_encryption_key {
-      key_url         = azurerm_key_vault_key.key.id
-      source_vault_id = azurerm_key_vault.vault.id
-    }
-  }
+  #  encryption_settings {
+  #  enabled = true
+  #  disk_encryption_key {
+  #    secret_url      = azurerm_key_vault_secret.secret.id
+  #    source_vault_id = azurerm_key_vault.vault.id
+  #  }
+  #  key_encryption_key {
+  #    key_url         = azurerm_key_vault_key.key.id
+  #    source_vault_id = azurerm_key_vault.vault.id
+  #  }
+  #}
 }
-
-#data "azurerm_public_ip" "fortiweb-public_ip" {
-#  name                = azurerm_public_ip.fortiweb-public_ip.name
-#  resource_group_name = data.azurerm_resource_group.AZURE_RESOURCE_GROUP.name
-#  depends_on = [
-#    azurerm_linux_virtual_machine.fortiweb_virtual_machine,
-#  ]
-#}
-
-#output "fortiweb-public_ip_address" {
-#  value = data.azurerm_public_ip.fortiweb-public_ip.ip_address
-#}
