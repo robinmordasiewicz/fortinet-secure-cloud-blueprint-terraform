@@ -35,9 +35,7 @@ concurrency:
   group: ${{ github.ref }}-${{ github.workflow }}
   cancel-in-progress: true
 
-# permissions:
-#  contents: read
-permissions: write-all
+permissions: {}
 
 jobs:
   megalinter:
