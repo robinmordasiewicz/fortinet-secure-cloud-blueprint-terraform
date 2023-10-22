@@ -1,5 +1,5 @@
 ---
-name: "Code - Unit - E2E tests"
+name: "MegaLinter"
 
 # Trigger mega-linter at every push. Action will also be visible from
 # Pull Requests to main
