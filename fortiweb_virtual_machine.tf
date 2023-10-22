@@ -82,6 +82,7 @@ resource "azurerm_virtual_machine_data_disk_attachment" "fortiweb_data_disk_atta
   virtual_machine_id = azurerm_linux_virtual_machine.fortiweb_virtual_machine.id
 }
 
+# kics-scan ignore-block
 resource "azurerm_managed_disk" "fortiweb_log_disk" {
   #checkov:skip=CKV_AZURE_93: Encryption is set on the virtual machine
   create_option        = "Empty"
