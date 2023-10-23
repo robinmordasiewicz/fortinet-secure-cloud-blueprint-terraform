@@ -2,14 +2,17 @@
 name: Policy Enforcement
 
 on: #  yamllint disable-line rule:truthy
-  workflow_dispatch:
-  push:
-    paths:
-      - "**.rego"
-      - "**.tf"
+  pull_request:
     branches:
-      - "*"
-      - "!main"
+      - main
+  workflow_dispatch:
+    #push:
+    #paths:
+    #  - "**.rego"
+    #  - "**.tf"
+    #branches:
+    #  - "*"
+    #  - "!main"
 
 permissions:
   id-token: write
