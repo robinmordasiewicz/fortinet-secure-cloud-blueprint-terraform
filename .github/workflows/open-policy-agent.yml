@@ -23,6 +23,8 @@ concurrency:
 
 jobs:
   open-policy-agent:
+    environment:
+      name: ${{ github.ref_name }}
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
