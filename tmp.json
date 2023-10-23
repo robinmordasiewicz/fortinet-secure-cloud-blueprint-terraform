@@ -1,0 +1,4249 @@
+{
+  "format_version": "1.2",
+  "terraform_version": "1.5.7",
+  "variables": {
+    "AZURE_RESOURCE_GROUP_NAME": {
+      "value": "robinmordasiewicz-fortinet-secure-cloud-blueprint-terraform-terratest"
+    },
+    "dmz-Name": {
+      "value": "dmz"
+    },
+    "dmz-Prefix": {
+      "value": "10.0.2.0/24"
+    },
+    "external-Name": {
+      "value": "external"
+    },
+    "external-Prefix": {
+      "value": "10.0.1.0/24"
+    },
+    "internal-Name": {
+      "value": "internal"
+    },
+    "internal-Prefix": {
+      "value": "10.0.3.0/24"
+    },
+    "vnetAddressPrefix": {
+      "value": "10.0.0.0/16"
+    }
+  },
+  "planned_values": {
+    "outputs": {
+      "admin_username": {
+        "sensitive": false
+      },
+      "availabilitySetFdc": {
+        "sensitive": false,
+        "type": "number",
+        "value": 2
+      },
+      "availabilitySetId": {
+        "sensitive": false
+      },
+      "availabilitySetName": {
+        "sensitive": false,
+        "type": "string",
+        "value": "fortinet_availability_set"
+      },
+      "currentSubscriptionDisplayName": {
+        "sensitive": false,
+        "type": "string",
+        "value": "Canada-PAYG"
+      },
+      "currentSubscriptionId": {
+        "sensitive": false,
+        "type": "string",
+        "value": "/subscriptions/fda770f9-b125-4474-abec-65a1cc1df596"
+      },
+      "resourceGroupName": {
+        "sensitive": false,
+        "type": "string",
+        "value": "robinmordasiewicz-fortinet-secure-cloud-blueprint-terraform-terratest"
+      },
+      "tls_private_key": {
+        "sensitive": true
+      },
+      "ubuntuVmName": {
+        "sensitive": false,
+        "type": "string",
+        "value": "ubuntu_virtual_machine"
+      },
+      "vip_public_ip_address": {
+        "sensitive": false
+      }
+    },
+    "root_module": {
+      "resources": [
+        {
+          "address": "azurerm_availability_set.fortinet_availability_set",
+          "mode": "managed",
+          "type": "azurerm_availability_set",
+          "name": "fortinet_availability_set",
+          "provider_name": "registry.terraform.io/hashicorp/azurerm",
+          "schema_version": 0,
+          "values": {
+            "location": "canadacentral",
+            "managed": true,
+            "name": "fortinet_availability_set",
+            "platform_fault_domain_count": 2,
+            "platform_update_domain_count": 2,
+            "proximity_placement_group_id": null,
+            "resource_group_name": "robinmordasiewicz-fortinet-secure-cloud-blueprint-terraform-terratest",
+            "tags": null,
+            "timeouts": null
+          },
+          "sensitive_values": {}
+        },
+        {
+          "address": "azurerm_linux_virtual_machine.fortigate_virtual_machine",
+          "mode": "managed",
+          "type": "azurerm_linux_virtual_machine",
+          "name": "fortigate_virtual_machine",
+          "provider_name": "registry.terraform.io/hashicorp/azurerm",
+          "schema_version": 0,
+          "values": {
+            "additional_capabilities": [],
+            "admin_password": null,
+            "admin_ssh_key": [{}],
+            "allow_extension_operations": false,
+            "boot_diagnostics": [],
+            "bypass_platform_safety_checks_on_user_schedule_enabled": false,
+            "capacity_reservation_group_id": null,
+            "computer_name": "fortigate",
+            "custom_data": "Q29udGVudC1UeXBlOiBtdWx0aXBhcnQvbWl4ZWQ7IGJvdW5kYXJ5PSI9PUFaVVJFPT0iCk1JTUUtVmVyc2lvbjogMS4wCgotLT09QVpVUkU9PQpDb250ZW50LVR5cGU6IHRleHQveC1zaGVsbHNjcmlwdDsgY2hhcnNldD0idXMtYXNjaWkiCk1JTUUtVmVyc2lvbjogMS4wCgpjb25maWcgc3lzdGVtIGdsb2JhbAogIHNldCBob3N0bmFtZSBmb3J0aWdhdGUKZW5kCgpjb25maWcgc3lzdGVtIGludGVyZmFjZQogIGVkaXQgcG9ydDEKICAgIHNldCBhbGlhcyBleHRlcm5hbAogICAgc2V0IG1vZGUgZGhjcAogICAgc2V0IGFsbG93YWNjZXNzIHBpbmcgaHR0cHMgc3NoCiAgbmV4dAogIGVkaXQgcG9ydDIKICAgIHNldCBhbGlhcyBkbXoKICAgIHNldCBtb2RlIGRoY3AKICAgIHNldCBhbGxvd2FjY2VzcyBwaW5nCiAgICBzZXQgZGVmYXVsdGd3IGRpc2FibGUKICBuZXh0CmVuZAoKY29uZmlnIHN5c3RlbSBudHAKICAgIHNldCBudHBzeW5jIGVuYWJsZQogICAgc2V0IHR5cGUgY3VzdG9tCiAgICBjb25maWcgbnRwc2VydmVyCiAgICAgICAgZWRpdCAxCiAgICAgICAgICAgIHNldCBzZXJ2ZXIgIjAuY2EucG9vbC5udHAub3JnIgogICAgICAgIG5leHQKICAgICAgICBlZGl0IDIKICAgICAgICAgICAgc2V0IHNlcnZlciAiMS5jYS5wb29sLm50cC5vcmciCiAgICAgICAgbmV4dAogICAgICAgIGVkaXQgMwogICAgICAgICAgICBzZXQgc2VydmVyICIyLmNhLnBvb2wubnRwLm9yZyIKICAgICAgICBuZXh0CiAgICAgICAgZWRpdCA0CiAgICAgICAgICAgIHNldCBzZXJ2ZXIgIjMuY2EucG9vbC5udHAub3JnIgogICAgICAgIG5leHQKICAgIGVuZAogICAgc2V0IHNlcnZlci1tb2RlIGVuYWJsZQogICAgc2V0IGludGVyZmFjZSAicG9ydDEiCmVuZAoKY29uZmlnIGZpcmV3YWxsIHZpcAogICAgZWRpdCAidmlydHVhbC1zZXJ2ZXItaHR0cCIKICAgICAgICBzZXQgY29tbWVudCAiSFRUUCB0byBIVFRQUyByZWRpcmVjdCIKICAgICAgICBzZXQgdHlwZSBzZXJ2ZXItbG9hZC1iYWxhbmNlCiAgICAgICAgc2V0IHNlcnZlci10eXBlIGh0dHAKICAgICAgICBzZXQgZXh0aXAgMTAuMC4xLjEwMAogICAgICAgIHNldCBleHRpbnRmICJwb3J0MSIKICAgICAgICBzZXQgaHR0cC1yZWRpcmVjdCBlbmFibGUKICAgICAgICBzZXQgZXh0cG9ydCA4MAogICAgbmV4dAogICAgZWRpdCAidmlydHVhbC1zZXJ2ZXItaHR0cHMiCiAgICAgICAgc2V0IGNvbW1lbnQgIkhUVFBTIFZJUCIKICAgICAgICBzZXQgdHlwZSBzZXJ2ZXItbG9hZC1iYWxhbmNlCiAgICAgICAgc2V0IHNlcnZlci10eXBlIGh0dHBzCiAgICAgICAgc2V0IGV4dGlwIDEwLjAuMS4xMDAKICAgICAgICBzZXQgZXh0aW50ZiAicG9ydDEiCiAgICAgICAgc2V0IGxkYi1tZXRob2Qgcm91bmQtcm9iaW4KICAgICAgICBzZXQgZXh0cG9ydCA0NDMKICAgICAgICAgIGNvbmZpZyByZWFsc2VydmVycwogICAgICAgICAgICBlZGl0IDEKICAgICAgICAgICAgICBzZXQgaXAgMTAuMC4yLjEwMAogICAgICAgICAgICAgIHNldCBwb3J0IDQ0MwogICAgICAgICAgICBuZXh0CiAgICAgICAgICBlbmQKICAgICAgICBzZXQgc3NsLWNlcnRpZmljYXRlIEZvcnRpbmV0X1NTTF9SU0EyMDQ4CiAgICBuZXh0CmVuZAoKY29uZmlnIGZpcmV3YWxsIHBvbGljeQogICAgZWRpdCA5CiAgICAgICAgc2V0IG5hbWUgIlZJUCIKICAgICAgICBzZXQgc3JjaW50ZiAicG9ydDEiCiAgICAgICAgc2V0IGRzdGludGYgInBvcnQyIgogICAgICAgIHNldCBhY3Rpb24gYWNjZXB0CiAgICAgICAgc2V0IHNyY2FkZHIgImFsbCIKICAgICAgICBzZXQgZHN0YWRkciAidmlydHVhbC1zZXJ2ZXItaHR0cCIgInZpcnR1YWwtc2VydmVyLWh0dHBzIgogICAgICAgIHNldCBzY2hlZHVsZSAiYWx3YXlzIgogICAgICAgIHNldCBzZXJ2aWNlICJBTEwiCiAgICAgICAgc2V0IGluc3BlY3Rpb24tbW9kZSBwcm94eQogICAgICAgIHNldCBsb2d0cmFmZmljIGFsbAogICAgICAgIHNldCBhdXRvLWFzaWMtb2ZmbG9hZCBkaXNhYmxlCiAgICAgICAgc2V0IG5hdCBlbmFibGUKICAgIG5leHQKZW5kCgotLT09QVpVUkU9PS0tCg==",
+            "dedicated_host_group_id": null,
+            "dedicated_host_id": null,
+            "disable_password_authentication": true,
+            "edge_zone": null,
+            "encryption_at_host_enabled": null,
+            "eviction_policy": null,
+            "extensions_time_budget": "PT1H30M",
+            "gallery_application": [],
+            "identity": [
+              {
+                "identity_ids": null,
+                "type": "SystemAssigned"
+              }
+            ],
+            "license_type": null,
+            "location": "canadacentral",
+            "max_bid_price": -1,
+            "name": "fortigate_virtual_machine",
+            "os_disk": [
+              {
+                "caching": "ReadWrite",
+                "diff_disk_settings": [],
+                "disk_encryption_set_id": null,
+                "secure_vm_disk_encryption_set_id": null,
+                "security_encryption_type": null,
+                "storage_account_type": "Premium_LRS",
+                "write_accelerator_enabled": false
+              }
+            ],
+            "patch_assessment_mode": "ImageDefault",
+            "patch_mode": "ImageDefault",
+            "plan": [
+              {
+                "name": "fortinet_fg-vm_payg_2022",
+                "product": "fortinet_fortigate-vm_v5",
+                "publisher": "fortinet"
+              }
+            ],
+            "platform_fault_domain": -1,
+            "priority": "Regular",
+            "provision_vm_agent": true,
+            "proximity_placement_group_id": null,
+            "reboot_setting": null,
+            "resource_group_name": "robinmordasiewicz-fortinet-secure-cloud-blueprint-terraform-terratest",
+            "secret": [],
+            "secure_boot_enabled": null,
+            "size": "Standard_F4s",
+            "source_image_id": null,
+            "source_image_reference": [
+              {
+                "offer": "fortinet_fortigate-vm_v5",
+                "publisher": "fortinet",
+                "sku": "fortinet_fg-vm_payg_2022",
+                "version": "latest"
+              }
+            ],
+            "tags": null,
+            "timeouts": null,
+            "user_data": null,
+            "virtual_machine_scale_set_id": null,
+            "vtpm_enabled": null,
+            "zone": null
+          },
+          "sensitive_values": {
+            "additional_capabilities": [],
+            "admin_ssh_key": [{}],
+            "boot_diagnostics": [],
+            "gallery_application": [],
+            "identity": [{}],
+            "network_interface_ids": [],
+            "os_disk": [
+              {
+                "diff_disk_settings": []
+              }
+            ],
+            "plan": [{}],
+            "private_ip_addresses": [],
+            "public_ip_addresses": [],
+            "secret": [],
+            "source_image_reference": [{}],
+            "termination_notification": []
+          }
+        },
+        {
+          "address": "azurerm_linux_virtual_machine.fortiweb_virtual_machine",
+          "mode": "managed",
+          "type": "azurerm_linux_virtual_machine",
+          "name": "fortiweb_virtual_machine",
+          "provider_name": "registry.terraform.io/hashicorp/azurerm",
+          "schema_version": 0,
+          "values": {
+            "additional_capabilities": [],
+            "admin_password": null,
+            "admin_ssh_key": [{}],
+            "allow_extension_operations": false,
+            "boot_diagnostics": [],
+            "bypass_platform_safety_checks_on_user_schedule_enabled": false,
+            "capacity_reservation_group_id": null,
+            "computer_name": "fortiweb",
+            "custom_data": "I2Nsb3VkLWNvbmZpZwpjb25maWcgc3lzIGludGVyZmFjZQogIGVkaXQgcG9ydDEKICAgIHNldCBhbGlhcyBkbXoKICAgIHNldCBtb2RlIHN0YXRpYwogICAgc2V0IGlwIDEwLjAuMi41IDI1NS4yNTUuMjU1LjAKICAgIHNldCBhbGxvd2FjY2VzcyBwaW5nCiAgbmV4dAogIGVkaXQgcG9ydDIKICAgIHNldCBhbGlhcyBpbnRlcm5hbAogICAgc2V0IG1vZGUgc3RhdGljCiAgICBzZXQgaXAgMTAuMC4zLjQgMjU1LjI1NS4yNTUuMAogICAgc2V0IGFsbG93YWNjZXNzIHBpbmcKICBuZXh0CmVuZAoKY29uZmlnIHN5c3RlbSByb3V0ZQogIGVkaXQgMQogIHNldCBkZXZpY2UgcG9ydDEKICBzZXQgZ2F0ZXdheSAxMC4wLjIuNAplbmQKCmNvbmZpZyBzeXMgZG5zCiAgc2V0IHByaW1hcnkgOC44LjguOAogIHVuc2V0IHNlY29uZGFyeQplbmQKCmNvbmZpZyBzeXN0ZW0gbnRwCiAgc2V0IHR5cGUgY3VzdG9tCiAgc2V0IG50cHN5bmMgZW5hYmxlCiAgY29uZmlnIG50cHNlcnZlcgogICAgZWRpdCAxCiAgICAgIHNldCBzZXJ2ZXIgMC5jYS5wb29sLm50cC5vcmcKICAgIG5leHQKICAgIGVkaXQgMgogICAgICBzZXQgc2VydmVyIDEuY2EucG9vbC5udHAub3JnCiAgICBuZXh0CiAgICBlZGl0IDMKICAgICAgc2V0IHNlcnZlciAyLmNhLnBvb2wubnRwLm9yZwogICAgbmV4dAogICAgZWRpdCA0CiAgICAgIHNldCBzZXJ2ZXIgMy5jYS5wb29sLm50cC5vcmcKICAgIG5leHQKICBlbmQKZW5kCgpjb25maWcgc3lzIGdsb2JhbAogIHNldCBob3N0bmFtZSBmb3J0aXdlYgplbmQK",
+            "dedicated_host_group_id": null,
+            "dedicated_host_id": null,
+            "disable_password_authentication": true,
+            "edge_zone": null,
+            "encryption_at_host_enabled": true,
+            "eviction_policy": null,
+            "extensions_time_budget": "PT1H30M",
+            "gallery_application": [],
+            "identity": [
+              {
+                "identity_ids": null,
+                "type": "SystemAssigned"
+              }
+            ],
+            "license_type": null,
+            "location": "canadacentral",
+            "max_bid_price": -1,
+            "name": "fortiweb_virtual_machine",
+            "os_disk": [
+              {
+                "caching": "ReadWrite",
+                "diff_disk_settings": [],
+                "disk_encryption_set_id": null,
+                "secure_vm_disk_encryption_set_id": null,
+                "security_encryption_type": null,
+                "storage_account_type": "Premium_LRS",
+                "write_accelerator_enabled": false
+              }
+            ],
+            "patch_assessment_mode": "ImageDefault",
+            "patch_mode": "ImageDefault",
+            "plan": [
+              {
+                "name": "fortinet_fw-vm_payg_v2",
+                "product": "fortinet_fortiweb-vm_v5",
+                "publisher": "fortinet"
+              }
+            ],
+            "platform_fault_domain": -1,
+            "priority": "Regular",
+            "provision_vm_agent": true,
+            "proximity_placement_group_id": null,
+            "reboot_setting": null,
+            "resource_group_name": "robinmordasiewicz-fortinet-secure-cloud-blueprint-terraform-terratest",
+            "secret": [],
+            "secure_boot_enabled": null,
+            "size": "Standard_D4s_v3",
+            "source_image_id": null,
+            "source_image_reference": [
+              {
+                "offer": "fortinet_fortiweb-vm_v5",
+                "publisher": "fortinet",
+                "sku": "fortinet_fw-vm_payg_v2",
+                "version": "latest"
+              }
+            ],
+            "tags": null,
+            "timeouts": null,
+            "user_data": null,
+            "virtual_machine_scale_set_id": null,
+            "vtpm_enabled": null,
+            "zone": null
+          },
+          "sensitive_values": {
+            "additional_capabilities": [],
+            "admin_ssh_key": [{}],
+            "boot_diagnostics": [],
+            "gallery_application": [],
+            "identity": [{}],
+            "network_interface_ids": [],
+            "os_disk": [
+              {
+                "diff_disk_settings": []
+              }
+            ],
+            "plan": [{}],
+            "private_ip_addresses": [],
+            "public_ip_addresses": [],
+            "secret": [],
+            "source_image_reference": [{}],
+            "termination_notification": []
+          }
+        },
+        {
+          "address": "azurerm_linux_virtual_machine.ubuntu_virtual_machine",
+          "mode": "managed",
+          "type": "azurerm_linux_virtual_machine",
+          "name": "ubuntu_virtual_machine",
+          "provider_name": "registry.terraform.io/hashicorp/azurerm",
+          "schema_version": 0,
+          "values": {
+            "additional_capabilities": [],
+            "admin_password": null,
+            "admin_ssh_key": [{}],
+            "allow_extension_operations": false,
+            "boot_diagnostics": [],
+            "bypass_platform_safety_checks_on_user_schedule_enabled": false,
+            "capacity_reservation_group_id": null,
+            "computer_name": "ubuntu",
+            "custom_data": null,
+            "dedicated_host_group_id": null,
+            "dedicated_host_id": null,
+            "disable_password_authentication": true,
+            "edge_zone": null,
+            "encryption_at_host_enabled": null,
+            "eviction_policy": null,
+            "extensions_time_budget": "PT1H30M",
+            "gallery_application": [],
+            "identity": [],
+            "license_type": null,
+            "location": "canadacentral",
+            "max_bid_price": -1,
+            "name": "ubuntu_virtual_machine",
+            "os_disk": [
+              {
+                "caching": "ReadWrite",
+                "diff_disk_settings": [],
+                "disk_encryption_set_id": null,
+                "secure_vm_disk_encryption_set_id": null,
+                "security_encryption_type": null,
+                "storage_account_type": "Premium_LRS",
+                "write_accelerator_enabled": false
+              }
+            ],
+            "patch_assessment_mode": "ImageDefault",
+            "patch_mode": "ImageDefault",
+            "plan": [],
+            "platform_fault_domain": -1,
+            "priority": "Regular",
+            "provision_vm_agent": true,
+            "proximity_placement_group_id": null,
+            "reboot_setting": null,
+            "resource_group_name": "robinmordasiewicz-fortinet-secure-cloud-blueprint-terraform-terratest",
+            "secret": [],
+            "secure_boot_enabled": null,
+            "size": "Standard_F2s_v2",
+            "source_image_id": null,
+            "source_image_reference": [
+              {
+                "offer": "0001-com-ubuntu-server-jammy",
+                "publisher": "Canonical",
+                "sku": "22_04-lts-gen2",
+                "version": "latest"
+              }
+            ],
+            "tags": null,
+            "timeouts": null,
+            "user_data": null,
+            "virtual_machine_scale_set_id": null,
+            "vtpm_enabled": null,
+            "zone": null
+          },
+          "sensitive_values": {
+            "additional_capabilities": [],
+            "admin_ssh_key": [{}],
+            "boot_diagnostics": [],
+            "gallery_application": [],
+            "identity": [],
+            "network_interface_ids": [],
+            "os_disk": [
+              {
+                "diff_disk_settings": []
+              }
+            ],
+            "plan": [],
+            "private_ip_addresses": [],
+            "public_ip_addresses": [],
+            "secret": [],
+            "source_image_reference": [{}],
+            "termination_notification": []
+          }
+        },
+        {
+          "address": "azurerm_managed_disk.fortiweb_log_disk",
+          "mode": "managed",
+          "type": "azurerm_managed_disk",
+          "name": "fortiweb_log_disk",
+          "provider_name": "registry.terraform.io/hashicorp/azurerm",
+          "schema_version": 1,
+          "values": {
+            "create_option": "Empty",
+            "disk_access_id": null,
+            "disk_encryption_set_id": null,
+            "disk_size_gb": 30,
+            "edge_zone": null,
+            "encryption_settings": [],
+            "gallery_image_reference_id": null,
+            "hyper_v_generation": null,
+            "image_reference_id": null,
+            "location": "canadacentral",
+            "name": "fortiweb_log_disk",
+            "network_access_policy": null,
+            "on_demand_bursting_enabled": null,
+            "optimized_frequent_attach_enabled": false,
+            "os_type": null,
+            "performance_plus_enabled": false,
+            "public_network_access_enabled": true,
+            "resource_group_name": "robinmordasiewicz-fortinet-secure-cloud-blueprint-terraform-terratest",
+            "secure_vm_disk_encryption_set_id": null,
+            "security_type": null,
+            "source_resource_id": null,
+            "storage_account_id": null,
+            "storage_account_type": "Premium_LRS",
+            "tags": null,
+            "timeouts": null,
+            "trusted_launch_enabled": null,
+            "upload_size_bytes": null,
+            "zone": null
+          },
+          "sensitive_values": {
+            "encryption_settings": []
+          }
+        },
+        {
+          "address": "azurerm_network_ddos_protection_plan.ddos_protection_plan",
+          "mode": "managed",
+          "type": "azurerm_network_ddos_protection_plan",
+          "name": "ddos_protection_plan",
+          "provider_name": "registry.terraform.io/hashicorp/azurerm",
+          "schema_version": 0,
+          "values": {
+            "location": "canadacentral",
+            "name": "ddos_protection_plan",
+            "resource_group_name": "robinmordasiewicz-fortinet-secure-cloud-blueprint-terraform-terratest",
+            "tags": null,
+            "timeouts": null
+          },
+          "sensitive_values": {
+            "virtual_network_ids": []
+          }
+        },
+        {
+          "address": "azurerm_network_interface.fortigate_dmz_network_interface",
+          "mode": "managed",
+          "type": "azurerm_network_interface",
+          "name": "fortigate_dmz_network_interface",
+          "provider_name": "registry.terraform.io/hashicorp/azurerm",
+          "schema_version": 0,
+          "values": {
+            "auxiliary_mode": null,
+            "auxiliary_sku": null,
+            "edge_zone": null,
+            "enable_accelerated_networking": false,
+            "enable_ip_forwarding": false,
+            "ip_configuration": [
+              {
+                "name": "fortigate-dmz-ipconfig",
+                "private_ip_address": "10.0.2.4",
+                "private_ip_address_allocation": "Static",
+                "private_ip_address_version": "IPv4",
+                "public_ip_address_id": null
+              }
+            ],
+            "location": "canadacentral",
+            "name": "fortigate_dmz_network_interface",
+            "resource_group_name": "robinmordasiewicz-fortinet-secure-cloud-blueprint-terraform-terratest",
+            "tags": null,
+            "timeouts": null
+          },
+          "sensitive_values": {
+            "applied_dns_servers": [],
+            "dns_servers": [],
+            "ip_configuration": [{}],
+            "private_ip_addresses": []
+          }
+        },
+        {
+          "address": "azurerm_network_interface.fortigate_external_network_interface",
+          "mode": "managed",
+          "type": "azurerm_network_interface",
+          "name": "fortigate_external_network_interface",
+          "provider_name": "registry.terraform.io/hashicorp/azurerm",
+          "schema_version": 0,
+          "values": {
+            "auxiliary_mode": null,
+            "auxiliary_sku": null,
+            "edge_zone": null,
+            "enable_accelerated_networking": false,
+            "enable_ip_forwarding": false,
+            "ip_configuration": [
+              {
+                "name": "fortigate-external-ipconfig",
+                "primary": true,
+                "private_ip_address": "10.0.1.4",
+                "private_ip_address_allocation": "Static",
+                "private_ip_address_version": "IPv4",
+                "public_ip_address_id": null
+              },
+              {
+                "name": "VIP-external-ipconfig",
+                "private_ip_address": "10.0.1.100",
+                "private_ip_address_allocation": "Static",
+                "private_ip_address_version": "IPv4"
+              }
+            ],
+            "location": "canadacentral",
+            "name": "fortigate_external_network_interface",
+            "resource_group_name": "robinmordasiewicz-fortinet-secure-cloud-blueprint-terraform-terratest",
+            "tags": null,
+            "timeouts": null
+          },
+          "sensitive_values": {
+            "applied_dns_servers": [],
+            "dns_servers": [],
+            "ip_configuration": [{}, {}],
+            "private_ip_addresses": []
+          }
+        },
+        {
+          "address": "azurerm_network_interface.fortiweb_dmz_network_interface",
+          "mode": "managed",
+          "type": "azurerm_network_interface",
+          "name": "fortiweb_dmz_network_interface",
+          "provider_name": "registry.terraform.io/hashicorp/azurerm",
+          "schema_version": 0,
+          "values": {
+            "auxiliary_mode": null,
+            "auxiliary_sku": null,
+            "edge_zone": null,
+            "enable_accelerated_networking": false,
+            "enable_ip_forwarding": false,
+            "ip_configuration": [
+              {
+                "name": "fortiweb-dmz-ipconfig",
+                "private_ip_address": "10.0.2.5",
+                "private_ip_address_allocation": "Static",
+                "private_ip_address_version": "IPv4",
+                "public_ip_address_id": null
+              }
+            ],
+            "location": "canadacentral",
+            "name": "fortiweb_dmz_network_interface",
+            "resource_group_name": "robinmordasiewicz-fortinet-secure-cloud-blueprint-terraform-terratest",
+            "tags": null,
+            "timeouts": null
+          },
+          "sensitive_values": {
+            "applied_dns_servers": [],
+            "dns_servers": [],
+            "ip_configuration": [{}],
+            "private_ip_addresses": []
+          }
+        },
+        {
+          "address": "azurerm_network_interface.fortiweb_internal_network_interface",
+          "mode": "managed",
+          "type": "azurerm_network_interface",
+          "name": "fortiweb_internal_network_interface",
+          "provider_name": "registry.terraform.io/hashicorp/azurerm",
+          "schema_version": 0,
+          "values": {
+            "auxiliary_mode": null,
+            "auxiliary_sku": null,
+            "edge_zone": null,
+            "enable_accelerated_networking": false,
+            "enable_ip_forwarding": false,
+            "ip_configuration": [
+              {
+                "name": "fortiweb-internal-ipconfig",
+                "private_ip_address": "10.0.3.4",
+                "private_ip_address_allocation": "Static",
+                "private_ip_address_version": "IPv4",
+                "public_ip_address_id": null
+              }
+            ],
+            "location": "canadacentral",
+            "name": "fortiweb_internal_network_interface",
+            "resource_group_name": "robinmordasiewicz-fortinet-secure-cloud-blueprint-terraform-terratest",
+            "tags": null,
+            "timeouts": null
+          },
+          "sensitive_values": {
+            "applied_dns_servers": [],
+            "dns_servers": [],
+            "ip_configuration": [{}],
+            "private_ip_addresses": []
+          }
+        },
+        {
+          "address": "azurerm_network_interface.ubuntu_dmz_network_interface",
+          "mode": "managed",
+          "type": "azurerm_network_interface",
+          "name": "ubuntu_dmz_network_interface",
+          "provider_name": "registry.terraform.io/hashicorp/azurerm",
+          "schema_version": 0,
+          "values": {
+            "auxiliary_mode": null,
+            "auxiliary_sku": null,
+            "edge_zone": null,
+            "enable_accelerated_networking": false,
+            "enable_ip_forwarding": false,
+            "ip_configuration": [
+              {
+                "name": "ubuntu-dmz-ipconfig",
+                "private_ip_address": "10.0.2.6",
+                "private_ip_address_allocation": "Static",
+                "private_ip_address_version": "IPv4",
+                "public_ip_address_id": null
+              }
+            ],
+            "location": "canadacentral",
+            "name": "ubuntu_dmz_network_interface",
+            "resource_group_name": "robinmordasiewicz-fortinet-secure-cloud-blueprint-terraform-terratest",
+            "tags": null,
+            "timeouts": null
+          },
+          "sensitive_values": {
+            "applied_dns_servers": [],
+            "dns_servers": [],
+            "ip_configuration": [{}],
+            "private_ip_addresses": []
+          }
+        },
+        {
+          "address": "azurerm_network_interface.ubuntu_internal_network_interface",
+          "mode": "managed",
+          "type": "azurerm_network_interface",
+          "name": "ubuntu_internal_network_interface",
+          "provider_name": "registry.terraform.io/hashicorp/azurerm",
+          "schema_version": 0,
+          "values": {
+            "auxiliary_mode": null,
+            "auxiliary_sku": null,
+            "edge_zone": null,
+            "enable_accelerated_networking": false,
+            "enable_ip_forwarding": false,
+            "ip_configuration": [
+              {
+                "name": "ubuntu-internal-ipconfig",
+                "private_ip_address": "10.0.3.5",
+                "private_ip_address_allocation": "Static",
+                "private_ip_address_version": "IPv4",
+                "public_ip_address_id": null
+              }
+            ],
+            "location": "canadacentral",
+            "name": "ubuntu_internal_network_interface",
+            "resource_group_name": "robinmordasiewicz-fortinet-secure-cloud-blueprint-terraform-terratest",
+            "tags": null,
+            "timeouts": null
+          },
+          "sensitive_values": {
+            "applied_dns_servers": [],
+            "dns_servers": [],
+            "ip_configuration": [{}],
+            "private_ip_addresses": []
+          }
+        },
+        {
+          "address": "azurerm_network_interface_security_group_association.fortigate_association",
+          "mode": "managed",
+          "type": "azurerm_network_interface_security_group_association",
+          "name": "fortigate_association",
+          "provider_name": "registry.terraform.io/hashicorp/azurerm",
+          "schema_version": 0,
+          "values": {
+            "timeouts": null
+          },
+          "sensitive_values": {}
+        },
+        {
+          "address": "azurerm_network_security_group.nsg",
+          "mode": "managed",
+          "type": "azurerm_network_security_group",
+          "name": "nsg",
+          "provider_name": "registry.terraform.io/hashicorp/azurerm",
+          "schema_version": 0,
+          "values": {
+            "location": "canadacentral",
+            "name": "nsg",
+            "resource_group_name": "robinmordasiewicz-fortinet-secure-cloud-blueprint-terraform-terratest",
+            "security_rule": [
+              {
+                "access": "Allow",
+                "description": "",
+                "destination_address_prefix": "*",
+                "destination_address_prefixes": [],
+                "destination_application_security_group_ids": [],
+                "destination_port_range": "",
+                "destination_port_ranges": ["443", "80"],
+                "direction": "Inbound",
+                "name": "allow_http-https_tcp",
+                "priority": 100,
+                "protocol": "Tcp",
+                "source_address_prefix": "*",
+                "source_address_prefixes": [],
+                "source_application_security_group_ids": [],
+                "source_port_range": "*",
+                "source_port_ranges": []
+              }
+            ],
+            "tags": null,
+            "timeouts": null
+          },
+          "sensitive_values": {
+            "security_rule": [
+              {
+                "destination_address_prefixes": [],
+                "destination_application_security_group_ids": [],
+                "destination_port_ranges": [false, false],
+                "source_address_prefixes": [],
+                "source_application_security_group_ids": [],
+                "source_port_ranges": []
+              }
+            ]
+          }
+        },
+        {
+          "address": "azurerm_network_security_group.private_nsg",
+          "mode": "managed",
+          "type": "azurerm_network_security_group",
+          "name": "private_nsg",
+          "provider_name": "registry.terraform.io/hashicorp/azurerm",
+          "schema_version": 0,
+          "values": {
+            "location": "canadacentral",
+            "name": "private_nsg",
+            "resource_group_name": "robinmordasiewicz-fortinet-secure-cloud-blueprint-terraform-terratest",
+            "security_rule": [
+              {
+                "access": "Deny",
+                "description": "",
+                "destination_address_prefix": "*",
+                "destination_address_prefixes": [],
+                "destination_application_security_group_ids": [],
+                "destination_port_range": "*",
+                "destination_port_ranges": [],
+                "direction": "Inbound",
+                "name": "block-all-in",
+                "priority": 100,
+                "protocol": "*",
+                "source_address_prefix": "*",
+                "source_address_prefixes": [],
+                "source_application_security_group_ids": [],
+                "source_port_range": "*",
+                "source_port_ranges": []
+              },
+              {
+                "access": "Deny",
+                "description": "",
+                "destination_address_prefix": "*",
+                "destination_address_prefixes": [],
+                "destination_application_security_group_ids": [],
+                "destination_port_range": "*",
+                "destination_port_ranges": [],
+                "direction": "Outbound",
+                "name": "block-all-out",
+                "priority": 101,
+                "protocol": "*",
+                "source_address_prefix": "*",
+                "source_address_prefixes": [],
+                "source_application_security_group_ids": [],
+                "source_port_range": "*",
+                "source_port_ranges": []
+              }
+            ],
+            "tags": null,
+            "timeouts": null
+          },
+          "sensitive_values": {
+            "security_rule": [
+              {
+                "destination_address_prefixes": [],
+                "destination_application_security_group_ids": [],
+                "destination_port_ranges": [],
+                "source_address_prefixes": [],
+                "source_application_security_group_ids": [],
+                "source_port_ranges": []
+              },
+              {
+                "destination_address_prefixes": [],
+                "destination_application_security_group_ids": [],
+                "destination_port_ranges": [],
+                "source_address_prefixes": [],
+                "source_application_security_group_ids": [],
+                "source_port_ranges": []
+              }
+            ]
+          }
+        },
+        {
+          "address": "azurerm_network_security_group.vip_allow_https_tcp_nsg",
+          "mode": "managed",
+          "type": "azurerm_network_security_group",
+          "name": "vip_allow_https_tcp_nsg",
+          "provider_name": "registry.terraform.io/hashicorp/azurerm",
+          "schema_version": 0,
+          "values": {
+            "location": "canadacentral",
+            "name": "vip_allow_https_tcp_nsg",
+            "resource_group_name": "robinmordasiewicz-fortinet-secure-cloud-blueprint-terraform-terratest",
+            "security_rule": [
+              {
+                "access": "Allow",
+                "description": "",
+                "destination_address_prefix": "*",
+                "destination_address_prefixes": [],
+                "destination_application_security_group_ids": [],
+                "destination_port_range": "",
+                "destination_port_ranges": ["443"],
+                "direction": "Inbound",
+                "name": "VIP-allow_https_tcp",
+                "priority": 100,
+                "protocol": "Tcp",
+                "source_address_prefix": "*",
+                "source_address_prefixes": [],
+                "source_application_security_group_ids": [],
+                "source_port_range": "*",
+                "source_port_ranges": []
+              }
+            ],
+            "tags": null,
+            "timeouts": null
+          },
+          "sensitive_values": {
+            "security_rule": [
+              {
+                "destination_address_prefixes": [],
+                "destination_application_security_group_ids": [],
+                "destination_port_ranges": [false],
+                "source_address_prefixes": [],
+                "source_application_security_group_ids": [],
+                "source_port_ranges": []
+              }
+            ]
+          }
+        },
+        {
+          "address": "azurerm_public_ip.vip_public_ip",
+          "mode": "managed",
+          "type": "azurerm_public_ip",
+          "name": "vip_public_ip",
+          "provider_name": "registry.terraform.io/hashicorp/azurerm",
+          "schema_version": 0,
+          "values": {
+            "allocation_method": "Dynamic",
+            "ddos_protection_mode": "VirtualNetworkInherited",
+            "ddos_protection_plan_id": null,
+            "domain_name_label": null,
+            "edge_zone": null,
+            "idle_timeout_in_minutes": 4,
+            "ip_tags": null,
+            "ip_version": "IPv4",
+            "location": "canadacentral",
+            "name": "vip_public_ip",
+            "public_ip_prefix_id": null,
+            "resource_group_name": "robinmordasiewicz-fortinet-secure-cloud-blueprint-terraform-terratest",
+            "reverse_fqdn": null,
+            "sku": "Basic",
+            "sku_tier": "Regional",
+            "tags": null,
+            "timeouts": null,
+            "zones": null
+          },
+          "sensitive_values": {}
+        },
+        {
+          "address": "azurerm_subnet.dmz_subnet",
+          "mode": "managed",
+          "type": "azurerm_subnet",
+          "name": "dmz_subnet",
+          "provider_name": "registry.terraform.io/hashicorp/azurerm",
+          "schema_version": 0,
+          "values": {
+            "address_prefixes": ["10.0.2.0/24"],
+            "delegation": [],
+            "name": "dmz",
+            "resource_group_name": "robinmordasiewicz-fortinet-secure-cloud-blueprint-terraform-terratest",
+            "service_endpoint_policy_ids": null,
+            "service_endpoints": null,
+            "timeouts": null,
+            "virtual_network_name": "vnet"
+          },
+          "sensitive_values": {
+            "address_prefixes": [false],
+            "delegation": []
+          }
+        },
+        {
+          "address": "azurerm_subnet.external_subnet",
+          "mode": "managed",
+          "type": "azurerm_subnet",
+          "name": "external_subnet",
+          "provider_name": "registry.terraform.io/hashicorp/azurerm",
+          "schema_version": 0,
+          "values": {
+            "address_prefixes": ["10.0.1.0/24"],
+            "delegation": [],
+            "name": "external",
+            "resource_group_name": "robinmordasiewicz-fortinet-secure-cloud-blueprint-terraform-terratest",
+            "service_endpoint_policy_ids": null,
+            "service_endpoints": null,
+            "timeouts": null,
+            "virtual_network_name": "vnet"
+          },
+          "sensitive_values": {
+            "address_prefixes": [false],
+            "delegation": []
+          }
+        },
+        {
+          "address": "azurerm_subnet.internal_subnet",
+          "mode": "managed",
+          "type": "azurerm_subnet",
+          "name": "internal_subnet",
+          "provider_name": "registry.terraform.io/hashicorp/azurerm",
+          "schema_version": 0,
+          "values": {
+            "address_prefixes": ["10.0.3.0/24"],
+            "delegation": [],
+            "name": "internal",
+            "resource_group_name": "robinmordasiewicz-fortinet-secure-cloud-blueprint-terraform-terratest",
+            "service_endpoint_policy_ids": null,
+            "service_endpoints": null,
+            "timeouts": null,
+            "virtual_network_name": "vnet"
+          },
+          "sensitive_values": {
+            "address_prefixes": [false],
+            "delegation": []
+          }
+        },
+        {
+          "address": "azurerm_subnet_network_security_group_association.dmz_subnet_association",
+          "mode": "managed",
+          "type": "azurerm_subnet_network_security_group_association",
+          "name": "dmz_subnet_association",
+          "provider_name": "registry.terraform.io/hashicorp/azurerm",
+          "schema_version": 0,
+          "values": {
+            "timeouts": null
+          },
+          "sensitive_values": {}
+        },
+        {
+          "address": "azurerm_subnet_network_security_group_association.external_subnet_association",
+          "mode": "managed",
+          "type": "azurerm_subnet_network_security_group_association",
+          "name": "external_subnet_association",
+          "provider_name": "registry.terraform.io/hashicorp/azurerm",
+          "schema_version": 0,
+          "values": {
+            "timeouts": null
+          },
+          "sensitive_values": {}
+        },
+        {
+          "address": "azurerm_subnet_network_security_group_association.internal_subnet_association",
+          "mode": "managed",
+          "type": "azurerm_subnet_network_security_group_association",
+          "name": "internal_subnet_association",
+          "provider_name": "registry.terraform.io/hashicorp/azurerm",
+          "schema_version": 0,
+          "values": {
+            "timeouts": null
+          },
+          "sensitive_values": {}
+        },
+        {
+          "address": "azurerm_virtual_machine_data_disk_attachment.fortiweb_data_disk_attachment",
+          "mode": "managed",
+          "type": "azurerm_virtual_machine_data_disk_attachment",
+          "name": "fortiweb_data_disk_attachment",
+          "provider_name": "registry.terraform.io/hashicorp/azurerm",
+          "schema_version": 0,
+          "values": {
+            "caching": "None",
+            "create_option": "Attach",
+            "lun": 0,
+            "timeouts": null,
+            "write_accelerator_enabled": false
+          },
+          "sensitive_values": {}
+        },
+        {
+          "address": "azurerm_virtual_network.vnet",
+          "mode": "managed",
+          "type": "azurerm_virtual_network",
+          "name": "vnet",
+          "provider_name": "registry.terraform.io/hashicorp/azurerm",
+          "schema_version": 0,
+          "values": {
+            "address_space": ["10.0.0.0/16"],
+            "bgp_community": null,
+            "ddos_protection_plan": [
+              {
+                "enable": true
+              }
+            ],
+            "edge_zone": null,
+            "encryption": [],
+            "flow_timeout_in_minutes": null,
+            "location": "canadacentral",
+            "name": "vnet",
+            "resource_group_name": "robinmordasiewicz-fortinet-secure-cloud-blueprint-terraform-terratest",
+            "tags": null,
+            "timeouts": null
+          },
+          "sensitive_values": {
+            "address_space": [false],
+            "ddos_protection_plan": [{}],
+            "dns_servers": [],
+            "encryption": [],
+            "subnet": []
+          }
+        },
+        {
+          "address": "data.azurerm_public_ip.vip_public_ip",
+          "mode": "data",
+          "type": "azurerm_public_ip",
+          "name": "vip_public_ip",
+          "provider_name": "registry.terraform.io/hashicorp/azurerm",
+          "schema_version": 0,
+          "values": {
+            "name": "vip_public_ip",
+            "resource_group_name": "robinmordasiewicz-fortinet-secure-cloud-blueprint-terraform-terratest",
+            "timeouts": null
+          },
+          "sensitive_values": {
+            "ip_tags": {},
+            "tags": {},
+            "zones": []
+          }
+        },
+        {
+          "address": "random_pet.admin_username",
+          "mode": "managed",
+          "type": "random_pet",
+          "name": "admin_username",
+          "provider_name": "registry.terraform.io/hashicorp/random",
+          "schema_version": 0,
+          "values": {
+            "keepers": {
+              "resource_group_name": "robinmordasiewicz-fortinet-secure-cloud-blueprint-terraform-terratest"
+            },
+            "length": 2,
+            "prefix": null,
+            "separator": "-"
+          },
+          "sensitive_values": {
+            "keepers": {}
+          }
+        },
+        {
+          "address": "tls_private_key.ssh_key",
+          "mode": "managed",
+          "type": "tls_private_key",
+          "name": "ssh_key",
+          "provider_name": "registry.terraform.io/hashicorp/tls",
+          "schema_version": 1,
+          "values": {
+            "algorithm": "RSA",
+            "ecdsa_curve": "P224",
+            "rsa_bits": 4096
+          },
+          "sensitive_values": {}
+        }
+      ]
+    }
+  },
+  "resource_changes": [
+    {
+      "address": "data.azurerm_public_ip.vip_public_ip",
+      "mode": "data",
+      "type": "azurerm_public_ip",
+      "name": "vip_public_ip",
+      "provider_name": "registry.terraform.io/hashicorp/azurerm",
+      "change": {
+        "actions": ["read"],
+        "before": null,
+        "after": {
+          "name": "vip_public_ip",
+          "resource_group_name": "robinmordasiewicz-fortinet-secure-cloud-blueprint-terraform-terratest",
+          "timeouts": null
+        },
+        "after_unknown": {
+          "allocation_method": true,
+          "ddos_protection_mode": true,
+          "ddos_protection_plan_id": true,
+          "domain_name_label": true,
+          "fqdn": true,
+          "id": true,
+          "idle_timeout_in_minutes": true,
+          "ip_address": true,
+          "ip_tags": true,
+          "ip_version": true,
+          "location": true,
+          "reverse_fqdn": true,
+          "sku": true,
+          "tags": true,
+          "zones": true
+        },
+        "before_sensitive": false,
+        "after_sensitive": {
+          "ip_tags": {},
+          "tags": {},
+          "zones": []
+        }
+      },
+      "action_reason": "read_because_dependency_pending"
+    },
+    {
+      "address": "azurerm_availability_set.fortinet_availability_set",
+      "mode": "managed",
+      "type": "azurerm_availability_set",
+      "name": "fortinet_availability_set",
+      "provider_name": "registry.terraform.io/hashicorp/azurerm",
+      "change": {
+        "actions": ["create"],
+        "before": null,
+        "after": {
+          "location": "canadacentral",
+          "managed": true,
+          "name": "fortinet_availability_set",
+          "platform_fault_domain_count": 2,
+          "platform_update_domain_count": 2,
+          "proximity_placement_group_id": null,
+          "resource_group_name": "robinmordasiewicz-fortinet-secure-cloud-blueprint-terraform-terratest",
+          "tags": null,
+          "timeouts": null
+        },
+        "after_unknown": {
+          "id": true
+        },
+        "before_sensitive": false,
+        "after_sensitive": {}
+      }
+    },
+    {
+      "address": "azurerm_linux_virtual_machine.fortigate_virtual_machine",
+      "mode": "managed",
+      "type": "azurerm_linux_virtual_machine",
+      "name": "fortigate_virtual_machine",
+      "provider_name": "registry.terraform.io/hashicorp/azurerm",
+      "change": {
+        "actions": ["create"],
+        "before": null,
+        "after": {
+          "additional_capabilities": [],
+          "admin_password": null,
+          "admin_ssh_key": [{}],
+          "allow_extension_operations": false,
+          "boot_diagnostics": [],
+          "bypass_platform_safety_checks_on_user_schedule_enabled": false,
+          "capacity_reservation_group_id": null,
+          "computer_name": "fortigate",
+          "custom_data": "Q29udGVudC1UeXBlOiBtdWx0aXBhcnQvbWl4ZWQ7IGJvdW5kYXJ5PSI9PUFaVVJFPT0iCk1JTUUtVmVyc2lvbjogMS4wCgotLT09QVpVUkU9PQpDb250ZW50LVR5cGU6IHRleHQveC1zaGVsbHNjcmlwdDsgY2hhcnNldD0idXMtYXNjaWkiCk1JTUUtVmVyc2lvbjogMS4wCgpjb25maWcgc3lzdGVtIGdsb2JhbAogIHNldCBob3N0bmFtZSBmb3J0aWdhdGUKZW5kCgpjb25maWcgc3lzdGVtIGludGVyZmFjZQogIGVkaXQgcG9ydDEKICAgIHNldCBhbGlhcyBleHRlcm5hbAogICAgc2V0IG1vZGUgZGhjcAogICAgc2V0IGFsbG93YWNjZXNzIHBpbmcgaHR0cHMgc3NoCiAgbmV4dAogIGVkaXQgcG9ydDIKICAgIHNldCBhbGlhcyBkbXoKICAgIHNldCBtb2RlIGRoY3AKICAgIHNldCBhbGxvd2FjY2VzcyBwaW5nCiAgICBzZXQgZGVmYXVsdGd3IGRpc2FibGUKICBuZXh0CmVuZAoKY29uZmlnIHN5c3RlbSBudHAKICAgIHNldCBudHBzeW5jIGVuYWJsZQogICAgc2V0IHR5cGUgY3VzdG9tCiAgICBjb25maWcgbnRwc2VydmVyCiAgICAgICAgZWRpdCAxCiAgICAgICAgICAgIHNldCBzZXJ2ZXIgIjAuY2EucG9vbC5udHAub3JnIgogICAgICAgIG5leHQKICAgICAgICBlZGl0IDIKICAgICAgICAgICAgc2V0IHNlcnZlciAiMS5jYS5wb29sLm50cC5vcmciCiAgICAgICAgbmV4dAogICAgICAgIGVkaXQgMwogICAgICAgICAgICBzZXQgc2VydmVyICIyLmNhLnBvb2wubnRwLm9yZyIKICAgICAgICBuZXh0CiAgICAgICAgZWRpdCA0CiAgICAgICAgICAgIHNldCBzZXJ2ZXIgIjMuY2EucG9vbC5udHAub3JnIgogICAgICAgIG5leHQKICAgIGVuZAogICAgc2V0IHNlcnZlci1tb2RlIGVuYWJsZQogICAgc2V0IGludGVyZmFjZSAicG9ydDEiCmVuZAoKY29uZmlnIGZpcmV3YWxsIHZpcAogICAgZWRpdCAidmlydHVhbC1zZXJ2ZXItaHR0cCIKICAgICAgICBzZXQgY29tbWVudCAiSFRUUCB0byBIVFRQUyByZWRpcmVjdCIKICAgICAgICBzZXQgdHlwZSBzZXJ2ZXItbG9hZC1iYWxhbmNlCiAgICAgICAgc2V0IHNlcnZlci10eXBlIGh0dHAKICAgICAgICBzZXQgZXh0aXAgMTAuMC4xLjEwMAogICAgICAgIHNldCBleHRpbnRmICJwb3J0MSIKICAgICAgICBzZXQgaHR0cC1yZWRpcmVjdCBlbmFibGUKICAgICAgICBzZXQgZXh0cG9ydCA4MAogICAgbmV4dAogICAgZWRpdCAidmlydHVhbC1zZXJ2ZXItaHR0cHMiCiAgICAgICAgc2V0IGNvbW1lbnQgIkhUVFBTIFZJUCIKICAgICAgICBzZXQgdHlwZSBzZXJ2ZXItbG9hZC1iYWxhbmNlCiAgICAgICAgc2V0IHNlcnZlci10eXBlIGh0dHBzCiAgICAgICAgc2V0IGV4dGlwIDEwLjAuMS4xMDAKICAgICAgICBzZXQgZXh0aW50ZiAicG9ydDEiCiAgICAgICAgc2V0IGxkYi1tZXRob2Qgcm91bmQtcm9iaW4KICAgICAgICBzZXQgZXh0cG9ydCA0NDMKICAgICAgICAgIGNvbmZpZyByZWFsc2VydmVycwogICAgICAgICAgICBlZGl0IDEKICAgICAgICAgICAgICBzZXQgaXAgMTAuMC4yLjEwMAogICAgICAgICAgICAgIHNldCBwb3J0IDQ0MwogICAgICAgICAgICBuZXh0CiAgICAgICAgICBlbmQKICAgICAgICBzZXQgc3NsLWNlcnRpZmljYXRlIEZvcnRpbmV0X1NTTF9SU0EyMDQ4CiAgICBuZXh0CmVuZAoKY29uZmlnIGZpcmV3YWxsIHBvbGljeQogICAgZWRpdCA5CiAgICAgICAgc2V0IG5hbWUgIlZJUCIKICAgICAgICBzZXQgc3JjaW50ZiAicG9ydDEiCiAgICAgICAgc2V0IGRzdGludGYgInBvcnQyIgogICAgICAgIHNldCBhY3Rpb24gYWNjZXB0CiAgICAgICAgc2V0IHNyY2FkZHIgImFsbCIKICAgICAgICBzZXQgZHN0YWRkciAidmlydHVhbC1zZXJ2ZXItaHR0cCIgInZpcnR1YWwtc2VydmVyLWh0dHBzIgogICAgICAgIHNldCBzY2hlZHVsZSAiYWx3YXlzIgogICAgICAgIHNldCBzZXJ2aWNlICJBTEwiCiAgICAgICAgc2V0IGluc3BlY3Rpb24tbW9kZSBwcm94eQogICAgICAgIHNldCBsb2d0cmFmZmljIGFsbAogICAgICAgIHNldCBhdXRvLWFzaWMtb2ZmbG9hZCBkaXNhYmxlCiAgICAgICAgc2V0IG5hdCBlbmFibGUKICAgIG5leHQKZW5kCgotLT09QVpVUkU9PS0tCg==",
+          "dedicated_host_group_id": null,
+          "dedicated_host_id": null,
+          "disable_password_authentication": true,
+          "edge_zone": null,
+          "encryption_at_host_enabled": null,
+          "eviction_policy": null,
+          "extensions_time_budget": "PT1H30M",
+          "gallery_application": [],
+          "identity": [
+            {
+              "identity_ids": null,
+              "type": "SystemAssigned"
+            }
+          ],
+          "license_type": null,
+          "location": "canadacentral",
+          "max_bid_price": -1,
+          "name": "fortigate_virtual_machine",
+          "os_disk": [
+            {
+              "caching": "ReadWrite",
+              "diff_disk_settings": [],
+              "disk_encryption_set_id": null,
+              "secure_vm_disk_encryption_set_id": null,
+              "security_encryption_type": null,
+              "storage_account_type": "Premium_LRS",
+              "write_accelerator_enabled": false
+            }
+          ],
+          "patch_assessment_mode": "ImageDefault",
+          "patch_mode": "ImageDefault",
+          "plan": [
+            {
+              "name": "fortinet_fg-vm_payg_2022",
+              "product": "fortinet_fortigate-vm_v5",
+              "publisher": "fortinet"
+            }
+          ],
+          "platform_fault_domain": -1,
+          "priority": "Regular",
+          "provision_vm_agent": true,
+          "proximity_placement_group_id": null,
+          "reboot_setting": null,
+          "resource_group_name": "robinmordasiewicz-fortinet-secure-cloud-blueprint-terraform-terratest",
+          "secret": [],
+          "secure_boot_enabled": null,
+          "size": "Standard_F4s",
+          "source_image_id": null,
+          "source_image_reference": [
+            {
+              "offer": "fortinet_fortigate-vm_v5",
+              "publisher": "fortinet",
+              "sku": "fortinet_fg-vm_payg_2022",
+              "version": "latest"
+            }
+          ],
+          "tags": null,
+          "timeouts": null,
+          "user_data": null,
+          "virtual_machine_scale_set_id": null,
+          "vtpm_enabled": null,
+          "zone": null
+        },
+        "after_unknown": {
+          "additional_capabilities": [],
+          "admin_ssh_key": [
+            {
+              "public_key": true,
+              "username": true
+            }
+          ],
+          "admin_username": true,
+          "availability_set_id": true,
+          "boot_diagnostics": [],
+          "gallery_application": [],
+          "id": true,
+          "identity": [
+            {
+              "principal_id": true,
+              "tenant_id": true
+            }
+          ],
+          "network_interface_ids": true,
+          "os_disk": [
+            {
+              "diff_disk_settings": [],
+              "disk_size_gb": true,
+              "name": true
+            }
+          ],
+          "plan": [{}],
+          "private_ip_address": true,
+          "private_ip_addresses": true,
+          "public_ip_address": true,
+          "public_ip_addresses": true,
+          "secret": [],
+          "source_image_reference": [{}],
+          "termination_notification": true,
+          "virtual_machine_id": true
+        },
+        "before_sensitive": false,
+        "after_sensitive": {
+          "additional_capabilities": [],
+          "admin_password": true,
+          "admin_ssh_key": [{}],
+          "boot_diagnostics": [],
+          "custom_data": true,
+          "gallery_application": [],
+          "identity": [{}],
+          "network_interface_ids": [],
+          "os_disk": [
+            {
+              "diff_disk_settings": []
+            }
+          ],
+          "plan": [{}],
+          "private_ip_addresses": [],
+          "public_ip_addresses": [],
+          "secret": [],
+          "source_image_reference": [{}],
+          "termination_notification": []
+        }
+      }
+    },
+    {
+      "address": "azurerm_linux_virtual_machine.fortiweb_virtual_machine",
+      "mode": "managed",
+      "type": "azurerm_linux_virtual_machine",
+      "name": "fortiweb_virtual_machine",
+      "provider_name": "registry.terraform.io/hashicorp/azurerm",
+      "change": {
+        "actions": ["create"],
+        "before": null,
+        "after": {
+          "additional_capabilities": [],
+          "admin_password": null,
+          "admin_ssh_key": [{}],
+          "allow_extension_operations": false,
+          "boot_diagnostics": [],
+          "bypass_platform_safety_checks_on_user_schedule_enabled": false,
+          "capacity_reservation_group_id": null,
+          "computer_name": "fortiweb",
+          "custom_data": "I2Nsb3VkLWNvbmZpZwpjb25maWcgc3lzIGludGVyZmFjZQogIGVkaXQgcG9ydDEKICAgIHNldCBhbGlhcyBkbXoKICAgIHNldCBtb2RlIHN0YXRpYwogICAgc2V0IGlwIDEwLjAuMi41IDI1NS4yNTUuMjU1LjAKICAgIHNldCBhbGxvd2FjY2VzcyBwaW5nCiAgbmV4dAogIGVkaXQgcG9ydDIKICAgIHNldCBhbGlhcyBpbnRlcm5hbAogICAgc2V0IG1vZGUgc3RhdGljCiAgICBzZXQgaXAgMTAuMC4zLjQgMjU1LjI1NS4yNTUuMAogICAgc2V0IGFsbG93YWNjZXNzIHBpbmcKICBuZXh0CmVuZAoKY29uZmlnIHN5c3RlbSByb3V0ZQogIGVkaXQgMQogIHNldCBkZXZpY2UgcG9ydDEKICBzZXQgZ2F0ZXdheSAxMC4wLjIuNAplbmQKCmNvbmZpZyBzeXMgZG5zCiAgc2V0IHByaW1hcnkgOC44LjguOAogIHVuc2V0IHNlY29uZGFyeQplbmQKCmNvbmZpZyBzeXN0ZW0gbnRwCiAgc2V0IHR5cGUgY3VzdG9tCiAgc2V0IG50cHN5bmMgZW5hYmxlCiAgY29uZmlnIG50cHNlcnZlcgogICAgZWRpdCAxCiAgICAgIHNldCBzZXJ2ZXIgMC5jYS5wb29sLm50cC5vcmcKICAgIG5leHQKICAgIGVkaXQgMgogICAgICBzZXQgc2VydmVyIDEuY2EucG9vbC5udHAub3JnCiAgICBuZXh0CiAgICBlZGl0IDMKICAgICAgc2V0IHNlcnZlciAyLmNhLnBvb2wubnRwLm9yZwogICAgbmV4dAogICAgZWRpdCA0CiAgICAgIHNldCBzZXJ2ZXIgMy5jYS5wb29sLm50cC5vcmcKICAgIG5leHQKICBlbmQKZW5kCgpjb25maWcgc3lzIGdsb2JhbAogIHNldCBob3N0bmFtZSBmb3J0aXdlYgplbmQK",
+          "dedicated_host_group_id": null,
+          "dedicated_host_id": null,
+          "disable_password_authentication": true,
+          "edge_zone": null,
+          "encryption_at_host_enabled": true,
+          "eviction_policy": null,
+          "extensions_time_budget": "PT1H30M",
+          "gallery_application": [],
+          "identity": [
+            {
+              "identity_ids": null,
+              "type": "SystemAssigned"
+            }
+          ],
+          "license_type": null,
+          "location": "canadacentral",
+          "max_bid_price": -1,
+          "name": "fortiweb_virtual_machine",
+          "os_disk": [
+            {
+              "caching": "ReadWrite",
+              "diff_disk_settings": [],
+              "disk_encryption_set_id": null,
+              "secure_vm_disk_encryption_set_id": null,
+              "security_encryption_type": null,
+              "storage_account_type": "Premium_LRS",
+              "write_accelerator_enabled": false
+            }
+          ],
+          "patch_assessment_mode": "ImageDefault",
+          "patch_mode": "ImageDefault",
+          "plan": [
+            {
+              "name": "fortinet_fw-vm_payg_v2",
+              "product": "fortinet_fortiweb-vm_v5",
+              "publisher": "fortinet"
+            }
+          ],
+          "platform_fault_domain": -1,
+          "priority": "Regular",
+          "provision_vm_agent": true,
+          "proximity_placement_group_id": null,
+          "reboot_setting": null,
+          "resource_group_name": "robinmordasiewicz-fortinet-secure-cloud-blueprint-terraform-terratest",
+          "secret": [],
+          "secure_boot_enabled": null,
+          "size": "Standard_D4s_v3",
+          "source_image_id": null,
+          "source_image_reference": [
+            {
+              "offer": "fortinet_fortiweb-vm_v5",
+              "publisher": "fortinet",
+              "sku": "fortinet_fw-vm_payg_v2",
+              "version": "latest"
+            }
+          ],
+          "tags": null,
+          "timeouts": null,
+          "user_data": null,
+          "virtual_machine_scale_set_id": null,
+          "vtpm_enabled": null,
+          "zone": null
+        },
+        "after_unknown": {
+          "additional_capabilities": [],
+          "admin_ssh_key": [
+            {
+              "public_key": true,
+              "username": true
+            }
+          ],
+          "admin_username": true,
+          "availability_set_id": true,
+          "boot_diagnostics": [],
+          "gallery_application": [],
+          "id": true,
+          "identity": [
+            {
+              "principal_id": true,
+              "tenant_id": true
+            }
+          ],
+          "network_interface_ids": true,
+          "os_disk": [
+            {
+              "diff_disk_settings": [],
+              "disk_size_gb": true,
+              "name": true
+            }
+          ],
+          "plan": [{}],
+          "private_ip_address": true,
+          "private_ip_addresses": true,
+          "public_ip_address": true,
+          "public_ip_addresses": true,
+          "secret": [],
+          "source_image_reference": [{}],
+          "termination_notification": true,
+          "virtual_machine_id": true
+        },
+        "before_sensitive": false,
+        "after_sensitive": {
+          "additional_capabilities": [],
+          "admin_password": true,
+          "admin_ssh_key": [{}],
+          "boot_diagnostics": [],
+          "custom_data": true,
+          "gallery_application": [],
+          "identity": [{}],
+          "network_interface_ids": [],
+          "os_disk": [
+            {
+              "diff_disk_settings": []
+            }
+          ],
+          "plan": [{}],
+          "private_ip_addresses": [],
+          "public_ip_addresses": [],
+          "secret": [],
+          "source_image_reference": [{}],
+          "termination_notification": []
+        }
+      }
+    },
+    {
+      "address": "azurerm_linux_virtual_machine.ubuntu_virtual_machine",
+      "mode": "managed",
+      "type": "azurerm_linux_virtual_machine",
+      "name": "ubuntu_virtual_machine",
+      "provider_name": "registry.terraform.io/hashicorp/azurerm",
+      "change": {
+        "actions": ["create"],
+        "before": null,
+        "after": {
+          "additional_capabilities": [],
+          "admin_password": null,
+          "admin_ssh_key": [{}],
+          "allow_extension_operations": false,
+          "boot_diagnostics": [],
+          "bypass_platform_safety_checks_on_user_schedule_enabled": false,
+          "capacity_reservation_group_id": null,
+          "computer_name": "ubuntu",
+          "custom_data": null,
+          "dedicated_host_group_id": null,
+          "dedicated_host_id": null,
+          "disable_password_authentication": true,
+          "edge_zone": null,
+          "encryption_at_host_enabled": null,
+          "eviction_policy": null,
+          "extensions_time_budget": "PT1H30M",
+          "gallery_application": [],
+          "identity": [],
+          "license_type": null,
+          "location": "canadacentral",
+          "max_bid_price": -1,
+          "name": "ubuntu_virtual_machine",
+          "os_disk": [
+            {
+              "caching": "ReadWrite",
+              "diff_disk_settings": [],
+              "disk_encryption_set_id": null,
+              "secure_vm_disk_encryption_set_id": null,
+              "security_encryption_type": null,
+              "storage_account_type": "Premium_LRS",
+              "write_accelerator_enabled": false
+            }
+          ],
+          "patch_assessment_mode": "ImageDefault",
+          "patch_mode": "ImageDefault",
+          "plan": [],
+          "platform_fault_domain": -1,
+          "priority": "Regular",
+          "provision_vm_agent": true,
+          "proximity_placement_group_id": null,
+          "reboot_setting": null,
+          "resource_group_name": "robinmordasiewicz-fortinet-secure-cloud-blueprint-terraform-terratest",
+          "secret": [],
+          "secure_boot_enabled": null,
+          "size": "Standard_F2s_v2",
+          "source_image_id": null,
+          "source_image_reference": [
+            {
+              "offer": "0001-com-ubuntu-server-jammy",
+              "publisher": "Canonical",
+              "sku": "22_04-lts-gen2",
+              "version": "latest"
+            }
+          ],
+          "tags": null,
+          "timeouts": null,
+          "user_data": null,
+          "virtual_machine_scale_set_id": null,
+          "vtpm_enabled": null,
+          "zone": null
+        },
+        "after_unknown": {
+          "additional_capabilities": [],
+          "admin_ssh_key": [
+            {
+              "public_key": true,
+              "username": true
+            }
+          ],
+          "admin_username": true,
+          "availability_set_id": true,
+          "boot_diagnostics": [],
+          "gallery_application": [],
+          "id": true,
+          "identity": [],
+          "network_interface_ids": true,
+          "os_disk": [
+            {
+              "diff_disk_settings": [],
+              "disk_size_gb": true,
+              "name": true
+            }
+          ],
+          "plan": [],
+          "private_ip_address": true,
+          "private_ip_addresses": true,
+          "public_ip_address": true,
+          "public_ip_addresses": true,
+          "secret": [],
+          "source_image_reference": [{}],
+          "termination_notification": true,
+          "virtual_machine_id": true
+        },
+        "before_sensitive": false,
+        "after_sensitive": {
+          "additional_capabilities": [],
+          "admin_password": true,
+          "admin_ssh_key": [{}],
+          "boot_diagnostics": [],
+          "custom_data": true,
+          "gallery_application": [],
+          "identity": [],
+          "network_interface_ids": [],
+          "os_disk": [
+            {
+              "diff_disk_settings": []
+            }
+          ],
+          "plan": [],
+          "private_ip_addresses": [],
+          "public_ip_addresses": [],
+          "secret": [],
+          "source_image_reference": [{}],
+          "termination_notification": []
+        }
+      }
+    },
+    {
+      "address": "azurerm_managed_disk.fortiweb_log_disk",
+      "mode": "managed",
+      "type": "azurerm_managed_disk",
+      "name": "fortiweb_log_disk",
+      "provider_name": "registry.terraform.io/hashicorp/azurerm",
+      "change": {
+        "actions": ["create"],
+        "before": null,
+        "after": {
+          "create_option": "Empty",
+          "disk_access_id": null,
+          "disk_encryption_set_id": null,
+          "disk_size_gb": 30,
+          "edge_zone": null,
+          "encryption_settings": [],
+          "gallery_image_reference_id": null,
+          "hyper_v_generation": null,
+          "image_reference_id": null,
+          "location": "canadacentral",
+          "name": "fortiweb_log_disk",
+          "network_access_policy": null,
+          "on_demand_bursting_enabled": null,
+          "optimized_frequent_attach_enabled": false,
+          "os_type": null,
+          "performance_plus_enabled": false,
+          "public_network_access_enabled": true,
+          "resource_group_name": "robinmordasiewicz-fortinet-secure-cloud-blueprint-terraform-terratest",
+          "secure_vm_disk_encryption_set_id": null,
+          "security_type": null,
+          "source_resource_id": null,
+          "storage_account_id": null,
+          "storage_account_type": "Premium_LRS",
+          "tags": null,
+          "timeouts": null,
+          "trusted_launch_enabled": null,
+          "upload_size_bytes": null,
+          "zone": null
+        },
+        "after_unknown": {
+          "disk_iops_read_only": true,
+          "disk_iops_read_write": true,
+          "disk_mbps_read_only": true,
+          "disk_mbps_read_write": true,
+          "encryption_settings": [],
+          "id": true,
+          "logical_sector_size": true,
+          "max_shares": true,
+          "source_uri": true,
+          "tier": true
+        },
+        "before_sensitive": false,
+        "after_sensitive": {
+          "encryption_settings": []
+        }
+      }
+    },
+    {
+      "address": "azurerm_network_ddos_protection_plan.ddos_protection_plan",
+      "mode": "managed",
+      "type": "azurerm_network_ddos_protection_plan",
+      "name": "ddos_protection_plan",
+      "provider_name": "registry.terraform.io/hashicorp/azurerm",
+      "change": {
+        "actions": ["create"],
+        "before": null,
+        "after": {
+          "location": "canadacentral",
+          "name": "ddos_protection_plan",
+          "resource_group_name": "robinmordasiewicz-fortinet-secure-cloud-blueprint-terraform-terratest",
+          "tags": null,
+          "timeouts": null
+        },
+        "after_unknown": {
+          "id": true,
+          "virtual_network_ids": true
+        },
+        "before_sensitive": false,
+        "after_sensitive": {
+          "virtual_network_ids": []
+        }
+      }
+    },
+    {
+      "address": "azurerm_network_interface.fortigate_dmz_network_interface",
+      "mode": "managed",
+      "type": "azurerm_network_interface",
+      "name": "fortigate_dmz_network_interface",
+      "provider_name": "registry.terraform.io/hashicorp/azurerm",
+      "change": {
+        "actions": ["create"],
+        "before": null,
+        "after": {
+          "auxiliary_mode": null,
+          "auxiliary_sku": null,
+          "edge_zone": null,
+          "enable_accelerated_networking": false,
+          "enable_ip_forwarding": false,
+          "ip_configuration": [
+            {
+              "name": "fortigate-dmz-ipconfig",
+              "private_ip_address": "10.0.2.4",
+              "private_ip_address_allocation": "Static",
+              "private_ip_address_version": "IPv4",
+              "public_ip_address_id": null
+            }
+          ],
+          "location": "canadacentral",
+          "name": "fortigate_dmz_network_interface",
+          "resource_group_name": "robinmordasiewicz-fortinet-secure-cloud-blueprint-terraform-terratest",
+          "tags": null,
+          "timeouts": null
+        },
+        "after_unknown": {
+          "applied_dns_servers": true,
+          "dns_servers": true,
+          "id": true,
+          "internal_dns_name_label": true,
+          "internal_domain_name_suffix": true,
+          "ip_configuration": [
+            {
+              "gateway_load_balancer_frontend_ip_configuration_id": true,
+              "primary": true,
+              "subnet_id": true
+            }
+          ],
+          "mac_address": true,
+          "private_ip_address": true,
+          "private_ip_addresses": true,
+          "virtual_machine_id": true
+        },
+        "before_sensitive": false,
+        "after_sensitive": {
+          "applied_dns_servers": [],
+          "dns_servers": [],
+          "ip_configuration": [{}],
+          "private_ip_addresses": []
+        }
+      }
+    },
+    {
+      "address": "azurerm_network_interface.fortigate_external_network_interface",
+      "mode": "managed",
+      "type": "azurerm_network_interface",
+      "name": "fortigate_external_network_interface",
+      "provider_name": "registry.terraform.io/hashicorp/azurerm",
+      "change": {
+        "actions": ["create"],
+        "before": null,
+        "after": {
+          "auxiliary_mode": null,
+          "auxiliary_sku": null,
+          "edge_zone": null,
+          "enable_accelerated_networking": false,
+          "enable_ip_forwarding": false,
+          "ip_configuration": [
+            {
+              "name": "fortigate-external-ipconfig",
+              "primary": true,
+              "private_ip_address": "10.0.1.4",
+              "private_ip_address_allocation": "Static",
+              "private_ip_address_version": "IPv4",
+              "public_ip_address_id": null
+            },
+            {
+              "name": "VIP-external-ipconfig",
+              "private_ip_address": "10.0.1.100",
+              "private_ip_address_allocation": "Static",
+              "private_ip_address_version": "IPv4"
+            }
+          ],
+          "location": "canadacentral",
+          "name": "fortigate_external_network_interface",
+          "resource_group_name": "robinmordasiewicz-fortinet-secure-cloud-blueprint-terraform-terratest",
+          "tags": null,
+          "timeouts": null
+        },
+        "after_unknown": {
+          "applied_dns_servers": true,
+          "dns_servers": true,
+          "id": true,
+          "internal_dns_name_label": true,
+          "internal_domain_name_suffix": true,
+          "ip_configuration": [
+            {
+              "gateway_load_balancer_frontend_ip_configuration_id": true,
+              "subnet_id": true
+            },
+            {
+              "gateway_load_balancer_frontend_ip_configuration_id": true,
+              "primary": true,
+              "public_ip_address_id": true,
+              "subnet_id": true
+            }
+          ],
+          "mac_address": true,
+          "private_ip_address": true,
+          "private_ip_addresses": true,
+          "virtual_machine_id": true
+        },
+        "before_sensitive": false,
+        "after_sensitive": {
+          "applied_dns_servers": [],
+          "dns_servers": [],
+          "ip_configuration": [{}, {}],
+          "private_ip_addresses": []
+        }
+      }
+    },
+    {
+      "address": "azurerm_network_interface.fortiweb_dmz_network_interface",
+      "mode": "managed",
+      "type": "azurerm_network_interface",
+      "name": "fortiweb_dmz_network_interface",
+      "provider_name": "registry.terraform.io/hashicorp/azurerm",
+      "change": {
+        "actions": ["create"],
+        "before": null,
+        "after": {
+          "auxiliary_mode": null,
+          "auxiliary_sku": null,
+          "edge_zone": null,
+          "enable_accelerated_networking": false,
+          "enable_ip_forwarding": false,
+          "ip_configuration": [
+            {
+              "name": "fortiweb-dmz-ipconfig",
+              "private_ip_address": "10.0.2.5",
+              "private_ip_address_allocation": "Static",
+              "private_ip_address_version": "IPv4",
+              "public_ip_address_id": null
+            }
+          ],
+          "location": "canadacentral",
+          "name": "fortiweb_dmz_network_interface",
+          "resource_group_name": "robinmordasiewicz-fortinet-secure-cloud-blueprint-terraform-terratest",
+          "tags": null,
+          "timeouts": null
+        },
+        "after_unknown": {
+          "applied_dns_servers": true,
+          "dns_servers": true,
+          "id": true,
+          "internal_dns_name_label": true,
+          "internal_domain_name_suffix": true,
+          "ip_configuration": [
+            {
+              "gateway_load_balancer_frontend_ip_configuration_id": true,
+              "primary": true,
+              "subnet_id": true
+            }
+          ],
+          "mac_address": true,
+          "private_ip_address": true,
+          "private_ip_addresses": true,
+          "virtual_machine_id": true
+        },
+        "before_sensitive": false,
+        "after_sensitive": {
+          "applied_dns_servers": [],
+          "dns_servers": [],
+          "ip_configuration": [{}],
+          "private_ip_addresses": []
+        }
+      }
+    },
+    {
+      "address": "azurerm_network_interface.fortiweb_internal_network_interface",
+      "mode": "managed",
+      "type": "azurerm_network_interface",
+      "name": "fortiweb_internal_network_interface",
+      "provider_name": "registry.terraform.io/hashicorp/azurerm",
+      "change": {
+        "actions": ["create"],
+        "before": null,
+        "after": {
+          "auxiliary_mode": null,
+          "auxiliary_sku": null,
+          "edge_zone": null,
+          "enable_accelerated_networking": false,
+          "enable_ip_forwarding": false,
+          "ip_configuration": [
+            {
+              "name": "fortiweb-internal-ipconfig",
+              "private_ip_address": "10.0.3.4",
+              "private_ip_address_allocation": "Static",
+              "private_ip_address_version": "IPv4",
+              "public_ip_address_id": null
+            }
+          ],
+          "location": "canadacentral",
+          "name": "fortiweb_internal_network_interface",
+          "resource_group_name": "robinmordasiewicz-fortinet-secure-cloud-blueprint-terraform-terratest",
+          "tags": null,
+          "timeouts": null
+        },
+        "after_unknown": {
+          "applied_dns_servers": true,
+          "dns_servers": true,
+          "id": true,
+          "internal_dns_name_label": true,
+          "internal_domain_name_suffix": true,
+          "ip_configuration": [
+            {
+              "gateway_load_balancer_frontend_ip_configuration_id": true,
+              "primary": true,
+              "subnet_id": true
+            }
+          ],
+          "mac_address": true,
+          "private_ip_address": true,
+          "private_ip_addresses": true,
+          "virtual_machine_id": true
+        },
+        "before_sensitive": false,
+        "after_sensitive": {
+          "applied_dns_servers": [],
+          "dns_servers": [],
+          "ip_configuration": [{}],
+          "private_ip_addresses": []
+        }
+      }
+    },
+    {
+      "address": "azurerm_network_interface.ubuntu_dmz_network_interface",
+      "mode": "managed",
+      "type": "azurerm_network_interface",
+      "name": "ubuntu_dmz_network_interface",
+      "provider_name": "registry.terraform.io/hashicorp/azurerm",
+      "change": {
+        "actions": ["create"],
+        "before": null,
+        "after": {
+          "auxiliary_mode": null,
+          "auxiliary_sku": null,
+          "edge_zone": null,
+          "enable_accelerated_networking": false,
+          "enable_ip_forwarding": false,
+          "ip_configuration": [
+            {
+              "name": "ubuntu-dmz-ipconfig",
+              "private_ip_address": "10.0.2.6",
+              "private_ip_address_allocation": "Static",
+              "private_ip_address_version": "IPv4",
+              "public_ip_address_id": null
+            }
+          ],
+          "location": "canadacentral",
+          "name": "ubuntu_dmz_network_interface",
+          "resource_group_name": "robinmordasiewicz-fortinet-secure-cloud-blueprint-terraform-terratest",
+          "tags": null,
+          "timeouts": null
+        },
+        "after_unknown": {
+          "applied_dns_servers": true,
+          "dns_servers": true,
+          "id": true,
+          "internal_dns_name_label": true,
+          "internal_domain_name_suffix": true,
+          "ip_configuration": [
+            {
+              "gateway_load_balancer_frontend_ip_configuration_id": true,
+              "primary": true,
+              "subnet_id": true
+            }
+          ],
+          "mac_address": true,
+          "private_ip_address": true,
+          "private_ip_addresses": true,
+          "virtual_machine_id": true
+        },
+        "before_sensitive": false,
+        "after_sensitive": {
+          "applied_dns_servers": [],
+          "dns_servers": [],
+          "ip_configuration": [{}],
+          "private_ip_addresses": []
+        }
+      }
+    },
+    {
+      "address": "azurerm_network_interface.ubuntu_internal_network_interface",
+      "mode": "managed",
+      "type": "azurerm_network_interface",
+      "name": "ubuntu_internal_network_interface",
+      "provider_name": "registry.terraform.io/hashicorp/azurerm",
+      "change": {
+        "actions": ["create"],
+        "before": null,
+        "after": {
+          "auxiliary_mode": null,
+          "auxiliary_sku": null,
+          "edge_zone": null,
+          "enable_accelerated_networking": false,
+          "enable_ip_forwarding": false,
+          "ip_configuration": [
+            {
+              "name": "ubuntu-internal-ipconfig",
+              "private_ip_address": "10.0.3.5",
+              "private_ip_address_allocation": "Static",
+              "private_ip_address_version": "IPv4",
+              "public_ip_address_id": null
+            }
+          ],
+          "location": "canadacentral",
+          "name": "ubuntu_internal_network_interface",
+          "resource_group_name": "robinmordasiewicz-fortinet-secure-cloud-blueprint-terraform-terratest",
+          "tags": null,
+          "timeouts": null
+        },
+        "after_unknown": {
+          "applied_dns_servers": true,
+          "dns_servers": true,
+          "id": true,
+          "internal_dns_name_label": true,
+          "internal_domain_name_suffix": true,
+          "ip_configuration": [
+            {
+              "gateway_load_balancer_frontend_ip_configuration_id": true,
+              "primary": true,
+              "subnet_id": true
+            }
+          ],
+          "mac_address": true,
+          "private_ip_address": true,
+          "private_ip_addresses": true,
+          "virtual_machine_id": true
+        },
+        "before_sensitive": false,
+        "after_sensitive": {
+          "applied_dns_servers": [],
+          "dns_servers": [],
+          "ip_configuration": [{}],
+          "private_ip_addresses": []
+        }
+      }
+    },
+    {
+      "address": "azurerm_network_interface_security_group_association.fortigate_association",
+      "mode": "managed",
+      "type": "azurerm_network_interface_security_group_association",
+      "name": "fortigate_association",
+      "provider_name": "registry.terraform.io/hashicorp/azurerm",
+      "change": {
+        "actions": ["create"],
+        "before": null,
+        "after": {
+          "timeouts": null
+        },
+        "after_unknown": {
+          "id": true,
+          "network_interface_id": true,
+          "network_security_group_id": true
+        },
+        "before_sensitive": false,
+        "after_sensitive": {}
+      }
+    },
+    {
+      "address": "azurerm_network_security_group.nsg",
+      "mode": "managed",
+      "type": "azurerm_network_security_group",
+      "name": "nsg",
+      "provider_name": "registry.terraform.io/hashicorp/azurerm",
+      "change": {
+        "actions": ["create"],
+        "before": null,
+        "after": {
+          "location": "canadacentral",
+          "name": "nsg",
+          "resource_group_name": "robinmordasiewicz-fortinet-secure-cloud-blueprint-terraform-terratest",
+          "security_rule": [
+            {
+              "access": "Allow",
+              "description": "",
+              "destination_address_prefix": "*",
+              "destination_address_prefixes": [],
+              "destination_application_security_group_ids": [],
+              "destination_port_range": "",
+              "destination_port_ranges": ["443", "80"],
+              "direction": "Inbound",
+              "name": "allow_http-https_tcp",
+              "priority": 100,
+              "protocol": "Tcp",
+              "source_address_prefix": "*",
+              "source_address_prefixes": [],
+              "source_application_security_group_ids": [],
+              "source_port_range": "*",
+              "source_port_ranges": []
+            }
+          ],
+          "tags": null,
+          "timeouts": null
+        },
+        "after_unknown": {
+          "id": true,
+          "security_rule": [
+            {
+              "destination_address_prefixes": [],
+              "destination_application_security_group_ids": [],
+              "destination_port_ranges": [false, false],
+              "source_address_prefixes": [],
+              "source_application_security_group_ids": [],
+              "source_port_ranges": []
+            }
+          ]
+        },
+        "before_sensitive": false,
+        "after_sensitive": {
+          "security_rule": [
+            {
+              "destination_address_prefixes": [],
+              "destination_application_security_group_ids": [],
+              "destination_port_ranges": [false, false],
+              "source_address_prefixes": [],
+              "source_application_security_group_ids": [],
+              "source_port_ranges": []
+            }
+          ]
+        }
+      }
+    },
+    {
+      "address": "azurerm_network_security_group.private_nsg",
+      "mode": "managed",
+      "type": "azurerm_network_security_group",
+      "name": "private_nsg",
+      "provider_name": "registry.terraform.io/hashicorp/azurerm",
+      "change": {
+        "actions": ["create"],
+        "before": null,
+        "after": {
+          "location": "canadacentral",
+          "name": "private_nsg",
+          "resource_group_name": "robinmordasiewicz-fortinet-secure-cloud-blueprint-terraform-terratest",
+          "security_rule": [
+            {
+              "access": "Deny",
+              "description": "",
+              "destination_address_prefix": "*",
+              "destination_address_prefixes": [],
+              "destination_application_security_group_ids": [],
+              "destination_port_range": "*",
+              "destination_port_ranges": [],
+              "direction": "Inbound",
+              "name": "block-all-in",
+              "priority": 100,
+              "protocol": "*",
+              "source_address_prefix": "*",
+              "source_address_prefixes": [],
+              "source_application_security_group_ids": [],
+              "source_port_range": "*",
+              "source_port_ranges": []
+            },
+            {
+              "access": "Deny",
+              "description": "",
+              "destination_address_prefix": "*",
+              "destination_address_prefixes": [],
+              "destination_application_security_group_ids": [],
+              "destination_port_range": "*",
+              "destination_port_ranges": [],
+              "direction": "Outbound",
+              "name": "block-all-out",
+              "priority": 101,
+              "protocol": "*",
+              "source_address_prefix": "*",
+              "source_address_prefixes": [],
+              "source_application_security_group_ids": [],
+              "source_port_range": "*",
+              "source_port_ranges": []
+            }
+          ],
+          "tags": null,
+          "timeouts": null
+        },
+        "after_unknown": {
+          "id": true,
+          "security_rule": [
+            {
+              "destination_address_prefixes": [],
+              "destination_application_security_group_ids": [],
+              "destination_port_ranges": [],
+              "source_address_prefixes": [],
+              "source_application_security_group_ids": [],
+              "source_port_ranges": []
+            },
+            {
+              "destination_address_prefixes": [],
+              "destination_application_security_group_ids": [],
+              "destination_port_ranges": [],
+              "source_address_prefixes": [],
+              "source_application_security_group_ids": [],
+              "source_port_ranges": []
+            }
+          ]
+        },
+        "before_sensitive": false,
+        "after_sensitive": {
+          "security_rule": [
+            {
+              "destination_address_prefixes": [],
+              "destination_application_security_group_ids": [],
+              "destination_port_ranges": [],
+              "source_address_prefixes": [],
+              "source_application_security_group_ids": [],
+              "source_port_ranges": []
+            },
+            {
+              "destination_address_prefixes": [],
+              "destination_application_security_group_ids": [],
+              "destination_port_ranges": [],
+              "source_address_prefixes": [],
+              "source_application_security_group_ids": [],
+              "source_port_ranges": []
+            }
+          ]
+        }
+      }
+    },
+    {
+      "address": "azurerm_network_security_group.vip_allow_https_tcp_nsg",
+      "mode": "managed",
+      "type": "azurerm_network_security_group",
+      "name": "vip_allow_https_tcp_nsg",
+      "provider_name": "registry.terraform.io/hashicorp/azurerm",
+      "change": {
+        "actions": ["create"],
+        "before": null,
+        "after": {
+          "location": "canadacentral",
+          "name": "vip_allow_https_tcp_nsg",
+          "resource_group_name": "robinmordasiewicz-fortinet-secure-cloud-blueprint-terraform-terratest",
+          "security_rule": [
+            {
+              "access": "Allow",
+              "description": "",
+              "destination_address_prefix": "*",
+              "destination_address_prefixes": [],
+              "destination_application_security_group_ids": [],
+              "destination_port_range": "",
+              "destination_port_ranges": ["443"],
+              "direction": "Inbound",
+              "name": "VIP-allow_https_tcp",
+              "priority": 100,
+              "protocol": "Tcp",
+              "source_address_prefix": "*",
+              "source_address_prefixes": [],
+              "source_application_security_group_ids": [],
+              "source_port_range": "*",
+              "source_port_ranges": []
+            }
+          ],
+          "tags": null,
+          "timeouts": null
+        },
+        "after_unknown": {
+          "id": true,
+          "security_rule": [
+            {
+              "destination_address_prefixes": [],
+              "destination_application_security_group_ids": [],
+              "destination_port_ranges": [false],
+              "source_address_prefixes": [],
+              "source_application_security_group_ids": [],
+              "source_port_ranges": []
+            }
+          ]
+        },
+        "before_sensitive": false,
+        "after_sensitive": {
+          "security_rule": [
+            {
+              "destination_address_prefixes": [],
+              "destination_application_security_group_ids": [],
+              "destination_port_ranges": [false],
+              "source_address_prefixes": [],
+              "source_application_security_group_ids": [],
+              "source_port_ranges": []
+            }
+          ]
+        }
+      }
+    },
+    {
+      "address": "azurerm_public_ip.vip_public_ip",
+      "mode": "managed",
+      "type": "azurerm_public_ip",
+      "name": "vip_public_ip",
+      "provider_name": "registry.terraform.io/hashicorp/azurerm",
+      "change": {
+        "actions": ["create"],
+        "before": null,
+        "after": {
+          "allocation_method": "Dynamic",
+          "ddos_protection_mode": "VirtualNetworkInherited",
+          "ddos_protection_plan_id": null,
+          "domain_name_label": null,
+          "edge_zone": null,
+          "idle_timeout_in_minutes": 4,
+          "ip_tags": null,
+          "ip_version": "IPv4",
+          "location": "canadacentral",
+          "name": "vip_public_ip",
+          "public_ip_prefix_id": null,
+          "resource_group_name": "robinmordasiewicz-fortinet-secure-cloud-blueprint-terraform-terratest",
+          "reverse_fqdn": null,
+          "sku": "Basic",
+          "sku_tier": "Regional",
+          "tags": null,
+          "timeouts": null,
+          "zones": null
+        },
+        "after_unknown": {
+          "fqdn": true,
+          "id": true,
+          "ip_address": true
+        },
+        "before_sensitive": false,
+        "after_sensitive": {}
+      }
+    },
+    {
+      "address": "azurerm_subnet.dmz_subnet",
+      "mode": "managed",
+      "type": "azurerm_subnet",
+      "name": "dmz_subnet",
+      "provider_name": "registry.terraform.io/hashicorp/azurerm",
+      "change": {
+        "actions": ["create"],
+        "before": null,
+        "after": {
+          "address_prefixes": ["10.0.2.0/24"],
+          "delegation": [],
+          "name": "dmz",
+          "resource_group_name": "robinmordasiewicz-fortinet-secure-cloud-blueprint-terraform-terratest",
+          "service_endpoint_policy_ids": null,
+          "service_endpoints": null,
+          "timeouts": null,
+          "virtual_network_name": "vnet"
+        },
+        "after_unknown": {
+          "address_prefixes": [false],
+          "delegation": [],
+          "enforce_private_link_endpoint_network_policies": true,
+          "enforce_private_link_service_network_policies": true,
+          "id": true,
+          "private_endpoint_network_policies_enabled": true,
+          "private_link_service_network_policies_enabled": true
+        },
+        "before_sensitive": false,
+        "after_sensitive": {
+          "address_prefixes": [false],
+          "delegation": []
+        }
+      }
+    },
+    {
+      "address": "azurerm_subnet.external_subnet",
+      "mode": "managed",
+      "type": "azurerm_subnet",
+      "name": "external_subnet",
+      "provider_name": "registry.terraform.io/hashicorp/azurerm",
+      "change": {
+        "actions": ["create"],
+        "before": null,
+        "after": {
+          "address_prefixes": ["10.0.1.0/24"],
+          "delegation": [],
+          "name": "external",
+          "resource_group_name": "robinmordasiewicz-fortinet-secure-cloud-blueprint-terraform-terratest",
+          "service_endpoint_policy_ids": null,
+          "service_endpoints": null,
+          "timeouts": null,
+          "virtual_network_name": "vnet"
+        },
+        "after_unknown": {
+          "address_prefixes": [false],
+          "delegation": [],
+          "enforce_private_link_endpoint_network_policies": true,
+          "enforce_private_link_service_network_policies": true,
+          "id": true,
+          "private_endpoint_network_policies_enabled": true,
+          "private_link_service_network_policies_enabled": true
+        },
+        "before_sensitive": false,
+        "after_sensitive": {
+          "address_prefixes": [false],
+          "delegation": []
+        }
+      }
+    },
+    {
+      "address": "azurerm_subnet.internal_subnet",
+      "mode": "managed",
+      "type": "azurerm_subnet",
+      "name": "internal_subnet",
+      "provider_name": "registry.terraform.io/hashicorp/azurerm",
+      "change": {
+        "actions": ["create"],
+        "before": null,
+        "after": {
+          "address_prefixes": ["10.0.3.0/24"],
+          "delegation": [],
+          "name": "internal",
+          "resource_group_name": "robinmordasiewicz-fortinet-secure-cloud-blueprint-terraform-terratest",
+          "service_endpoint_policy_ids": null,
+          "service_endpoints": null,
+          "timeouts": null,
+          "virtual_network_name": "vnet"
+        },
+        "after_unknown": {
+          "address_prefixes": [false],
+          "delegation": [],
+          "enforce_private_link_endpoint_network_policies": true,
+          "enforce_private_link_service_network_policies": true,
+          "id": true,
+          "private_endpoint_network_policies_enabled": true,
+          "private_link_service_network_policies_enabled": true
+        },
+        "before_sensitive": false,
+        "after_sensitive": {
+          "address_prefixes": [false],
+          "delegation": []
+        }
+      }
+    },
+    {
+      "address": "azurerm_subnet_network_security_group_association.dmz_subnet_association",
+      "mode": "managed",
+      "type": "azurerm_subnet_network_security_group_association",
+      "name": "dmz_subnet_association",
+      "provider_name": "registry.terraform.io/hashicorp/azurerm",
+      "change": {
+        "actions": ["create"],
+        "before": null,
+        "after": {
+          "timeouts": null
+        },
+        "after_unknown": {
+          "id": true,
+          "network_security_group_id": true,
+          "subnet_id": true
+        },
+        "before_sensitive": false,
+        "after_sensitive": {}
+      }
+    },
+    {
+      "address": "azurerm_subnet_network_security_group_association.external_subnet_association",
+      "mode": "managed",
+      "type": "azurerm_subnet_network_security_group_association",
+      "name": "external_subnet_association",
+      "provider_name": "registry.terraform.io/hashicorp/azurerm",
+      "change": {
+        "actions": ["create"],
+        "before": null,
+        "after": {
+          "timeouts": null
+        },
+        "after_unknown": {
+          "id": true,
+          "network_security_group_id": true,
+          "subnet_id": true
+        },
+        "before_sensitive": false,
+        "after_sensitive": {}
+      }
+    },
+    {
+      "address": "azurerm_subnet_network_security_group_association.internal_subnet_association",
+      "mode": "managed",
+      "type": "azurerm_subnet_network_security_group_association",
+      "name": "internal_subnet_association",
+      "provider_name": "registry.terraform.io/hashicorp/azurerm",
+      "change": {
+        "actions": ["create"],
+        "before": null,
+        "after": {
+          "timeouts": null
+        },
+        "after_unknown": {
+          "id": true,
+          "network_security_group_id": true,
+          "subnet_id": true
+        },
+        "before_sensitive": false,
+        "after_sensitive": {}
+      }
+    },
+    {
+      "address": "azurerm_virtual_machine_data_disk_attachment.fortiweb_data_disk_attachment",
+      "mode": "managed",
+      "type": "azurerm_virtual_machine_data_disk_attachment",
+      "name": "fortiweb_data_disk_attachment",
+      "provider_name": "registry.terraform.io/hashicorp/azurerm",
+      "change": {
+        "actions": ["create"],
+        "before": null,
+        "after": {
+          "caching": "None",
+          "create_option": "Attach",
+          "lun": 0,
+          "timeouts": null,
+          "write_accelerator_enabled": false
+        },
+        "after_unknown": {
+          "id": true,
+          "managed_disk_id": true,
+          "virtual_machine_id": true
+        },
+        "before_sensitive": false,
+        "after_sensitive": {}
+      }
+    },
+    {
+      "address": "azurerm_virtual_network.vnet",
+      "mode": "managed",
+      "type": "azurerm_virtual_network",
+      "name": "vnet",
+      "provider_name": "registry.terraform.io/hashicorp/azurerm",
+      "change": {
+        "actions": ["create"],
+        "before": null,
+        "after": {
+          "address_space": ["10.0.0.0/16"],
+          "bgp_community": null,
+          "ddos_protection_plan": [
+            {
+              "enable": true
+            }
+          ],
+          "edge_zone": null,
+          "encryption": [],
+          "flow_timeout_in_minutes": null,
+          "location": "canadacentral",
+          "name": "vnet",
+          "resource_group_name": "robinmordasiewicz-fortinet-secure-cloud-blueprint-terraform-terratest",
+          "tags": null,
+          "timeouts": null
+        },
+        "after_unknown": {
+          "address_space": [false],
+          "ddos_protection_plan": [
+            {
+              "id": true
+            }
+          ],
+          "dns_servers": true,
+          "encryption": [],
+          "guid": true,
+          "id": true,
+          "subnet": true
+        },
+        "before_sensitive": false,
+        "after_sensitive": {
+          "address_space": [false],
+          "ddos_protection_plan": [{}],
+          "dns_servers": [],
+          "encryption": [],
+          "subnet": []
+        }
+      }
+    },
+    {
+      "address": "random_pet.admin_username",
+      "mode": "managed",
+      "type": "random_pet",
+      "name": "admin_username",
+      "provider_name": "registry.terraform.io/hashicorp/random",
+      "change": {
+        "actions": ["create"],
+        "before": null,
+        "after": {
+          "keepers": {
+            "resource_group_name": "robinmordasiewicz-fortinet-secure-cloud-blueprint-terraform-terratest"
+          },
+          "length": 2,
+          "prefix": null,
+          "separator": "-"
+        },
+        "after_unknown": {
+          "id": true,
+          "keepers": {}
+        },
+        "before_sensitive": false,
+        "after_sensitive": {
+          "keepers": {}
+        }
+      }
+    },
+    {
+      "address": "tls_private_key.ssh_key",
+      "mode": "managed",
+      "type": "tls_private_key",
+      "name": "ssh_key",
+      "provider_name": "registry.terraform.io/hashicorp/tls",
+      "change": {
+        "actions": ["create"],
+        "before": null,
+        "after": {
+          "algorithm": "RSA",
+          "ecdsa_curve": "P224",
+          "rsa_bits": 4096
+        },
+        "after_unknown": {
+          "id": true,
+          "private_key_openssh": true,
+          "private_key_pem": true,
+          "private_key_pem_pkcs8": true,
+          "public_key_fingerprint_md5": true,
+          "public_key_fingerprint_sha256": true,
+          "public_key_openssh": true,
+          "public_key_pem": true
+        },
+        "before_sensitive": false,
+        "after_sensitive": {
+          "private_key_openssh": true,
+          "private_key_pem": true,
+          "private_key_pem_pkcs8": true
+        }
+      }
+    }
+  ],
+  "output_changes": {
+    "admin_username": {
+      "actions": ["create"],
+      "before": null,
+      "after_unknown": true,
+      "before_sensitive": false,
+      "after_sensitive": false
+    },
+    "availabilitySetFdc": {
+      "actions": ["create"],
+      "before": null,
+      "after": 2,
+      "after_unknown": false,
+      "before_sensitive": false,
+      "after_sensitive": false
+    },
+    "availabilitySetId": {
+      "actions": ["create"],
+      "before": null,
+      "after_unknown": true,
+      "before_sensitive": false,
+      "after_sensitive": false
+    },
+    "availabilitySetName": {
+      "actions": ["create"],
+      "before": null,
+      "after": "fortinet_availability_set",
+      "after_unknown": false,
+      "before_sensitive": false,
+      "after_sensitive": false
+    },
+    "currentSubscriptionDisplayName": {
+      "actions": ["create"],
+      "before": null,
+      "after": "Canada-PAYG",
+      "after_unknown": false,
+      "before_sensitive": false,
+      "after_sensitive": false
+    },
+    "currentSubscriptionId": {
+      "actions": ["create"],
+      "before": null,
+      "after": "/subscriptions/fda770f9-b125-4474-abec-65a1cc1df596",
+      "after_unknown": false,
+      "before_sensitive": false,
+      "after_sensitive": false
+    },
+    "resourceGroupName": {
+      "actions": ["create"],
+      "before": null,
+      "after": "robinmordasiewicz-fortinet-secure-cloud-blueprint-terraform-terratest",
+      "after_unknown": false,
+      "before_sensitive": false,
+      "after_sensitive": false
+    },
+    "tls_private_key": {
+      "actions": ["create"],
+      "before": null,
+      "after_unknown": true,
+      "before_sensitive": true,
+      "after_sensitive": true
+    },
+    "ubuntuVmName": {
+      "actions": ["create"],
+      "before": null,
+      "after": "ubuntu_virtual_machine",
+      "after_unknown": false,
+      "before_sensitive": false,
+      "after_sensitive": false
+    },
+    "vip_public_ip_address": {
+      "actions": ["create"],
+      "before": null,
+      "after_unknown": true,
+      "before_sensitive": false,
+      "after_sensitive": false
+    }
+  },
+  "prior_state": {
+    "format_version": "1.0",
+    "terraform_version": "1.5.7",
+    "values": {
+      "outputs": {
+        "availabilitySetFdc": {
+          "sensitive": false,
+          "value": 2,
+          "type": "number"
+        },
+        "availabilitySetName": {
+          "sensitive": false,
+          "value": "fortinet_availability_set",
+          "type": "string"
+        },
+        "currentSubscriptionDisplayName": {
+          "sensitive": false,
+          "value": "Canada-PAYG",
+          "type": "string"
+        },
+        "currentSubscriptionId": {
+          "sensitive": false,
+          "value": "/subscriptions/fda770f9-b125-4474-abec-65a1cc1df596",
+          "type": "string"
+        },
+        "resourceGroupName": {
+          "sensitive": false,
+          "value": "robinmordasiewicz-fortinet-secure-cloud-blueprint-terraform-terratest",
+          "type": "string"
+        },
+        "ubuntuVmName": {
+          "sensitive": false,
+          "value": "ubuntu_virtual_machine",
+          "type": "string"
+        }
+      },
+      "root_module": {
+        "resources": [
+          {
+            "address": "data.azurerm_resource_group.AZURE_RESOURCE_GROUP",
+            "mode": "data",
+            "type": "azurerm_resource_group",
+            "name": "AZURE_RESOURCE_GROUP",
+            "provider_name": "registry.terraform.io/hashicorp/azurerm",
+            "schema_version": 0,
+            "values": {
+              "id": "/subscriptions/fda770f9-b125-4474-abec-65a1cc1df596/resourceGroups/robinmordasiewicz-fortinet-secure-cloud-blueprint-terraform-terratest",
+              "location": "canadacentral",
+              "managed_by": "",
+              "name": "robinmordasiewicz-fortinet-secure-cloud-blueprint-terraform-terratest",
+              "tags": {
+                "CreatedOnDate": "2023-10-22T16:08:24.6776844Z",
+                "Username": "rmordasiewicz@fortinet.com"
+              },
+              "timeouts": null
+            },
+            "sensitive_values": {
+              "tags": {}
+            }
+          },
+          {
+            "address": "data.azurerm_subscription.current",
+            "mode": "data",
+            "type": "azurerm_subscription",
+            "name": "current",
+            "provider_name": "registry.terraform.io/hashicorp/azurerm",
+            "schema_version": 0,
+            "values": {
+              "display_name": "Canada-PAYG",
+              "id": "/subscriptions/fda770f9-b125-4474-abec-65a1cc1df596",
+              "location_placement_id": "Public_2014-09-01",
+              "quota_id": "PayAsYouGo_2014-09-01",
+              "spending_limit": "Off",
+              "state": "Enabled",
+              "subscription_id": "fda770f9-b125-4474-abec-65a1cc1df596",
+              "tags": {},
+              "tenant_id": "942b80cd-1b14-42a1-8dcf-4b21dece61ba",
+              "timeouts": null
+            },
+            "sensitive_values": {
+              "tags": {}
+            }
+          }
+        ]
+      }
+    }
+  },
+  "configuration": {
+    "provider_config": {
+      "azurerm": {
+        "name": "azurerm",
+        "full_name": "registry.terraform.io/hashicorp/azurerm",
+        "version_constraint": "3.77.0",
+        "expressions": {
+          "features": [
+            {
+              "key_vault": [
+                {
+                  "purge_soft_delete_on_destroy": {
+                    "constant_value": true
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "random": {
+        "name": "random",
+        "full_name": "registry.terraform.io/hashicorp/random",
+        "version_constraint": "3.5.1"
+      },
+      "tls": {
+        "name": "tls",
+        "full_name": "registry.terraform.io/hashicorp/tls",
+        "version_constraint": "4.0.4"
+      }
+    },
+    "root_module": {
+      "outputs": {
+        "admin_username": {
+          "expression": {
+            "references": [
+              "random_pet.admin_username.id",
+              "random_pet.admin_username"
+            ]
+          },
+          "description": "Username for admin account"
+        },
+        "availabilitySetFdc": {
+          "expression": {
+            "references": [
+              "azurerm_availability_set.fortinet_availability_set.platform_fault_domain_count",
+              "azurerm_availability_set.fortinet_availability_set"
+            ]
+          },
+          "description": "Number of fault domains in the availability set."
+        },
+        "availabilitySetId": {
+          "expression": {
+            "references": [
+              "azurerm_availability_set.fortinet_availability_set.id",
+              "azurerm_availability_set.fortinet_availability_set"
+            ]
+          },
+          "description": "ID of the Azure availability set."
+        },
+        "availabilitySetName": {
+          "expression": {
+            "references": [
+              "azurerm_availability_set.fortinet_availability_set.name",
+              "azurerm_availability_set.fortinet_availability_set"
+            ]
+          },
+          "description": "Name of the Azure availability set."
+        },
+        "currentSubscriptionDisplayName": {
+          "expression": {
+            "references": [
+              "data.azurerm_subscription.current.display_name",
+              "data.azurerm_subscription.current"
+            ]
+          },
+          "description": "Azure subscription Name"
+        },
+        "currentSubscriptionId": {
+          "expression": {
+            "references": [
+              "data.azurerm_subscription.current.id",
+              "data.azurerm_subscription.current"
+            ]
+          },
+          "description": "Azure subscription ID"
+        },
+        "resourceGroupName": {
+          "expression": {
+            "references": [
+              "data.azurerm_resource_group.AZURE_RESOURCE_GROUP.name",
+              "data.azurerm_resource_group.AZURE_RESOURCE_GROUP"
+            ]
+          },
+          "description": "Azure resource group for all objects"
+        },
+        "tls_private_key": {
+          "sensitive": true,
+          "expression": {
+            "references": [
+              "tls_private_key.ssh_key.private_key_pem",
+              "tls_private_key.ssh_key"
+            ]
+          },
+          "description": "TSL private key"
+        },
+        "ubuntuVmName": {
+          "expression": {
+            "references": [
+              "azurerm_linux_virtual_machine.ubuntu_virtual_machine.name",
+              "azurerm_linux_virtual_machine.ubuntu_virtual_machine"
+            ]
+          },
+          "description": "Ubuntu machine name."
+        },
+        "vip_public_ip_address": {
+          "expression": {
+            "references": [
+              "data.azurerm_public_ip.vip_public_ip.ip_address",
+              "data.azurerm_public_ip.vip_public_ip"
+            ]
+          },
+          "description": "Public IP address"
+        }
+      },
+      "resources": [
+        {
+          "address": "azurerm_availability_set.fortinet_availability_set",
+          "mode": "managed",
+          "type": "azurerm_availability_set",
+          "name": "fortinet_availability_set",
+          "provider_config_key": "azurerm",
+          "expressions": {
+            "location": {
+              "references": [
+                "data.azurerm_resource_group.AZURE_RESOURCE_GROUP.location",
+                "data.azurerm_resource_group.AZURE_RESOURCE_GROUP"
+              ]
+            },
+            "name": {
+              "constant_value": "fortinet_availability_set"
+            },
+            "platform_fault_domain_count": {
+              "constant_value": 2
+            },
+            "platform_update_domain_count": {
+              "constant_value": 2
+            },
+            "resource_group_name": {
+              "references": [
+                "data.azurerm_resource_group.AZURE_RESOURCE_GROUP.name",
+                "data.azurerm_resource_group.AZURE_RESOURCE_GROUP"
+              ]
+            }
+          },
+          "schema_version": 0
+        },
+        {
+          "address": "azurerm_linux_virtual_machine.fortigate_virtual_machine",
+          "mode": "managed",
+          "type": "azurerm_linux_virtual_machine",
+          "name": "fortigate_virtual_machine",
+          "provider_config_key": "azurerm",
+          "expressions": {
+            "admin_ssh_key": [
+              {
+                "public_key": {
+                  "references": [
+                    "tls_private_key.ssh_key.public_key_openssh",
+                    "tls_private_key.ssh_key"
+                  ]
+                },
+                "username": {
+                  "references": [
+                    "random_pet.admin_username.id",
+                    "random_pet.admin_username"
+                  ]
+                }
+              }
+            ],
+            "admin_username": {
+              "references": [
+                "random_pet.admin_username.id",
+                "random_pet.admin_username"
+              ]
+            },
+            "allow_extension_operations": {
+              "constant_value": false
+            },
+            "availability_set_id": {
+              "references": [
+                "azurerm_availability_set.fortinet_availability_set.id",
+                "azurerm_availability_set.fortinet_availability_set"
+              ]
+            },
+            "computer_name": {
+              "constant_value": "fortigate"
+            },
+            "custom_data": {},
+            "disable_password_authentication": {
+              "constant_value": true
+            },
+            "identity": [
+              {
+                "type": {
+                  "constant_value": "SystemAssigned"
+                }
+              }
+            ],
+            "location": {
+              "references": [
+                "data.azurerm_resource_group.AZURE_RESOURCE_GROUP.location",
+                "data.azurerm_resource_group.AZURE_RESOURCE_GROUP"
+              ]
+            },
+            "name": {
+              "constant_value": "fortigate_virtual_machine"
+            },
+            "network_interface_ids": {
+              "references": [
+                "azurerm_network_interface.fortigate_external_network_interface.id",
+                "azurerm_network_interface.fortigate_external_network_interface",
+                "azurerm_network_interface.fortigate_dmz_network_interface.id",
+                "azurerm_network_interface.fortigate_dmz_network_interface"
+              ]
+            },
+            "os_disk": [
+              {
+                "caching": {
+                  "constant_value": "ReadWrite"
+                },
+                "storage_account_type": {
+                  "constant_value": "Premium_LRS"
+                }
+              }
+            ],
+            "plan": [
+              {
+                "name": {
+                  "constant_value": "fortinet_fg-vm_payg_2022"
+                },
+                "product": {
+                  "constant_value": "fortinet_fortigate-vm_v5"
+                },
+                "publisher": {
+                  "constant_value": "fortinet"
+                }
+              }
+            ],
+            "resource_group_name": {
+              "references": [
+                "data.azurerm_resource_group.AZURE_RESOURCE_GROUP.name",
+                "data.azurerm_resource_group.AZURE_RESOURCE_GROUP"
+              ]
+            },
+            "size": {
+              "constant_value": "Standard_F4s"
+            },
+            "source_image_reference": [
+              {
+                "offer": {
+                  "constant_value": "fortinet_fortigate-vm_v5"
+                },
+                "publisher": {
+                  "constant_value": "fortinet"
+                },
+                "sku": {
+                  "constant_value": "fortinet_fg-vm_payg_2022"
+                },
+                "version": {
+                  "constant_value": "latest"
+                }
+              }
+            ]
+          },
+          "schema_version": 0
+        },
+        {
+          "address": "azurerm_linux_virtual_machine.fortiweb_virtual_machine",
+          "mode": "managed",
+          "type": "azurerm_linux_virtual_machine",
+          "name": "fortiweb_virtual_machine",
+          "provider_config_key": "azurerm",
+          "expressions": {
+            "admin_ssh_key": [
+              {
+                "public_key": {
+                  "references": [
+                    "tls_private_key.ssh_key.public_key_openssh",
+                    "tls_private_key.ssh_key"
+                  ]
+                },
+                "username": {
+                  "references": [
+                    "random_pet.admin_username.id",
+                    "random_pet.admin_username"
+                  ]
+                }
+              }
+            ],
+            "admin_username": {
+              "references": [
+                "random_pet.admin_username.id",
+                "random_pet.admin_username"
+              ]
+            },
+            "allow_extension_operations": {
+              "constant_value": false
+            },
+            "availability_set_id": {
+              "references": [
+                "azurerm_availability_set.fortinet_availability_set.id",
+                "azurerm_availability_set.fortinet_availability_set"
+              ]
+            },
+            "computer_name": {
+              "constant_value": "fortiweb"
+            },
+            "custom_data": {},
+            "disable_password_authentication": {
+              "constant_value": true
+            },
+            "encryption_at_host_enabled": {
+              "constant_value": true
+            },
+            "identity": [
+              {
+                "type": {
+                  "constant_value": "SystemAssigned"
+                }
+              }
+            ],
+            "location": {
+              "references": [
+                "data.azurerm_resource_group.AZURE_RESOURCE_GROUP.location",
+                "data.azurerm_resource_group.AZURE_RESOURCE_GROUP"
+              ]
+            },
+            "name": {
+              "constant_value": "fortiweb_virtual_machine"
+            },
+            "network_interface_ids": {
+              "references": [
+                "azurerm_network_interface.fortiweb_internal_network_interface.id",
+                "azurerm_network_interface.fortiweb_internal_network_interface",
+                "azurerm_network_interface.fortiweb_dmz_network_interface.id",
+                "azurerm_network_interface.fortiweb_dmz_network_interface"
+              ]
+            },
+            "os_disk": [
+              {
+                "caching": {
+                  "constant_value": "ReadWrite"
+                },
+                "storage_account_type": {
+                  "constant_value": "Premium_LRS"
+                }
+              }
+            ],
+            "plan": [
+              {
+                "name": {
+                  "constant_value": "fortinet_fw-vm_payg_v2"
+                },
+                "product": {
+                  "constant_value": "fortinet_fortiweb-vm_v5"
+                },
+                "publisher": {
+                  "constant_value": "fortinet"
+                }
+              }
+            ],
+            "resource_group_name": {
+              "references": [
+                "data.azurerm_resource_group.AZURE_RESOURCE_GROUP.name",
+                "data.azurerm_resource_group.AZURE_RESOURCE_GROUP"
+              ]
+            },
+            "size": {
+              "constant_value": "Standard_D4s_v3"
+            },
+            "source_image_reference": [
+              {
+                "offer": {
+                  "constant_value": "fortinet_fortiweb-vm_v5"
+                },
+                "publisher": {
+                  "constant_value": "fortinet"
+                },
+                "sku": {
+                  "constant_value": "fortinet_fw-vm_payg_v2"
+                },
+                "version": {
+                  "constant_value": "latest"
+                }
+              }
+            ]
+          },
+          "schema_version": 0
+        },
+        {
+          "address": "azurerm_linux_virtual_machine.ubuntu_virtual_machine",
+          "mode": "managed",
+          "type": "azurerm_linux_virtual_machine",
+          "name": "ubuntu_virtual_machine",
+          "provider_config_key": "azurerm",
+          "expressions": {
+            "admin_ssh_key": [
+              {
+                "public_key": {
+                  "references": [
+                    "tls_private_key.ssh_key.public_key_openssh",
+                    "tls_private_key.ssh_key"
+                  ]
+                },
+                "username": {
+                  "references": [
+                    "random_pet.admin_username.id",
+                    "random_pet.admin_username"
+                  ]
+                }
+              }
+            ],
+            "admin_username": {
+              "references": [
+                "random_pet.admin_username.id",
+                "random_pet.admin_username"
+              ]
+            },
+            "allow_extension_operations": {
+              "constant_value": false
+            },
+            "availability_set_id": {
+              "references": [
+                "azurerm_availability_set.fortinet_availability_set.id",
+                "azurerm_availability_set.fortinet_availability_set"
+              ]
+            },
+            "computer_name": {
+              "constant_value": "ubuntu"
+            },
+            "disable_password_authentication": {
+              "constant_value": true
+            },
+            "location": {
+              "references": [
+                "data.azurerm_resource_group.AZURE_RESOURCE_GROUP.location",
+                "data.azurerm_resource_group.AZURE_RESOURCE_GROUP"
+              ]
+            },
+            "name": {
+              "constant_value": "ubuntu_virtual_machine"
+            },
+            "network_interface_ids": {
+              "references": [
+                "azurerm_network_interface.ubuntu_internal_network_interface.id",
+                "azurerm_network_interface.ubuntu_internal_network_interface",
+                "azurerm_network_interface.ubuntu_dmz_network_interface.id",
+                "azurerm_network_interface.ubuntu_dmz_network_interface"
+              ]
+            },
+            "os_disk": [
+              {
+                "caching": {
+                  "constant_value": "ReadWrite"
+                },
+                "storage_account_type": {
+                  "constant_value": "Premium_LRS"
+                }
+              }
+            ],
+            "resource_group_name": {
+              "references": [
+                "data.azurerm_resource_group.AZURE_RESOURCE_GROUP.name",
+                "data.azurerm_resource_group.AZURE_RESOURCE_GROUP"
+              ]
+            },
+            "size": {
+              "constant_value": "Standard_F2s_v2"
+            },
+            "source_image_reference": [
+              {
+                "offer": {
+                  "constant_value": "0001-com-ubuntu-server-jammy"
+                },
+                "publisher": {
+                  "constant_value": "Canonical"
+                },
+                "sku": {
+                  "constant_value": "22_04-lts-gen2"
+                },
+                "version": {
+                  "constant_value": "latest"
+                }
+              }
+            ]
+          },
+          "schema_version": 0
+        },
+        {
+          "address": "azurerm_managed_disk.fortiweb_log_disk",
+          "mode": "managed",
+          "type": "azurerm_managed_disk",
+          "name": "fortiweb_log_disk",
+          "provider_config_key": "azurerm",
+          "expressions": {
+            "create_option": {
+              "constant_value": "Empty"
+            },
+            "disk_size_gb": {
+              "constant_value": "30"
+            },
+            "location": {
+              "references": [
+                "data.azurerm_resource_group.AZURE_RESOURCE_GROUP.location",
+                "data.azurerm_resource_group.AZURE_RESOURCE_GROUP"
+              ]
+            },
+            "name": {
+              "constant_value": "fortiweb_log_disk"
+            },
+            "resource_group_name": {
+              "references": [
+                "data.azurerm_resource_group.AZURE_RESOURCE_GROUP.name",
+                "data.azurerm_resource_group.AZURE_RESOURCE_GROUP"
+              ]
+            },
+            "storage_account_type": {
+              "constant_value": "Premium_LRS"
+            }
+          },
+          "schema_version": 1,
+          "depends_on": [
+            "azurerm_linux_virtual_machine.fortiweb_virtual_machine"
+          ]
+        },
+        {
+          "address": "azurerm_network_ddos_protection_plan.ddos_protection_plan",
+          "mode": "managed",
+          "type": "azurerm_network_ddos_protection_plan",
+          "name": "ddos_protection_plan",
+          "provider_config_key": "azurerm",
+          "expressions": {
+            "location": {
+              "references": [
+                "data.azurerm_resource_group.AZURE_RESOURCE_GROUP.location",
+                "data.azurerm_resource_group.AZURE_RESOURCE_GROUP"
+              ]
+            },
+            "name": {
+              "constant_value": "ddos_protection_plan"
+            },
+            "resource_group_name": {
+              "references": [
+                "data.azurerm_resource_group.AZURE_RESOURCE_GROUP.name",
+                "data.azurerm_resource_group.AZURE_RESOURCE_GROUP"
+              ]
+            }
+          },
+          "schema_version": 0
+        },
+        {
+          "address": "azurerm_network_interface.fortigate_dmz_network_interface",
+          "mode": "managed",
+          "type": "azurerm_network_interface",
+          "name": "fortigate_dmz_network_interface",
+          "provider_config_key": "azurerm",
+          "expressions": {
+            "ip_configuration": [
+              {
+                "name": {
+                  "constant_value": "fortigate-dmz-ipconfig"
+                },
+                "private_ip_address": {
+                  "references": ["var.dmz-Prefix"]
+                },
+                "private_ip_address_allocation": {
+                  "constant_value": "Static"
+                },
+                "subnet_id": {
+                  "references": [
+                    "azurerm_subnet.dmz_subnet.id",
+                    "azurerm_subnet.dmz_subnet"
+                  ]
+                }
+              }
+            ],
+            "location": {
+              "references": [
+                "data.azurerm_resource_group.AZURE_RESOURCE_GROUP.location",
+                "data.azurerm_resource_group.AZURE_RESOURCE_GROUP"
+              ]
+            },
+            "name": {
+              "constant_value": "fortigate_dmz_network_interface"
+            },
+            "resource_group_name": {
+              "references": [
+                "data.azurerm_resource_group.AZURE_RESOURCE_GROUP.name",
+                "data.azurerm_resource_group.AZURE_RESOURCE_GROUP"
+              ]
+            }
+          },
+          "schema_version": 0
+        },
+        {
+          "address": "azurerm_network_interface.fortigate_external_network_interface",
+          "mode": "managed",
+          "type": "azurerm_network_interface",
+          "name": "fortigate_external_network_interface",
+          "provider_config_key": "azurerm",
+          "expressions": {
+            "ip_configuration": [
+              {
+                "name": {
+                  "constant_value": "fortigate-external-ipconfig"
+                },
+                "primary": {
+                  "constant_value": true
+                },
+                "private_ip_address": {
+                  "references": ["var.external-Prefix"]
+                },
+                "private_ip_address_allocation": {
+                  "constant_value": "Static"
+                },
+                "subnet_id": {
+                  "references": [
+                    "azurerm_subnet.external_subnet.id",
+                    "azurerm_subnet.external_subnet"
+                  ]
+                }
+              },
+              {
+                "name": {
+                  "constant_value": "VIP-external-ipconfig"
+                },
+                "private_ip_address": {
+                  "references": ["var.external-Prefix"]
+                },
+                "private_ip_address_allocation": {
+                  "constant_value": "Static"
+                },
+                "public_ip_address_id": {
+                  "references": [
+                    "azurerm_public_ip.vip_public_ip.id",
+                    "azurerm_public_ip.vip_public_ip"
+                  ]
+                },
+                "subnet_id": {
+                  "references": [
+                    "azurerm_subnet.external_subnet.id",
+                    "azurerm_subnet.external_subnet"
+                  ]
+                }
+              }
+            ],
+            "location": {
+              "references": [
+                "data.azurerm_resource_group.AZURE_RESOURCE_GROUP.location",
+                "data.azurerm_resource_group.AZURE_RESOURCE_GROUP"
+              ]
+            },
+            "name": {
+              "constant_value": "fortigate_external_network_interface"
+            },
+            "resource_group_name": {
+              "references": [
+                "data.azurerm_resource_group.AZURE_RESOURCE_GROUP.name",
+                "data.azurerm_resource_group.AZURE_RESOURCE_GROUP"
+              ]
+            }
+          },
+          "schema_version": 0
+        },
+        {
+          "address": "azurerm_network_interface.fortiweb_dmz_network_interface",
+          "mode": "managed",
+          "type": "azurerm_network_interface",
+          "name": "fortiweb_dmz_network_interface",
+          "provider_config_key": "azurerm",
+          "expressions": {
+            "ip_configuration": [
+              {
+                "name": {
+                  "constant_value": "fortiweb-dmz-ipconfig"
+                },
+                "private_ip_address": {
+                  "references": ["var.dmz-Prefix"]
+                },
+                "private_ip_address_allocation": {
+                  "constant_value": "Static"
+                },
+                "subnet_id": {
+                  "references": [
+                    "azurerm_subnet.dmz_subnet.id",
+                    "azurerm_subnet.dmz_subnet"
+                  ]
+                }
+              }
+            ],
+            "location": {
+              "references": [
+                "data.azurerm_resource_group.AZURE_RESOURCE_GROUP.location",
+                "data.azurerm_resource_group.AZURE_RESOURCE_GROUP"
+              ]
+            },
+            "name": {
+              "constant_value": "fortiweb_dmz_network_interface"
+            },
+            "resource_group_name": {
+              "references": [
+                "data.azurerm_resource_group.AZURE_RESOURCE_GROUP.name",
+                "data.azurerm_resource_group.AZURE_RESOURCE_GROUP"
+              ]
+            }
+          },
+          "schema_version": 0
+        },
+        {
+          "address": "azurerm_network_interface.fortiweb_internal_network_interface",
+          "mode": "managed",
+          "type": "azurerm_network_interface",
+          "name": "fortiweb_internal_network_interface",
+          "provider_config_key": "azurerm",
+          "expressions": {
+            "ip_configuration": [
+              {
+                "name": {
+                  "constant_value": "fortiweb-internal-ipconfig"
+                },
+                "private_ip_address": {
+                  "references": ["var.internal-Prefix"]
+                },
+                "private_ip_address_allocation": {
+                  "constant_value": "Static"
+                },
+                "subnet_id": {
+                  "references": [
+                    "azurerm_subnet.internal_subnet.id",
+                    "azurerm_subnet.internal_subnet"
+                  ]
+                }
+              }
+            ],
+            "location": {
+              "references": [
+                "data.azurerm_resource_group.AZURE_RESOURCE_GROUP.location",
+                "data.azurerm_resource_group.AZURE_RESOURCE_GROUP"
+              ]
+            },
+            "name": {
+              "constant_value": "fortiweb_internal_network_interface"
+            },
+            "resource_group_name": {
+              "references": [
+                "data.azurerm_resource_group.AZURE_RESOURCE_GROUP.name",
+                "data.azurerm_resource_group.AZURE_RESOURCE_GROUP"
+              ]
+            }
+          },
+          "schema_version": 0
+        },
+        {
+          "address": "azurerm_network_interface.ubuntu_dmz_network_interface",
+          "mode": "managed",
+          "type": "azurerm_network_interface",
+          "name": "ubuntu_dmz_network_interface",
+          "provider_config_key": "azurerm",
+          "expressions": {
+            "ip_configuration": [
+              {
+                "name": {
+                  "constant_value": "ubuntu-dmz-ipconfig"
+                },
+                "private_ip_address": {
+                  "references": ["var.dmz-Prefix"]
+                },
+                "private_ip_address_allocation": {
+                  "constant_value": "Static"
+                },
+                "subnet_id": {
+                  "references": [
+                    "azurerm_subnet.dmz_subnet.id",
+                    "azurerm_subnet.dmz_subnet"
+                  ]
+                }
+              }
+            ],
+            "location": {
+              "references": [
+                "data.azurerm_resource_group.AZURE_RESOURCE_GROUP.location",
+                "data.azurerm_resource_group.AZURE_RESOURCE_GROUP"
+              ]
+            },
+            "name": {
+              "constant_value": "ubuntu_dmz_network_interface"
+            },
+            "resource_group_name": {
+              "references": [
+                "data.azurerm_resource_group.AZURE_RESOURCE_GROUP.name",
+                "data.azurerm_resource_group.AZURE_RESOURCE_GROUP"
+              ]
+            }
+          },
+          "schema_version": 0
+        },
+        {
+          "address": "azurerm_network_interface.ubuntu_internal_network_interface",
+          "mode": "managed",
+          "type": "azurerm_network_interface",
+          "name": "ubuntu_internal_network_interface",
+          "provider_config_key": "azurerm",
+          "expressions": {
+            "ip_configuration": [
+              {
+                "name": {
+                  "constant_value": "ubuntu-internal-ipconfig"
+                },
+                "private_ip_address": {
+                  "references": ["var.internal-Prefix"]
+                },
+                "private_ip_address_allocation": {
+                  "constant_value": "Static"
+                },
+                "subnet_id": {
+                  "references": [
+                    "azurerm_subnet.internal_subnet.id",
+                    "azurerm_subnet.internal_subnet"
+                  ]
+                }
+              }
+            ],
+            "location": {
+              "references": [
+                "data.azurerm_resource_group.AZURE_RESOURCE_GROUP.location",
+                "data.azurerm_resource_group.AZURE_RESOURCE_GROUP"
+              ]
+            },
+            "name": {
+              "constant_value": "ubuntu_internal_network_interface"
+            },
+            "resource_group_name": {
+              "references": [
+                "data.azurerm_resource_group.AZURE_RESOURCE_GROUP.name",
+                "data.azurerm_resource_group.AZURE_RESOURCE_GROUP"
+              ]
+            }
+          },
+          "schema_version": 0
+        },
+        {
+          "address": "azurerm_network_interface_security_group_association.fortigate_association",
+          "mode": "managed",
+          "type": "azurerm_network_interface_security_group_association",
+          "name": "fortigate_association",
+          "provider_config_key": "azurerm",
+          "expressions": {
+            "network_interface_id": {
+              "references": [
+                "azurerm_network_interface.fortigate_external_network_interface.id",
+                "azurerm_network_interface.fortigate_external_network_interface"
+              ]
+            },
+            "network_security_group_id": {
+              "references": [
+                "azurerm_network_security_group.vip_allow_https_tcp_nsg.id",
+                "azurerm_network_security_group.vip_allow_https_tcp_nsg"
+              ]
+            }
+          },
+          "schema_version": 0
+        },
+        {
+          "address": "azurerm_network_security_group.nsg",
+          "mode": "managed",
+          "type": "azurerm_network_security_group",
+          "name": "nsg",
+          "provider_config_key": "azurerm",
+          "expressions": {
+            "location": {
+              "references": [
+                "data.azurerm_resource_group.AZURE_RESOURCE_GROUP.location",
+                "data.azurerm_resource_group.AZURE_RESOURCE_GROUP"
+              ]
+            },
+            "name": {
+              "constant_value": "nsg"
+            },
+            "resource_group_name": {
+              "references": [
+                "data.azurerm_resource_group.AZURE_RESOURCE_GROUP.name",
+                "data.azurerm_resource_group.AZURE_RESOURCE_GROUP"
+              ]
+            },
+            "security_rule": {
+              "constant_value": [
+                {
+                  "access": "Allow",
+                  "description": null,
+                  "destination_address_prefix": "*",
+                  "destination_address_prefixes": null,
+                  "destination_application_security_group_ids": null,
+                  "destination_port_range": null,
+                  "destination_port_ranges": ["443", "80"],
+                  "direction": "Inbound",
+                  "name": "allow_http-https_tcp",
+                  "priority": 100,
+                  "protocol": "Tcp",
+                  "source_address_prefix": "*",
+                  "source_address_prefixes": null,
+                  "source_application_security_group_ids": null,
+                  "source_port_range": "*",
+                  "source_port_ranges": null
+                }
+              ]
+            }
+          },
+          "schema_version": 0
+        },
+        {
+          "address": "azurerm_network_security_group.private_nsg",
+          "mode": "managed",
+          "type": "azurerm_network_security_group",
+          "name": "private_nsg",
+          "provider_config_key": "azurerm",
+          "expressions": {
+            "location": {
+              "references": [
+                "data.azurerm_resource_group.AZURE_RESOURCE_GROUP.location",
+                "data.azurerm_resource_group.AZURE_RESOURCE_GROUP"
+              ]
+            },
+            "name": {
+              "constant_value": "private_nsg"
+            },
+            "resource_group_name": {
+              "references": [
+                "data.azurerm_resource_group.AZURE_RESOURCE_GROUP.name",
+                "data.azurerm_resource_group.AZURE_RESOURCE_GROUP"
+              ]
+            },
+            "security_rule": {
+              "constant_value": [
+                {
+                  "access": "Deny",
+                  "description": null,
+                  "destination_address_prefix": "*",
+                  "destination_address_prefixes": null,
+                  "destination_application_security_group_ids": null,
+                  "destination_port_range": "*",
+                  "destination_port_ranges": null,
+                  "direction": "Inbound",
+                  "name": "block-all-in",
+                  "priority": 100,
+                  "protocol": "*",
+                  "source_address_prefix": "*",
+                  "source_address_prefixes": null,
+                  "source_application_security_group_ids": null,
+                  "source_port_range": "*",
+                  "source_port_ranges": null
+                },
+                {
+                  "access": "Deny",
+                  "description": null,
+                  "destination_address_prefix": "*",
+                  "destination_address_prefixes": null,
+                  "destination_application_security_group_ids": null,
+                  "destination_port_range": "*",
+                  "destination_port_ranges": null,
+                  "direction": "Outbound",
+                  "name": "block-all-out",
+                  "priority": 101,
+                  "protocol": "*",
+                  "source_address_prefix": "*",
+                  "source_address_prefixes": null,
+                  "source_application_security_group_ids": null,
+                  "source_port_range": "*",
+                  "source_port_ranges": null
+                }
+              ]
+            }
+          },
+          "schema_version": 0
+        },
+        {
+          "address": "azurerm_network_security_group.vip_allow_https_tcp_nsg",
+          "mode": "managed",
+          "type": "azurerm_network_security_group",
+          "name": "vip_allow_https_tcp_nsg",
+          "provider_config_key": "azurerm",
+          "expressions": {
+            "location": {
+              "references": [
+                "data.azurerm_resource_group.AZURE_RESOURCE_GROUP.location",
+                "data.azurerm_resource_group.AZURE_RESOURCE_GROUP"
+              ]
+            },
+            "name": {
+              "constant_value": "vip_allow_https_tcp_nsg"
+            },
+            "resource_group_name": {
+              "references": [
+                "data.azurerm_resource_group.AZURE_RESOURCE_GROUP.name",
+                "data.azurerm_resource_group.AZURE_RESOURCE_GROUP"
+              ]
+            },
+            "security_rule": {
+              "constant_value": [
+                {
+                  "access": "Allow",
+                  "description": null,
+                  "destination_address_prefix": "*",
+                  "destination_address_prefixes": null,
+                  "destination_application_security_group_ids": null,
+                  "destination_port_range": null,
+                  "destination_port_ranges": ["443"],
+                  "direction": "Inbound",
+                  "name": "VIP-allow_https_tcp",
+                  "priority": 100,
+                  "protocol": "Tcp",
+                  "source_address_prefix": "*",
+                  "source_address_prefixes": null,
+                  "source_application_security_group_ids": null,
+                  "source_port_range": "*",
+                  "source_port_ranges": null
+                }
+              ]
+            }
+          },
+          "schema_version": 0
+        },
+        {
+          "address": "azurerm_public_ip.vip_public_ip",
+          "mode": "managed",
+          "type": "azurerm_public_ip",
+          "name": "vip_public_ip",
+          "provider_config_key": "azurerm",
+          "expressions": {
+            "allocation_method": {
+              "constant_value": "Dynamic"
+            },
+            "location": {
+              "references": [
+                "data.azurerm_resource_group.AZURE_RESOURCE_GROUP.location",
+                "data.azurerm_resource_group.AZURE_RESOURCE_GROUP"
+              ]
+            },
+            "name": {
+              "constant_value": "vip_public_ip"
+            },
+            "resource_group_name": {
+              "references": [
+                "data.azurerm_resource_group.AZURE_RESOURCE_GROUP.name",
+                "data.azurerm_resource_group.AZURE_RESOURCE_GROUP"
+              ]
+            }
+          },
+          "schema_version": 0
+        },
+        {
+          "address": "azurerm_subnet.dmz_subnet",
+          "mode": "managed",
+          "type": "azurerm_subnet",
+          "name": "dmz_subnet",
+          "provider_config_key": "azurerm",
+          "expressions": {
+            "address_prefixes": {
+              "references": ["var.dmz-Prefix"]
+            },
+            "name": {
+              "references": ["var.dmz-Name"]
+            },
+            "resource_group_name": {
+              "references": [
+                "data.azurerm_resource_group.AZURE_RESOURCE_GROUP.name",
+                "data.azurerm_resource_group.AZURE_RESOURCE_GROUP"
+              ]
+            },
+            "virtual_network_name": {
+              "references": [
+                "azurerm_virtual_network.vnet.name",
+                "azurerm_virtual_network.vnet"
+              ]
+            }
+          },
+          "schema_version": 0
+        },
+        {
+          "address": "azurerm_subnet.external_subnet",
+          "mode": "managed",
+          "type": "azurerm_subnet",
+          "name": "external_subnet",
+          "provider_config_key": "azurerm",
+          "expressions": {
+            "address_prefixes": {
+              "references": ["var.external-Prefix"]
+            },
+            "name": {
+              "references": ["var.external-Name"]
+            },
+            "resource_group_name": {
+              "references": [
+                "data.azurerm_resource_group.AZURE_RESOURCE_GROUP.name",
+                "data.azurerm_resource_group.AZURE_RESOURCE_GROUP"
+              ]
+            },
+            "virtual_network_name": {
+              "references": [
+                "azurerm_virtual_network.vnet.name",
+                "azurerm_virtual_network.vnet"
+              ]
+            }
+          },
+          "schema_version": 0
+        },
+        {
+          "address": "azurerm_subnet.internal_subnet",
+          "mode": "managed",
+          "type": "azurerm_subnet",
+          "name": "internal_subnet",
+          "provider_config_key": "azurerm",
+          "expressions": {
+            "address_prefixes": {
+              "references": ["var.internal-Prefix"]
+            },
+            "name": {
+              "references": ["var.internal-Name"]
+            },
+            "resource_group_name": {
+              "references": [
+                "data.azurerm_resource_group.AZURE_RESOURCE_GROUP.name",
+                "data.azurerm_resource_group.AZURE_RESOURCE_GROUP"
+              ]
+            },
+            "virtual_network_name": {
+              "references": [
+                "azurerm_virtual_network.vnet.name",
+                "azurerm_virtual_network.vnet"
+              ]
+            }
+          },
+          "schema_version": 0
+        },
+        {
+          "address": "azurerm_subnet_network_security_group_association.dmz_subnet_association",
+          "mode": "managed",
+          "type": "azurerm_subnet_network_security_group_association",
+          "name": "dmz_subnet_association",
+          "provider_config_key": "azurerm",
+          "expressions": {
+            "network_security_group_id": {
+              "references": [
+                "azurerm_network_security_group.private_nsg.id",
+                "azurerm_network_security_group.private_nsg"
+              ]
+            },
+            "subnet_id": {
+              "references": [
+                "azurerm_subnet.dmz_subnet.id",
+                "azurerm_subnet.dmz_subnet"
+              ]
+            }
+          },
+          "schema_version": 0
+        },
+        {
+          "address": "azurerm_subnet_network_security_group_association.external_subnet_association",
+          "mode": "managed",
+          "type": "azurerm_subnet_network_security_group_association",
+          "name": "external_subnet_association",
+          "provider_config_key": "azurerm",
+          "expressions": {
+            "network_security_group_id": {
+              "references": [
+                "azurerm_network_security_group.private_nsg.id",
+                "azurerm_network_security_group.private_nsg"
+              ]
+            },
+            "subnet_id": {
+              "references": [
+                "azurerm_subnet.external_subnet.id",
+                "azurerm_subnet.external_subnet"
+              ]
+            }
+          },
+          "schema_version": 0
+        },
+        {
+          "address": "azurerm_subnet_network_security_group_association.internal_subnet_association",
+          "mode": "managed",
+          "type": "azurerm_subnet_network_security_group_association",
+          "name": "internal_subnet_association",
+          "provider_config_key": "azurerm",
+          "expressions": {
+            "network_security_group_id": {
+              "references": [
+                "azurerm_network_security_group.private_nsg.id",
+                "azurerm_network_security_group.private_nsg"
+              ]
+            },
+            "subnet_id": {
+              "references": [
+                "azurerm_subnet.internal_subnet.id",
+                "azurerm_subnet.internal_subnet"
+              ]
+            }
+          },
+          "schema_version": 0
+        },
+        {
+          "address": "azurerm_virtual_machine_data_disk_attachment.fortiweb_data_disk_attachment",
+          "mode": "managed",
+          "type": "azurerm_virtual_machine_data_disk_attachment",
+          "name": "fortiweb_data_disk_attachment",
+          "provider_config_key": "azurerm",
+          "expressions": {
+            "caching": {
+              "constant_value": "None"
+            },
+            "lun": {
+              "constant_value": 0
+            },
+            "managed_disk_id": {
+              "references": [
+                "azurerm_managed_disk.fortiweb_log_disk.id",
+                "azurerm_managed_disk.fortiweb_log_disk"
+              ]
+            },
+            "virtual_machine_id": {
+              "references": [
+                "azurerm_linux_virtual_machine.fortiweb_virtual_machine.id",
+                "azurerm_linux_virtual_machine.fortiweb_virtual_machine"
+              ]
+            }
+          },
+          "schema_version": 0
+        },
+        {
+          "address": "azurerm_virtual_network.vnet",
+          "mode": "managed",
+          "type": "azurerm_virtual_network",
+          "name": "vnet",
+          "provider_config_key": "azurerm",
+          "expressions": {
+            "address_space": {
+              "references": ["var.vnetAddressPrefix"]
+            },
+            "ddos_protection_plan": [
+              {
+                "enable": {
+                  "constant_value": true
+                },
+                "id": {
+                  "references": [
+                    "azurerm_network_ddos_protection_plan.ddos_protection_plan.id",
+                    "azurerm_network_ddos_protection_plan.ddos_protection_plan"
+                  ]
+                }
+              }
+            ],
+            "location": {
+              "references": [
+                "data.azurerm_resource_group.AZURE_RESOURCE_GROUP.location",
+                "data.azurerm_resource_group.AZURE_RESOURCE_GROUP"
+              ]
+            },
+            "name": {
+              "constant_value": "vnet"
+            },
+            "resource_group_name": {
+              "references": [
+                "data.azurerm_resource_group.AZURE_RESOURCE_GROUP.name",
+                "data.azurerm_resource_group.AZURE_RESOURCE_GROUP"
+              ]
+            }
+          },
+          "schema_version": 0
+        },
+        {
+          "address": "random_pet.admin_username",
+          "mode": "managed",
+          "type": "random_pet",
+          "name": "admin_username",
+          "provider_config_key": "random",
+          "expressions": {
+            "keepers": {
+              "references": [
+                "data.azurerm_resource_group.AZURE_RESOURCE_GROUP.name",
+                "data.azurerm_resource_group.AZURE_RESOURCE_GROUP"
+              ]
+            }
+          },
+          "schema_version": 0
+        },
+        {
+          "address": "tls_private_key.ssh_key",
+          "mode": "managed",
+          "type": "tls_private_key",
+          "name": "ssh_key",
+          "provider_config_key": "tls",
+          "expressions": {
+            "algorithm": {
+              "constant_value": "RSA"
+            },
+            "rsa_bits": {
+              "constant_value": 4096
+            }
+          },
+          "schema_version": 1
+        },
+        {
+          "address": "data.azurerm_public_ip.vip_public_ip",
+          "mode": "data",
+          "type": "azurerm_public_ip",
+          "name": "vip_public_ip",
+          "provider_config_key": "azurerm",
+          "expressions": {
+            "name": {
+              "references": [
+                "azurerm_public_ip.vip_public_ip.name",
+                "azurerm_public_ip.vip_public_ip"
+              ]
+            },
+            "resource_group_name": {
+              "references": [
+                "data.azurerm_resource_group.AZURE_RESOURCE_GROUP.name",
+                "data.azurerm_resource_group.AZURE_RESOURCE_GROUP"
+              ]
+            }
+          },
+          "schema_version": 0,
+          "depends_on": [
+            "azurerm_linux_virtual_machine.fortigate_virtual_machine"
+          ]
+        },
+        {
+          "address": "data.azurerm_resource_group.AZURE_RESOURCE_GROUP",
+          "mode": "data",
+          "type": "azurerm_resource_group",
+          "name": "AZURE_RESOURCE_GROUP",
+          "provider_config_key": "azurerm",
+          "expressions": {
+            "name": {
+              "references": ["var.AZURE_RESOURCE_GROUP_NAME"]
+            }
+          },
+          "schema_version": 0
+        },
+        {
+          "address": "data.azurerm_subscription.current",
+          "mode": "data",
+          "type": "azurerm_subscription",
+          "name": "current",
+          "provider_config_key": "azurerm",
+          "schema_version": 0
+        }
+      ],
+      "variables": {
+        "AZURE_RESOURCE_GROUP_NAME": {
+          "description": "Name of the resource group."
+        },
+        "dmz-Name": {
+          "description": "DMZ Subnet Name."
+        },
+        "dmz-Prefix": {
+          "description": "DMZ Subnet Prefix."
+        },
+        "external-Name": {
+          "description": "External Subnet Name."
+        },
+        "external-Prefix": {
+          "description": "External Subnet Prefix."
+        },
+        "internal-Name": {
+          "description": "Internal Subnet Name."
+        },
+        "internal-Prefix": {
+          "description": "Internal Subnet Prefix."
+        },
+        "vnetAddressPrefix": {
+          "description": "Virtual Network Address prefix."
+        }
+      }
+    }
+  },
+  "relevant_attributes": [
+    {
+      "resource": "tls_private_key.ssh_key",
+      "attribute": ["public_key_openssh"]
+    },
+    {
+      "resource": "azurerm_linux_virtual_machine.fortiweb_virtual_machine",
+      "attribute": ["id"]
+    },
+    {
+      "resource": "data.azurerm_subscription.current",
+      "attribute": ["display_name"]
+    },
+    {
+      "resource": "azurerm_linux_virtual_machine.ubuntu_virtual_machine",
+      "attribute": ["name"]
+    },
+    {
+      "resource": "azurerm_virtual_network.vnet",
+      "attribute": ["name"]
+    },
+    {
+      "resource": "random_pet.admin_username",
+      "attribute": ["id"]
+    },
+    {
+      "resource": "tls_private_key.ssh_key",
+      "attribute": ["private_key_pem"]
+    },
+    {
+      "resource": "data.azurerm_resource_group.AZURE_RESOURCE_GROUP",
+      "attribute": ["location"]
+    },
+    {
+      "resource": "azurerm_network_interface.ubuntu_internal_network_interface",
+      "attribute": ["id"]
+    },
+    {
+      "resource": "azurerm_network_interface.fortiweb_dmz_network_interface",
+      "attribute": ["id"]
+    },
+    {
+      "resource": "azurerm_network_interface.ubuntu_dmz_network_interface",
+      "attribute": ["id"]
+    },
+    {
+      "resource": "azurerm_public_ip.vip_public_ip",
+      "attribute": ["name"]
+    },
+    {
+      "resource": "data.azurerm_resource_group.AZURE_RESOURCE_GROUP",
+      "attribute": ["name"]
+    },
+    {
+      "resource": "azurerm_network_security_group.vip_allow_https_tcp_nsg",
+      "attribute": ["id"]
+    },
+    {
+      "resource": "azurerm_network_interface.fortigate_dmz_network_interface",
+      "attribute": ["id"]
+    },
+    {
+      "resource": "azurerm_availability_set.fortinet_availability_set",
+      "attribute": ["name"]
+    },
+    {
+      "resource": "azurerm_network_security_group.private_nsg",
+      "attribute": ["id"]
+    },
+    {
+      "resource": "azurerm_subnet.external_subnet",
+      "attribute": ["id"]
+    },
+    {
+      "resource": "azurerm_subnet.dmz_subnet",
+      "attribute": ["id"]
+    },
+    {
+      "resource": "azurerm_availability_set.fortinet_availability_set",
+      "attribute": ["id"]
+    },
+    {
+      "resource": "data.azurerm_public_ip.vip_public_ip",
+      "attribute": ["ip_address"]
+    },
+    {
+      "resource": "azurerm_network_ddos_protection_plan.ddos_protection_plan",
+      "attribute": ["id"]
+    },
+    {
+      "resource": "azurerm_subnet.internal_subnet",
+      "attribute": ["id"]
+    },
+    {
+      "resource": "azurerm_network_interface.fortiweb_internal_network_interface",
+      "attribute": ["id"]
+    },
+    {
+      "resource": "azurerm_managed_disk.fortiweb_log_disk",
+      "attribute": ["id"]
+    },
+    {
+      "resource": "azurerm_public_ip.vip_public_ip",
+      "attribute": ["id"]
+    },
+    {
+      "resource": "azurerm_network_interface.fortigate_external_network_interface",
+      "attribute": ["id"]
+    },
+    {
+      "resource": "data.azurerm_subscription.current",
+      "attribute": ["id"]
+    },
+    {
+      "resource": "azurerm_availability_set.fortinet_availability_set",
+      "attribute": ["platform_fault_domain_count"]
+    }
+  ],
+  "timestamp": "2023-10-22T16:09:47Z"
+}
