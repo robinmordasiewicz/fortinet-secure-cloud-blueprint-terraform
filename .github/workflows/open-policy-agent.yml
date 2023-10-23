@@ -81,6 +81,7 @@ jobs:
             echo Terraform Plan Failed!
             exit 1
           else
+            terraform show -json tfplan > tfplan.json
             exit 0
           fi
 
