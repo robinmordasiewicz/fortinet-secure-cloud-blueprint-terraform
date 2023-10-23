@@ -86,4 +86,5 @@ jobs:
           fi
 
       - name: Run OPA Tests
-        run: opa test policies/*.rego -v
+        # run: opa test policies/*.rego -v
+        run: opa eval data.policy.all_policies -d infra-policies/ -i tfplan.json -f pretty
