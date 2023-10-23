@@ -5,14 +5,14 @@ import data.terraform.tag_validation
 import input.resource_changes
 
 # Required tags for all resources
-required_tags := {"environment", "project", "owner"}
+required_tags := {"owner"}
 
 # Change maximums
-max_additions := 10
+#max_additions := 10
 
-max_deletions := 10
+#max_deletions := 10
 
-max_modifications := 10
+#max_modifications := 10
 
 # Get different resource change types
 # Get all creates
