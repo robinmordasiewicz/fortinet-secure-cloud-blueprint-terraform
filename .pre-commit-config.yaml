@@ -7,8 +7,6 @@ repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.5.0
     hooks:
-      # - id: check-yaml
-      # - id: check-json
       - id: check-merge-conflict
       - id: mixed-line-ending
       - id: end-of-file-fixer
@@ -17,13 +15,6 @@ repos:
     rev: v0.16.0
     hooks:
       - id: terraform-docs-go
-  - repo: https://github.com/anderseknert/pre-commit-opa
-    rev: v1.5.1
-    hooks:
-      - id: opa-fmt
-        args: [policies, -w]
-      - id: opa-check
-        args: [policies, -b]
   - repo: https://github.com/oxsecurity/megalinter
     rev: v7.4.0
     hooks:
