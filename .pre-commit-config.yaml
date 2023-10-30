@@ -7,16 +7,21 @@ repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.5.0
     hooks:
-      # - id: check-yaml
-      # - id: check-json
       - id: check-merge-conflict
       - id: mixed-line-ending
       - id: end-of-file-fixer
       - id: trailing-whitespace
   - repo: https://github.com/terraform-docs/terraform-docs
-    rev: v0.16.0
+    rev: "v0.16.0"
     hooks:
       - id: terraform-docs-go
+        args: ["markdown", "table", "--output-file", "README.md", "./"]
+  - repo: local
+    hooks:
+      - id: markdown-tables
+        name: markdown-tables
+        entry: markdown-table-formatter README.md
+        language: system
   - repo: https://github.com/anderseknert/pre-commit-opa
     rev: v1.5.1
     hooks:
@@ -25,7 +30,7 @@ repos:
       - id: opa-check
         args: [policies, -b]
   - repo: https://github.com/oxsecurity/megalinter
-    rev: v7.4.0
+    rev: v7.5.0
     hooks:
       - id: megalinter-incremental
         stages:
