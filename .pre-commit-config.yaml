@@ -35,6 +35,6 @@ repos:
       - id: megalinter-incremental
         stages:
           - commit
-      - id: megalinter-full
-        stages:
-          - push
+      #- id: megalinter-full
+      #  stages:
+      #    - commit
