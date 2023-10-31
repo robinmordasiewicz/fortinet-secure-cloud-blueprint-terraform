@@ -15,11 +15,62 @@ concurrency:
 jobs:
   terraform-docs:
     runs-on: ubuntu-latest
+    environment:
+      name: ${{ github.ref_name }}
     steps:
       - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
         with:
           ref: ${{ github.event.pull_request.head.ref }}
           token: ${{ secrets.PAT || secrets.GITHUB_TOKEN }}
+
+      - name: Microsoft Azure Authentication
+        uses: azure/login@92a5484dfaf04ca78a94597f4f19fea633851fa2
+        with:
+          client-id: ${{ secrets.ARM_CLIENT_ID }}
+          tenant-id: ${{ secrets.ARM_TENANT_ID }}
+          subscription-id: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+
+      - name: Hashicorp Terraform
+        uses: hashicorp/setup-terraform@a1502cd9e758c50496cc9ac5308c4843bcd56d36
+        with:
+          terraform_version: 1.6.2
+          terraform_wrapper: false
+
+      - name: terraform init
+        id: init
+        env:
+          ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+          ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+          ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+          ARM_USE_OIDC: true
+          TF_IN_AUTOMATION: true
+          TF_CLI_ARGS_init: -backend-config="storage_account_name=${{ secrets.AZURE_STORAGE_ACCOUNT_NAME }}" -backend-config="container_name=${{ secrets.TFSTATE_CONTAINER_NAME }}" -backend-config="resource_group_name=${{ secrets.AZURE_RESOURCE_GROUP_NAME }}" -backend-config="key=${{ github.ref_name }}" -backend-config="use_oidc=true" -input=false
+        run: terraform init
+
+      - name: terraform plan
+        id: tf-plan
+        env:
+          TF_VAR_AZURE_RESOURCE_GROUP_NAME: ${{ secrets.AZURE_RESOURCE_GROUP_NAME }}
+          TF_VAR_AZURE_REGION: ${{ secrets.AZURE_REGION }}
+          TF_VAR_AZURE_USERNAME: ${{ secrets.AZURE_USERNAME }}
+          TF_VAR_AZURE_STORAGE_ACCOUNT_ID: ${{ secrets.AZURE_STORAGE_ACCOUNT_ID }}
+          TF_VAR_ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+          TF_VAR_AZURE_SERVICE_PRINCIPAL_UUID: ${{ secrets.AZURE_SERVICE_PRINCIPAL_UUID }}
+          ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+          ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+          ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+          ARM_USE_OIDC: true
+          TF_IN_AUTOMATION: true
+        run: |
+          export exitcode=0
+          terraform plan -detailed-exitcode -no-color -out tfplan || export exitcode=$?
+          echo "exitcode=$exitcode" >> "$GITHUB_OUTPUT"
+          if [ $exitcode -eq 1 ]; then
+            echo Terraform Plan Failed!
+            exit 1
+          else
+            exit 0
+          fi
 
       - name: Render terraform docs inside the README.md and push changes back to PR branch
         uses: terraform-docs/gh-actions@f6d59f89a280fa0a3febf55ef68f146784b20ba0
