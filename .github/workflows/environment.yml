@@ -1,5 +1,5 @@
 ---
-name: Environment Provisioning
+name: "environment"
 
 on: #  yamllint disable-line rule:truthy
   workflow_dispatch:
