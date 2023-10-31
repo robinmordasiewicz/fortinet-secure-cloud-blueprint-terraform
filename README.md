@@ -166,8 +166,9 @@ internal-Prefix   = "10.0.3.0/24"
 
 | Name      | Version |
 |-----------|---------|
-| terraform | 1.5.7   |
+| terraform | 1.6.2   |
 | azurerm   | 3.78.0  |
+| http      | 3.4.0   |
 | random    | 3.5.1   |
 | tls       | 4.0.4   |
 <!-- markdownlint-disable MD013 -->
@@ -218,6 +219,7 @@ internal-Prefix   = "10.0.3.0/24"
 | [azurerm_public_ip.vip_public_ip](https://registry.terraform.io/providers/hashicorp/azurerm/3.78.0/docs/data-sources/public_ip)                                                                            | data source |
 | [azurerm_resource_group.AZURE_RESOURCE_GROUP](https://registry.terraform.io/providers/hashicorp/azurerm/3.78.0/docs/data-sources/resource_group)                                                           | data source |
 | [azurerm_subscription.current](https://registry.terraform.io/providers/hashicorp/azurerm/3.78.0/docs/data-sources/subscription)                                                                            | data source |
+| [http_http.terraform](https://registry.terraform.io/providers/hashicorp/http/3.4.0/docs/data-sources/http)                                                                                                 | data source |
 ## Outputs
 
 | Name                           | Description                                      |
@@ -229,6 +231,7 @@ internal-Prefix   = "10.0.3.0/24"
 | currentSubscriptionDisplayName | Azure subscription Name                          |
 | currentSubscriptionId          | Azure subscription ID                            |
 | resourceGroupName              | Azure resource group for all objects             |
+| terraform\_version             | Terraform Version                                |
 | tls\_private\_key              | TSL private key                                  |
 | ubuntuVmName                   | Ubuntu machine name.                             |
 | vip\_public\_ip\_address       | Public IP address                                |

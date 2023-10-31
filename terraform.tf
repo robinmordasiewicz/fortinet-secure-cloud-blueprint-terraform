@@ -1,5 +1,5 @@
 terraform {
-  required_version = "1.5.7"
+  required_version = "1.6.2"
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
@@ -13,6 +13,24 @@ terraform {
       source  = "hashicorp/tls"
       version = "4.0.4"
     }
+    http = {
+      source  = "hashicorp/http"
+      version = "3.4.0"
+    }
   }
   backend "azurerm" {}
 }
+provider "azurerm" {
+  features {
+    key_vault {
+      purge_soft_delete_on_destroy = true
+    }
+    resource_group {
+      prevent_deletion_if_contains_resources = false
+    }
+  }
+  skip_provider_registration = true
+}
+provider "random" {}
+provider "tls" {}
+provider "http" {}
