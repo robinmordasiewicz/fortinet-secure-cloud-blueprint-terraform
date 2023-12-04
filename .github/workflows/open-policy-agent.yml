@@ -36,7 +36,7 @@ jobs:
           version: latest
 
       - name: Microsoft Azure Authentication
-        uses: azure/login@92a5484dfaf04ca78a94597f4f19fea633851fa2
+        uses: azure/login@de95379fe4dadc2defb305917eaa7e5dde727294
         with:
           client-id: ${{ secrets.ARM_CLIENT_ID }}
           tenant-id: ${{ secrets.ARM_TENANT_ID }}
