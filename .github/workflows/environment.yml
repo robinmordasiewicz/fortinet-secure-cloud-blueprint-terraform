@@ -111,7 +111,7 @@ jobs:
           fi
 
       - name: Publish Terraform Plan
-        uses: actions/upload-artifact@c7d193f32edcb7bfad88892161225aeda64e9392
+        uses: actions/upload-artifact@65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08
         with:
           name: tfplan
           path: tfplan
